@@ -67,9 +67,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .main-tabs{background:var(--nav-bg);border-bottom:2px solid var(--border);position:sticky;top:0;z-index:300;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:background .3s}
 .main-tabs-inner{max-width:900px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .main-tabs-inner::-webkit-scrollbar{display:none}
-.main-tab{padding:.85rem 1.5rem;font-size:.9rem;font-weight:500;color:var(--muted);cursor:grab;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s;flex-shrink:0;user-select:none}
-.main-tab.dragging{opacity:.4;cursor:grabbing}
-.main-tab.drag-over{border-bottom:2px solid var(--accent);color:var(--accent)}
+.main-tab{padding:.85rem 1.5rem;font-size:.9rem;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s;flex-shrink:0}
 .main-tab:hover{color:var(--text)}
 .main-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .tab-panel{display:none;max-width:900px;margin:0 auto}
@@ -408,10 +406,10 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 <div class="main-tabs">
 <div class="main-tabs-inner">
   <div class="main-tab active" data-tab="itinerary">🗺 Itinéraire</div>
-  <div class="main-tab" data-tab="prep">✅ Préparation</div>
+  <div class="main-tab" data-tab="codex">📖 Codex</div>
   <div class="main-tab" data-tab="budget">💶 Budget</div>
   <div class="main-tab" data-tab="pratique">🧰 Pratique</div>
-  <div class="main-tab" data-tab="codex">📖 Codex</div>
+  <div class="main-tab" data-tab="prep">✅ Préparation</div>
 </div>
 </div>
 
@@ -1049,109 +1047,9 @@ function activateTab(tab){
   localStorage.setItem('mne4_tab', tab.dataset.tab);
 }
 
-function initTabs(){
-  const inner = document.querySelector('.main-tabs-inner');
-  let dragSrc = null;
-
-  document.querySelectorAll('.main-tab').forEach(tab=>{
-    // Click
-    tab.onclick = () => activateTab(tab);
-
-    // Drag & drop — desktop
-    tab.draggable = true;
-    tab.addEventListener('dragstart', e=>{
-      dragSrc = tab;
-      tab.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    tab.addEventListener('dragend', ()=>{
-      tab.classList.remove('dragging');
-      document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('drag-over'));
-      saveTabOrder();
-    });
-    tab.addEventListener('dragover', e=>{
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      if(tab !== dragSrc){
-        document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('drag-over'));
-        tab.classList.add('drag-over');
-      }
-    });
-    tab.addEventListener('drop', e=>{
-      e.preventDefault();
-      if(dragSrc && dragSrc !== tab){
-        const tabs = [...inner.querySelectorAll('.main-tab')];
-        const fromIdx = tabs.indexOf(dragSrc);
-        const toIdx = tabs.indexOf(tab);
-        if(fromIdx < toIdx) inner.insertBefore(dragSrc, tab.nextSibling);
-        else inner.insertBefore(dragSrc, tab);
-      }
-    });
-  });
-
-  // Touch drag — mobile
-  let touchSrc = null, touchClone = null, touchStartX = 0;
-  document.querySelectorAll('.main-tab').forEach(tab=>{
-    tab.addEventListener('touchstart', e=>{
-      touchSrc = tab;
-      touchStartX = e.touches[0].clientX;
-      touchClone = tab.cloneNode(true);
-      touchClone.style.cssText = `position:fixed;opacity:.7;pointer-events:none;z-index:9999;top:${tab.getBoundingClientRect().top}px;left:${tab.getBoundingClientRect().left}px;width:${tab.offsetWidth}px;background:var(--nav-bg);border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.2)`;
-      document.body.appendChild(touchClone);
-      tab.classList.add('dragging');
-    }, {passive:true});
-
-    tab.addEventListener('touchmove', e=>{
-      if(!touchClone) return;
-      const touch = e.touches[0];
-      touchClone.style.left = (touch.clientX - touchSrc.offsetWidth/2) + 'px';
-      // Find tab under finger
-      touchClone.style.display = 'none';
-      const el = document.elementFromPoint(touch.clientX, touch.clientY);
-      touchClone.style.display = '';
-      const overTab = el && el.closest('.main-tab');
-      document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('drag-over'));
-      if(overTab && overTab !== touchSrc) overTab.classList.add('drag-over');
-    }, {passive:true});
-
-    tab.addEventListener('touchend', e=>{
-      if(!touchClone) return;
-      touchClone.remove(); touchClone = null;
-      touchSrc && touchSrc.classList.remove('dragging');
-      document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('drag-over'));
-      const touch = e.changedTouches[0];
-      const el = document.elementFromPoint(touch.clientX, touch.clientY);
-      const overTab = el && el.closest('.main-tab');
-      if(overTab && overTab !== touchSrc){
-        const tabs = [...inner.querySelectorAll('.main-tab')];
-        const fromIdx = tabs.indexOf(touchSrc);
-        const toIdx = tabs.indexOf(overTab);
-        if(fromIdx < toIdx) inner.insertBefore(touchSrc, overTab.nextSibling);
-        else inner.insertBefore(touchSrc, overTab);
-        saveTabOrder();
-      }
-      touchSrc = null;
-    });
-  });
-}
-
-function saveTabOrder(){
-  const order = [...document.querySelectorAll('.main-tab')].map(t=>t.dataset.tab);
-  localStorage.setItem('mne4_taborder', JSON.stringify(order));
-}
-
-function restoreTabOrder(){
-  const order = JSON.parse(localStorage.getItem('mne4_taborder')||'null');
-  if(!order) return;
-  const inner = document.querySelector('.main-tabs-inner');
-  order.forEach(tabKey=>{
-    const tab = inner.querySelector(`.main-tab[data-tab="${tabKey}"]`);
-    if(tab) inner.appendChild(tab);
-  });
-}
-
-restoreTabOrder();
-initTabs();
+document.querySelectorAll('.main-tab').forEach(tab=>{
+  tab.onclick = () => activateTab(tab);
+});
 
 // Restaurer l'onglet actif au chargement
 const savedTab = localStorage.getItem('mne4_tab');
