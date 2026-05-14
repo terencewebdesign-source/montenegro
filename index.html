@@ -188,7 +188,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 
 /* ═══ CHECKLIST TOGGLE ═══ */
-.cl-toggle{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;margin:.9rem 0 0;cursor:pointer;border-top:1px solid var(--border);user-select:none;transition:background .15s}
+.cl-toggle{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;margin:.9rem 0 0;cursor:pointer;user-select:none;transition:background .15s}
 .cl-toggle:hover{background:var(--input-bg)}
 .cl-toggle-left{display:flex;align-items:center;gap:.65rem;font-size:.85rem;font-weight:500;color:var(--muted)}
 .cl-toggle-count{font-size:.72rem;background:var(--accent-lt);color:var(--accent);border-radius:99px;padding:.1rem .5rem;font-weight:600}
@@ -196,7 +196,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .cl-toggle.open .cl-toggle-chevron{transform:rotate(180deg)}
 .cl-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
 .cl-body.open{max-height:4000px}
-.cl-body-in{padding:.75rem 1.25rem 1.25rem}
+.cl-body-in{padding:.75rem .75rem 1rem}
 
 /* ═══ CHECKLIST ITEMS ═══ */
 .cl{margin-top:.75rem}
@@ -214,7 +214,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .ci-block{border:1px solid var(--border);border-radius:12px;margin-bottom:.5rem;overflow:hidden;background:var(--card);transition:border-color .2s}
 .ci-block:hover{border-color:var(--muted)}
 .ci-block.open{border-color:var(--accent)}
-.ci-row{display:flex;align-items:center;gap:.6rem;padding:.7rem .75rem;cursor:default;user-select:none}
+.ci-row{display:flex;align-items:center;gap:.6rem;padding:.7rem .6rem;cursor:default;user-select:none}
 .ci-edit-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:.2rem .25rem;opacity:.45;transition:.15s;font-size:.82rem;flex-shrink:0;line-height:1}
 .ci-edit-btn:hover{opacity:1;color:var(--accent)}
 .ci-chevron{width:16px;height:16px;flex-shrink:0;color:var(--muted);transition:transform .2s}
