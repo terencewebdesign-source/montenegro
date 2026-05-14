@@ -183,6 +183,16 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .ci input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
 .ci span{font-size:.79rem;color:var(--text);transition:.15s;line-height:1.45;cursor:pointer}
 .ci input:checked+span{color:var(--muted);text-decoration:line-through;opacity:.6}
+/* Checklist inline codex */
+.ci-wrap{display:flex;align-items:flex-start;gap:.35rem}
+.ci-wrap .ci{flex:1}
+.ci-info-btn{background:none;border:1.5px solid var(--border);border-radius:50%;width:20px;height:20px;font-size:.65rem;cursor:pointer;color:var(--muted);flex-shrink:0;margin-top:3px;transition:.15s;display:flex;align-items:center;justify-content:center;font-style:normal}
+.ci-info-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ci-inline{max-height:0;overflow:hidden;transition:max-height .35s ease;margin-left:1.5rem}
+.ci-inline.open{max-height:600px}
+.ci-inline-head{font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:.4rem;margin-top:.5rem}
+.ci-inline-desc{font-size:.78rem;color:var(--muted);line-height:1.55;margin:.4rem 0 .5rem}
+.ci-inline-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.4rem}
 
 /* ═══ PREP TAB ═══ */
 .prep-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:1.25rem;overflow:hidden;box-shadow:var(--shadow);transition:.3s}
@@ -992,7 +1002,22 @@ DAYS.forEach((d,idx)=>{
   let clHTML='';
   if(d.checks&&d.checks.length){
     clHTML=`<div class="cl"><div class="cl-title">À voir / à faire</div>`;
-    d.checks.forEach(c=>{clHTML+=`<label class="ci"><input type="checkbox" data-c="${ci}"/><span>${c}</span></label>`;ci++;});
+    d.checks.forEach(c=>{
+      const codexItem = findCodexItem(c);
+      if(codexItem){
+        const cid = 'cx_'+ci;
+        clHTML+=`<div class="ci-wrap">
+          <label class="ci"><input type="checkbox" data-c="${ci}"/><span>${c}</span></label>
+          <button class="ci-info-btn" onclick="toggleCodexInline('${cid}')" title="Voir les infos">ℹ</button>
+        </div>
+        <div class="ci-inline" id="${cid}">
+          ${renderCodexInline(codexItem)}
+        </div>`;
+      } else {
+        clHTML+=`<label class="ci"><input type="checkbox" data-c="${ci}"/><span>${c}</span></label>`;
+      }
+      ci++;
+    });
     clHTML+=`</div>`;
   }
 
@@ -1314,6 +1339,100 @@ const BUDGET_DAYS=[
   {num:13,label:"Jour 13",loc:"Kotor · Baie",budget:{heberg:70,repas:50,activites:30,transport:5,divers:30}},
   {num:14,label:"Jour 14",loc:"Tivat → Paris",budget:{heberg:0,repas:15,activites:0,transport:0,divers:10}},
 ];
+
+
+// ═══════════════════════════════════════
+// CODEX INLINE — checklist integration
+// ═══════════════════════════════════════
+
+// Keywords to match check items to codex entries
+const CODEX_KEYWORDS = [
+  {keys:['Forteresse San Giovanni','1 350 marches'], name:'Forteresse San Giovanni'},
+  {keys:['Saint-Tryphon','cathédrale'], name:'Cathédrale Saint-Tryphon'},
+  {keys:['Vieille ville','Kotor','remparts'], name:'Vieille ville de Kotor'},
+  {keys:['25 lacets','lacets'], name:'Route des 25 lacets'},
+  {keys:['Njegoš','Lovcen','mausolée','Mausolée'], name:'Mausolée de Njegoš'},
+  {keys:['Cetinje','capitale royale'], name:'Cetinje — Ancienne capitale'},
+  {keys:['Galion'], name:'Galion'},
+  {keys:['PRŽUN'], name:'PRŽUN'},
+  {keys:['Vladika'], name:'Restaurant Vladika'},
+  {keys:['Sveti Stefan','belvédère'], name:'Sveti Stefan'},
+  {keys:['Mogren'], name:'Plage Mogren 2'},
+  {keys:['Jaz Beach','Jaz'], name:'Jaz Beach'},
+  {keys:['Bečići','plage de sable'], name:'Plage de Bečići'},
+  {keys:['Budva','vieille ville','Citadelle'], name:'Vieille ville de Budva'},
+  {keys:['Lake Skadar Cruise','bateau','Virpazar','croisière','pélicans'], name:'Lake Skadar Cruise'},
+  {keys:['Godinje','Vranac','vignoble','dégustation'], name:'Vignobles de Godinje'},
+  {keys:['Ostrog'], name:"Monastère d'Ostrog"},
+  {keys:['Kom','îlot'], name:'Monastère de Kom'},
+  {keys:['Biogradska','forêt primaire','lac Biogradsko'], name:'Parc National Biogradska Gora'},
+  {keys:['Tara','canyon','Đurđevića','pont'], name:'Canyon de la Tara'},
+  {keys:['Rafting','rafting'], name:'Rafting sur la Tara'},
+  {keys:['Tyrolienne','tyrolienne'], name:'Canyon de la Tara'},
+  {keys:['Lac Noir','Crno Jezero'], name:'Lac Noir (Crno Jezero)'},
+  {keys:['Savin Kuk'], name:'Savin Kuk (2 313m)'},
+  {keys:['Crno Jezero','truite'], name:'Nacionalni Restoran Crno Jezero'},
+  {keys:['agneau sous la cloche',"Or'O"], name:"Restaurant Or'O — Žabljak"},
+  {keys:['Morača','canyon de la Morača','gorges'], name:'Canyon de la Tara'},
+  {keys:['Grande Plage','Velika Plaža','12 km'], name:'Grande Plage (Velika Plaža)'},
+  {keys:['Valdanos'], name:'Valdanos Beach'},
+  {keys:['Ada Bojana'], name:'Ada Bojana'},
+  {keys:['Misko','Misko'], name:'Misko'},
+  {keys:['Ćirkova','Čarda','pilotis'], name:'Ćirkova Čarda (Ada Bojana)'},
+  {keys:['Ulcinj','forteresse','ottomane'], name:"Vieille ville ottomane d'Ulcinj"},
+  {keys:['Perast','îlots'], name:'Perast & les îlots'},
+];
+
+// Flat index of all codex items by name
+let _codexIndex = null;
+function getCodexIndex(){
+  if(_codexIndex) return _codexIndex;
+  _codexIndex = {};
+  CODEX.forEach(zone => zone.cats.forEach(cat => cat.items.forEach(item => {
+    _codexIndex[item.name] = item;
+  })));
+  return _codexIndex;
+}
+
+function findCodexItem(checkText){
+  const idx = getCodexIndex();
+  const stripped = checkText.replace(/^[\p{Emoji}\s]+/u, '').toLowerCase();
+  for(const entry of CODEX_KEYWORDS){
+    if(entry.keys.some(k => checkText.toLowerCase().includes(k.toLowerCase()))){
+      return idx[entry.name] || null;
+    }
+  }
+  return null;
+}
+
+function renderCodexInline(item){
+  const infosHTML = item.infos && item.infos.length
+    ? `<div class="ci-inline-chips">${item.infos.map(i=>`<span class="codex-info-chip">📌 ${i}</span>`).join('')}</div>` : '';
+  const linksHTML = item.links && item.links.length
+    ? `<div class="codex-links" style="margin-top:.5rem">${item.links.map(l=>`
+        <a class="codex-link" href="${l.url}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            ${l.icon==='map'
+              ? '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>'
+              : '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>'}
+          </svg>${l.label}</a>`).join('')}
+        <a class="codex-link" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent((item.googleSearch||item.name)+' Montenegro')}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Photos
+        </a>
+      </div>` : '';
+  const ratingHTML = item.rating ? `<span class="codex-rating" style="margin-bottom:.4rem;display:inline-flex">★ ${item.rating}</span> ` : '';
+  return `
+    <div class="ci-inline-head">${item.icon} <strong>${item.name}</strong> ${ratingHTML}</div>
+    ${infosHTML}
+    <div class="ci-inline-desc">${item.desc}</div>
+    ${linksHTML}`;
+}
+
+function toggleCodexInline(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.toggle('open');
+}
 
 // ═══════════════════════════════════════
 // BUDGET — STYLE TRICOUNT
