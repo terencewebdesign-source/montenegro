@@ -177,6 +177,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 /* ═══ CHECKLIST ═══ */
 .cl{margin-top:.75rem}
 .cl-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.4rem;font-weight:500}
+.cl-cat-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:600;margin:.85rem 0 .35rem;padding-bottom:.25rem;border-bottom:1px solid var(--accent-lt)}
+.cl-cat-title:first-child{margin-top:.2rem}
 .ci{display:flex;align-items:flex-start;gap:.5rem;padding:.3rem 0}
 .ci input{appearance:none;-webkit-appearance:none;width:17px;height:17px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer;transition:.15s;position:relative;background:var(--card)}
 .ci input:checked{background:var(--accent);border-color:var(--accent)}
@@ -1525,6 +1527,73 @@ function toggleCiDropdown(idx){
   block.classList.toggle('open', !isOpen);
 }
 
+
+// ═══════════════════════════════════════
+// CHECKS CATEGORIES
+// ═══════════════════════════════════════
+const CHECKS_CATS = {
+  1: {
+    "📸 Photos incontournables": ["📸 Vue sur les îlots depuis le quai de Perast","🏛 Photo des palais baroques de Perast"],
+    "🏛 À voir": ["🔔 Tour de cloche Saint-Nicolas à Perast — vue 360° sur la baie (quelques €)","⛪ Cathédrale Saint-Tryphon — reliques et balcon (2€)"],
+    "🍽 Restaurants & bars": ["🌅 Dîner face à la baie au coucher du soleil","🍽 Restaurant Galion — vue remparts + montagne Vrmac, cuisine côtière réinterprétée","🥐 Croissant Njeguši prosciutto + roquette au café près de la cathédrale","🥙 Goûter un burek dans une boulangerie locale","🍽 Konoba Scala Santa — vieille ville, terrasse cachée, risotto aux fruits de mer","🍽 Restaurant Cattaro — remparts illuminés, meilleur cadre de Kotor"],
+    "🛒 Shopping & souvenirs": ["🛒 Marché paysan devant les remparts (matin) — fromage, figues, olives"],
+  },
+  2: {
+    "🏛 À voir": ["🗿 Mausolée de Njegoš — 461 marches, sarcophage en granit noir","🔭 Vue 360° depuis le sommet du Lovcen","🏛 Monastère de Cetinje — reliques sacrées","👑 Palais royal — salle du trône"],
+    "🥾 Activités": ["🏔 Monter les 1 350 marches de la Forteresse San Giovanni","📸 Arrêt photo mi-route des 25 lacets — vue plongeante sur la baie","🏊 Canyoning canyon de la Škurda (opérateur Montenegro Canyoning)"],
+    "🍽 Restaurants & bars": ["🍽 Restaurant Vladika (sur le Lovcen) — Njeguški steak 600g, vue montagne, surprenant de qualité"],
+    "🛒 Shopping & souvenirs": ["🍯 Acheter du miel de montagne sur la route"],
+  },
+  3: {
+    "📸 Photos incontournables": ["🌅 Photo Sveti Stefan — belvédère golden hour en fin d'après-midi"],
+    "🏛 À voir": ["🌆 Vieille ville de Budva au coucher du soleil"],
+    "🥾 Activités": ["🏖 Plage Mogren 2 — la secrète derrière les rochers","🪨 Saut de falaise à Mogren","🏖 Jaz Beach — sable, eau cristalline, quasi déserte en septembre"],
+    "🍽 Restaurants & bars": ["🍹 Cocktail dans les remparts de la Citadelle (4€, vue mer)","🐟 Montenegrin fish soup dans la vieille ville","🍽 Restaurant Jadran — terrasse sur les remparts, poisson grillé, vue mer imprenable","🍽 Porto — vieille ville de Budva, fruits de mer et ambiance locale"],
+  },
+  4: {
+    "🏛 À voir": ["⛪ Monastère de Kom sur son îlot","🏔 Monastère d'Ostrog — toucher la falaise blanche"],
+    "📸 Photos incontournables": ["📸 Village de Karuc — photo des barques","📸 Pavlova Strana — le 'fer à cheval' de la Crnojevića, top 3 vues du Monténégro"],
+    "🥾 Activités": ["📋 Réserver le Lake Skadar Cruise avant de partir","🦢 Observer des pélicans frisés (espèce rare)","🏊 Baignade dans le lac depuis le bateau"],
+    "🍽 Restaurants & bars": ["🍷 Dégustation Vranac à Godinje","🧀 Kajmak sur du pain chaud","🍺 Bière Nikšićko à Nikšić"],
+    "🛒 Shopping & souvenirs": ["🛒 Acheter de l'ajvar chez un producteur à Virpazar","🍯 Miel de monastère à la boutique d'Ostrog"],
+  },
+  5: {
+    "🥾 Activités": ["🌲 Tour du lac Biogradsko à pied (3,5 km)","🚣 Canot en bois sur le lac glaciaire","🌳 Repérer un arbre centenaire de 50m+","🪂 Tyrolienne au-dessus du canyon (20-30€)","🏊 Tremper ses pieds dans la Tara (eau turquoise glacée)"],
+    "📸 Photos incontournables": ["📸 Photo depuis le milieu du pont Đurđevića Tara","🔭 Viewpoint Čurevac — belvédère vertigineux sur le canyon de la Tara (10 km AR)","⭐ Observer les étoiles depuis Žabljak (1 456m, zéro pollution lumineuse)"],
+    "🍽 Restaurants & bars": ["🍖 Dîner : agneau sous la cloche au Restaurant Or'O ou Koliba"],
+    "🛒 Shopping & souvenirs": ["🛒 Acheter miel, vins de fruits et ajvar aux kiosques locaux sur la route du parc"],
+  },
+  6: {
+    "🥾 Activités": ["🌅 Tour du Lac Noir au lever du soleil — reflets parfaits dans l'eau noire","🌲 Lac Zminje Jezero — le lac caché dans la forêt (3 km, zéro touriste)","🥾 Randonnée Savin Kuk (2 313m) ou 🚡 télésiège (10€) si jambes fatiguées","❄️ Toucher la neige résiduelle (possible fin sept)","🏊 Baignade dans un lac glaciaire (~12°C, pour les courageux)","🚗 Durmitor Ring — circuit 85 km, villages authentiques et lacs cachés","🛶 Rafting sur la Tara (classe III-IV, ~40-60€)"],
+    "📸 Photos incontournables": ["📸 Photographier les reflets des montagnes dans le lac"],
+    "🍽 Restaurants & bars": ["🍽 Déjeuner au Nacionalni Restoran Crno Jezero — truite du lac, vue montagne","🧺 Pique-nique au bord d'un des 18 lacs"],
+    "🛒 Shopping & souvenirs": ["🧀 Fromage de brebis d'un berger de Žabljak"],
+  },
+  7: {
+    "📸 Photos incontournables": ["📸 Arrêt photo dans les gorges de la Morača — falaises à pic sur rivière turquoise"],
+    "🏛 À voir": ["🖼 Monastère de la Morača — fresques médiévales du XIIe siècle","🕌 Vieille ville ottomane d'Ulcinj — ruelles et forteresse"],
+    "🥾 Activités": ["🏖 Mala Plaža — plage de sable centre-ville, parasols en chaume style Maldives","🏊 Premier bain sur la Grande Plage"],
+    "🍽 Restaurants & bars": ["🍽 Dîner : Misko — légende locale, poisson pêché le matin même"],
+    "🛒 Shopping & souvenirs": ["🍯 Miel des moines au monastère"],
+  },
+  8: {
+    "🏛 À voir": ["🕌 Vieille ville ottomane à pied","🔭 Tour de la forteresse — vue sur l'Albanie"],
+    "🥾 Activités": ["🏊 Piscine de l'hôtel (x3 sessions minimum)","🌅 Grande Plage — baignade au coucher du soleil","🚶 Marcher jusqu'à l'extrémité de Velika Plaža — voir la frontière albanaise à pied","🏖 Ada Bojana — plage sauvage sur l'île fluviale","🪁 Kitesurfing ou windsurf à Velika Plaža (meilleur spot de l'Adriatique)","🌿 Valdanos Beach — crique émeraude dans une oliveraie millénaire, zéro touriste"],
+    "🍽 Restaurants & bars": ["🥙 Byrek me djathë (burek albanais au fromage)","🍽 Ćirkova Čarda (Ada Bojana) — poisson sauvage pêché le matin, maison sur pilotis","🍽 Misko (Ulcinj) — légende locale, soupe de poisson + bar grillé","🥃 Boire un raki avec un pêcheur"],
+    "🛒 Shopping & souvenirs": ["🍑 Figues sèches au marché d'Ulcinj"],
+  },
+  9: {
+    "📸 Photos incontournables": ["📸 Pavlova Strana si pas fait J5 — le 'fer à cheval' de la rivière Crnojevića","🌅 Coucher de soleil sur les remparts de Kotor"],
+    "🍽 Restaurants & bars": ["☕ Dernier café au bord du lac Skadar","🍽 Dîner : PRŽUN (vieille ville) — brodet de fruits de mer, ambiance locale"],
+    "🛒 Shopping & souvenirs": ["🍷 Acheter du vin Vranac en route","🍯 Acheter du miel de montagne"],
+  },
+  10: {
+    "🥾 Activités": ["🏊 Baignade crique secrète de la baie","⛵ Village de Muo — de l'autre côté en bateau, pêcheurs, zéro touriste","🚤 Blue Cave boat tour — grottes marines, eau turquoise (opérateur 360 Monte)"],
+    "🍽 Restaurants & bars": ["☕ Dernier café place principale de Kotor","🍽 Dîner d'adieu : Galion (vue port) ou Bastion 1 (porte nord) — plateau fruits de mer"],
+    "🛒 Shopping & souvenirs": ["🍷 Shopping : vin Vranac (dès 5€)","🍄 Shopping : truffes de Kolašin","🫒 Shopping : huile d'olive artisanale","🍯 Shopping : miel de montagne"],
+  },
+};
+
 // ═══════════════════════════════════════
 // BUILD ITINERARY
 // ═══════════════════════════════════════
@@ -1560,22 +1629,51 @@ DAYS.forEach((d,idx)=>{
 
   let clHTML='';
   if(d.checks&&d.checks.length){
-    clHTML=`<div class="cl"><div class="cl-title">À voir / à faire</div>`;
-    d.checks.forEach(c=>{
-      const entry = findCodexEntry(c);
-      if(entry){
-        clHTML+=`<div class="ci-block" id="ci-block-${ci}">
-          <div class="ci-row" onclick="handleCiClick(event,${ci})">
-            <label class="ci" onclick="event.stopPropagation()"><input type="checkbox" data-c="${ci}" onclick="event.stopPropagation()"/><span>${c}</span></label>
-            <svg class="ci-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="ci-dropdown" id="ci-dd-${ci}">${ciDropdownHTML(entry,ci)}</div>
-        </div>`;
-      } else {
-        clHTML+=`<div class="ci-plain"><input type="checkbox" data-c="${ci}"/><span>${c}</span></div>`;
-      }
-      ci++;
-    });
+    const dayNum = typeof d.num==='string' ? parseInt(d.num) : d.num;
+    const cats = CHECKS_CATS[dayNum];
+    clHTML=`<div class="cl">`;
+    if(cats){
+      // Build a map of check text → index for this day
+      const checkIndexMap = {};
+      d.checks.forEach((c,i) => { checkIndexMap[c] = ci + i; });
+      Object.entries(cats).forEach(([catName, items])=>{
+        clHTML+=`<div class="cl-cat-title">${catName}</div>`;
+        items.forEach(c=>{
+          const idx = checkIndexMap[c];
+          if(idx === undefined) return;
+          const entry = findCodexEntry(c);
+          if(entry){
+            clHTML+=`<div class="ci-block" id="ci-block-${idx}">
+              <div class="ci-row" onclick="handleCiClick(event,${idx})">
+                <label class="ci" onclick="event.stopPropagation()"><input type="checkbox" data-c="${idx}" onclick="event.stopPropagation()"/><span>${c}</span></label>
+                <svg class="ci-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="ci-dropdown" id="ci-dd-${idx}">${ciDropdownHTML(entry,idx)}</div>
+            </div>`;
+          } else {
+            clHTML+=`<div class="ci-plain"><input type="checkbox" data-c="${idx}"/><span>${c}</span></div>`;
+          }
+        });
+      });
+      ci += d.checks.length;
+    } else {
+      // No categories defined — fallback flat list
+      d.checks.forEach(c=>{
+        const entry = findCodexEntry(c);
+        if(entry){
+          clHTML+=`<div class="ci-block" id="ci-block-${ci}">
+            <div class="ci-row" onclick="handleCiClick(event,${ci})">
+              <label class="ci" onclick="event.stopPropagation()"><input type="checkbox" data-c="${ci}" onclick="event.stopPropagation()"/><span>${c}</span></label>
+              <svg class="ci-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="ci-dropdown" id="ci-dd-${ci}">${ciDropdownHTML(entry,ci)}</div>
+          </div>`;
+        } else {
+          clHTML+=`<div class="ci-plain"><input type="checkbox" data-c="${ci}"/><span>${c}</span></div>`;
+        }
+        ci++;
+      });
+    }
     clHTML+=`</div>`;
   }
 
