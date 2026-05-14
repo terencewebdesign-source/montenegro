@@ -40,6 +40,7 @@
 [data-theme="dark"] .travel-lt{background:#0D1E2E!important}
 
 *{box-sizing:border-box;margin:0;padding:0}
+html,body{max-width:100%;overflow-x:hidden}
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 
@@ -64,7 +65,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 /* ═══ MAIN TABS ═══ */
 .main-tabs{background:var(--nav-bg);border-bottom:2px solid var(--border);position:sticky;top:0;z-index:300;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:background .3s}
-.main-tabs-inner{max-width:900px;margin:0 auto;display:flex}
+.main-tabs-inner{max-width:900px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.main-tabs-inner::-webkit-scrollbar{display:none}
 .main-tab{padding:.85rem 1.5rem;font-size:.9rem;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.2s;flex-shrink:0}
 .main-tab:hover{color:var(--text)}
 .main-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
@@ -1048,8 +1050,15 @@ document.querySelectorAll('.main-tab').forEach(tab=>{
     document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
     document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
     if(tab.dataset.tab==='itinerary')setTimeout(()=>map.invalidateSize(),100);
+    localStorage.setItem('mne4_tab', tab.dataset.tab);
   };
 });
+// Restaurer l'onglet actif au chargement
+const savedTab = localStorage.getItem('mne4_tab');
+if(savedTab){
+  const savedTabEl = document.querySelector(`.main-tab[data-tab="${savedTab}"]`);
+  if(savedTabEl) savedTabEl.click();
+}
 
 // Checks
 function loadC(){
@@ -1632,7 +1641,7 @@ const CODEX = [
     zone: "Kotor & Baie de Kotor", emoji: "🏰", sub: "Arrivée J1 · Retour J12-13",
     cats: [
       { cat: "🏛 Monuments & Sites", items: [
-        { name: "Vieille ville de Kotor", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Kotor_pano.jpg/1280px-Kotor_pano.jpg", googleSearch: "Kotor vieille ville", icon: "🏰", tag: "UNESCO", tagColor: "var(--coast)",
+        { name: "Vieille ville de Kotor", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Kotor_pano.jpg/1280px-Kotor_pano.jpg&w=400&h=280&fit=cover", googleSearch: "Kotor vieille ville", icon: "🏰", tag: "UNESCO", tagColor: "var(--coast)",
           desc: "Vieille ville médiévale inscrite au patrimoine UNESCO. Remparts vénitiens du XVe siècle, ruelles pavées, places cachées et chats partout. Compter 2h pour une visite complète.",
           infos: ["Entrée libre", "Remparts : ~8€", "Ouvert 24h/24"],
           rating: "4.7",
@@ -1645,14 +1654,14 @@ const CODEX = [
             {label:"Site officiel", icon:"web", url:"https://www.kotor.travel"},
           ]
         },
-        { name: "Cathédrale Saint-Tryphon", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Cathedral_of_Saint_Tryphon%2C_Kotor.jpg/800px-Cathedral_of_Saint_Tryphon%2C_Kotor.jpg", googleSearch: "Cathédrale Saint-Tryphon Kotor", icon: "⛪", tag: "Monument",
+        { name: "Cathédrale Saint-Tryphon", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Cathedral_of_Saint_Tryphon%252C_Kotor.jpg/800px-Cathedral_of_Saint_Tryphon%252C_Kotor.jpg&w=400&h=280&fit=cover", googleSearch: "Cathédrale Saint-Tryphon Kotor", icon: "⛪", tag: "Monument",
           desc: "Cathédrale romane du XIIe siècle, l'un des plus beaux exemples d'architecture médiévale de la côte adriatique. Abritant des reliques et un trésor médiéval remarquable. Vue sur la ville depuis le balcon.",
           infos: ["Entrée : 2€", "9h-19h en saison"],
           rating: "4.6",
           photos: [{url:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Cathedral_of_Saint_Tryphon%2C_Kotor.jpg/1024px-Cathedral_of_Saint_Tryphon%2C_Kotor.jpg", label:"Cathédrale"}],
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Cathedral+Saint+Tryphon+Kotor"}]
         },
-        { name: "Forteresse San Giovanni", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Kotor_fortress.jpg/1280px-Kotor_fortress.jpg", googleSearch: "Forteresse San Giovanni Kotor", icon: "🏔", tag: "Randonnée",
+        { name: "Forteresse San Giovanni", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/2/27/Kotor_fortress.jpg/1280px-Kotor_fortress.jpg&w=400&h=280&fit=cover", googleSearch: "Forteresse San Giovanni Kotor", icon: "🏔", tag: "Randonnée",
           desc: "1 350 marches qui mènent à 280m d'altitude. Vue panoramique sur toute la baie de Kotor. Départ impératif avant 7h30 en été pour éviter la chaleur. Compter 2h aller-retour.",
           infos: ["Départ avant 7h30", "~2h A/R", "Entrée ~8€", "Eau indispensable"],
           rating: "4.8",
@@ -1661,7 +1670,7 @@ const CODEX = [
         },
       ]},
       { cat: "🍽 Restaurants", items: [
-        { name: "Galion", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Kotor_old_town.jpg/1280px-Kotor_old_town.jpg", googleSearch: "Restaurant Galion Kotor", icon: "🦞", tag: "Fruits de mer", tagColor:"var(--lake)",
+        { name: "Galion", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Kotor_old_town.jpg/1280px-Kotor_old_town.jpg&w=400&h=280&fit=cover", googleSearch: "Restaurant Galion Kotor", icon: "🦞", tag: "Fruits de mer", tagColor:"var(--lake)",
           desc: "Le restaurant le plus emblématique de Kotor. Vue directe sur les remparts et la montagne Vrmac. Spécialité : plateau de fruits de mer pour deux et brodet de poisson. Ambiance romantique en soirée.",
           infos: ["Réservation conseillée", "30-50€/pers", "Vue port"],
           rating: "4.5",
@@ -1679,14 +1688,14 @@ const CODEX = [
         },
       ]},
       { cat: "📍 Excursions depuis Kotor", items: [
-        { name: "Perast & les îlots", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Perast_panorama.jpg/1280px-Perast_panorama.jpg", googleSearch: "Perast îlots Monténégro", icon: "⛵", tag: "Village",
+        { name: "Perast & les îlots", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Perast_panorama.jpg/1280px-Perast_panorama.jpg&w=400&h=280&fit=cover", googleSearch: "Perast îlots Monténégro", icon: "⛵", tag: "Village",
           desc: "Minuscule village vénitien à 15 min de Kotor. 5 rues, des palais baroques et la vue sur deux îlots : Notre-Dame-des-Rochers et Saint-Georges. La vue depuis le front de mer est la plus belle — pas besoin de prendre le bateau.",
           infos: ["15 min de Kotor", "Entrée libre", "45 min suffisent"],
           rating: "4.8",
           photos: [{url:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Perast_and_the_islets.jpg/1280px-Perast_and_the_islets.jpg", label:"Perast et les îlots"}],
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Perast+Montenegro"}]
         },
-        { name: "Route des 25 lacets", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Kotor_Bay_from_Lovcen.jpg/1280px-Kotor_Bay_from_Lovcen.jpg", googleSearch: "Route 25 lacets Kotor", icon: "🛣", tag: "Panorama",
+        { name: "Route des 25 lacets", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Kotor_Bay_from_Lovcen.jpg/1280px-Kotor_Bay_from_Lovcen.jpg&w=400&h=280&fit=cover", googleSearch: "Route 25 lacets Kotor", icon: "🛣", tag: "Panorama",
           desc: "Route spectaculaire qui monte de Kotor vers le plateau du Lovcen. 25 virages en épingle avec vue plongeante sur la baie à chaque lacet. Stop photo obligatoire à mi-hauteur.",
           infos: ["Départ Kotor", "45 min de montée", "Stop photo mi-route"],
           rating: "4.9",
@@ -1700,7 +1709,7 @@ const CODEX = [
     zone: "Lovcen & Cetinje", emoji: "🗿", sub: "Jour 2",
     cats: [
       { cat: "🏛 Monuments & Sites", items: [
-        { name: "Mausolée de Njegoš", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Njego%C5%A1ev_mauzolej.jpg/1024px-Njego%C5%A1ev_mauzolej.jpg", googleSearch: "Mausolée Njegos Lovcen", icon: "🗿", tag: "Monument",
+        { name: "Mausolée de Njegoš", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/38/Njego%25C5%25A1ev_mauzolej.jpg/1024px-Njego%25C5%25A1ev_mauzolej.jpg&w=400&h=280&fit=cover", googleSearch: "Mausolée Njegos Lovcen", icon: "🗿", tag: "Monument",
           desc: "À 1 749m d'altitude, au sommet du mont Lovcen. 461 marches taillées dans la roche mènent à ce mausolée en granit noir dédié au prince-évêque Petar II Petrović-Njegoš. Vue à 360° sur le Monténégro, la mer Adriatique et l'Albanie par temps clair.",
           infos: ["Altitude : 1 749m", "461 marches", "Entrée : 8€", "Tenue correcte exigée"],
           rating: "4.8",
@@ -1710,7 +1719,7 @@ const CODEX = [
             {label:"Parc National Lovcen", icon:"web", url:"https://nparkovi.me/lovcen"},
           ]
         },
-        { name: "Cetinje — Ancienne capitale", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Cetinje_Monastery.jpg/1280px-Cetinje_Monastery.jpg", googleSearch: "Cetinje Monténégro", icon: "👑", tag: "Ville royale",
+        { name: "Cetinje — Ancienne capitale", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Cetinje_Monastery.jpg/1280px-Cetinje_Monastery.jpg&w=400&h=280&fit=cover", googleSearch: "Cetinje Monténégro", icon: "👑", tag: "Ville royale",
           desc: "Ancienne capitale royale du Monténégro. Monastère du XVe siècle, Palais royal, résidence des Biljarda. Ville musée à ciel ouvert, atmosphère hors du temps. Compter 1h30 de visite.",
           infos: ["45 min depuis Lovcen", "Monastère + Palais royal", "1h30 de visite"],
           rating: "4.3",
@@ -1732,20 +1741,20 @@ const CODEX = [
     zone: "Bečići & Budva", emoji: "🏖", sub: "Jours 3-4 (3 nuits)",
     cats: [
       { cat: "🏖 Plages", items: [
-        { name: "Plage de Bečići", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Becici_beach.jpg/1280px-Becici_beach.jpg", googleSearch: "Plage Bečići Monténégro", icon: "🏖", tag: "Plage principale",
+        { name: "Plage de Bečići", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Becici_beach.jpg/1280px-Becici_beach.jpg&w=400&h=280&fit=cover", googleSearch: "Plage Bečići Monténégro", icon: "🏖", tag: "Plage principale",
           desc: "Arc parfait de 2 km de sable fin. L'une des plus belles plages de la côte adriatique. En septembre, quasi déserte. Eau cristalline à ~23°C. Transats disponibles (10-12€/jour).",
           infos: ["2 km de sable", "Eau ~23°C en sept.", "Transats 10-12€/j"],
           rating: "4.7",
           photos: [{url:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Becici_beach_Montenegro.jpg/1280px-Becici_beach_Montenegro.jpg", label:"Plage de Bečići"}],
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Becici+beach+Montenegro"}]
         },
-        { name: "Plage Mogren 2", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Mogren_beach_Budva.jpg/1280px-Mogren_beach_Budva.jpg", googleSearch: "Plage Mogren Budva", icon: "🪨", tag: "Secrète",
+        { name: "Plage Mogren 2", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Mogren_beach_Budva.jpg/1280px-Mogren_beach_Budva.jpg&w=400&h=280&fit=cover", googleSearch: "Plage Mogren Budva", icon: "🪨", tag: "Secrète",
           desc: "Plage cachée derrière les rochers, accessible à pied depuis la vieille ville de Budva (15 min). Moins fréquentée, eau turquoise, ambiance intime. Possibilité de saut de falaise.",
           infos: ["15 min à pied de Budva", "Peu fréquentée", "Saut de falaise possible"],
           rating: "4.6",
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Mogren+beach+Budva+Montenegro"}]
         },
-        { name: "Jaz Beach", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Jaz_beach_Montenegro.jpg/1280px-Jaz_beach_Montenegro.jpg", googleSearch: "Jaz Beach Budva Montenegro", icon: "🌊", tag: "Sauvage",
+        { name: "Jaz Beach", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/93/Jaz_beach_Montenegro.jpg/1280px-Jaz_beach_Montenegro.jpg&w=400&h=280&fit=cover", googleSearch: "Jaz Beach Budva Montenegro", icon: "🌊", tag: "Sauvage",
           desc: "Grande plage de sable à 3 km de Budva. Quasi déserte en septembre. Eau cristalline, ambiance décontractée. Cadre naturel préservé.",
           infos: ["3 km de Budva", "Quasi déserte en sept.", "Eau cristalline"],
           rating: "4.5",
@@ -1753,14 +1762,14 @@ const CODEX = [
         },
       ]},
       { cat: "📍 À voir", items: [
-        { name: "Sveti Stefan", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sveti_Stefan_Montenegro.jpg/1280px-Sveti_Stefan_Montenegro.jpg", googleSearch: "Sveti Stefan Monténégro", icon: "🏝", tag: "Icône",
+        { name: "Sveti Stefan", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sveti_Stefan_Montenegro.jpg/1280px-Sveti_Stefan_Montenegro.jpg&w=400&h=280&fit=cover", googleSearch: "Sveti Stefan Monténégro", icon: "🏝", tag: "Icône",
           desc: "L'image la plus iconique du Monténégro — un village médiéval sur un îlot relié à la terre par un isthme, reconverti en hôtel de luxe. La vue depuis le belvédère est gratuite et imprenable. Y aller tôt le matin pour la lumière dorée.",
           infos: ["Belvédère gratuit", "Tôt le matin = meilleure lumière", "30 min A/R depuis Bečići"],
           rating: "4.8",
           photos: [{url:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sveti_Stefan_Montenegro.jpg/1280px-Sveti_Stefan_Montenegro.jpg", label:"Sveti Stefan"}],
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Sveti+Stefan+Montenegro"}]
         },
-        { name: "Vieille ville de Budva", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Budva_old_town.jpg/1280px-Budva_old_town.jpg", googleSearch: "Vieille ville Budva", icon: "🏛", tag: "Historique",
+        { name: "Vieille ville de Budva", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Budva_old_town.jpg/1280px-Budva_old_town.jpg&w=400&h=280&fit=cover", googleSearch: "Vieille ville Budva", icon: "🏛", tag: "Historique",
           desc: "Vieille ville fortifiée sur un promontoire. Remparts, ruelles médiévales, citadelle avec vue mer. Particulièrement belle au coucher du soleil. Cocktail dans les remparts de la Citadelle : 4€.",
           infos: ["Entrée libre", "Citadelle : ~4€", "Coucher de soleil"],
           rating: "4.4",
@@ -1774,7 +1783,7 @@ const CODEX = [
     zone: "Lac Skadar & Vignobles", emoji: "🦢", sub: "Jour 5",
     cats: [
       { cat: "🚢 Activités", items: [
-        { name: "Lake Skadar Cruise", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Lake_Skadar_Montenegro.jpg/1280px-Lake_Skadar_Montenegro.jpg", googleSearch: "Lac Skadar croisière bateau", icon: "🚤", tag: "À réserver",
+        { name: "Lake Skadar Cruise", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Lake_Skadar_Montenegro.jpg/1280px-Lake_Skadar_Montenegro.jpg&w=400&h=280&fit=cover", googleSearch: "Lac Skadar croisière bateau", icon: "🚤", tag: "À réserver",
           desc: "Croisière de 3-4h sur le plus grand lac des Balkans. Pélicans frisés (espèce rare), monastère de Kom sur son îlot, village de Karuc, baignade dans le lac. Note 5/5 — 589 avis. Réserver IMPÉRATIVEMENT à l'avance.",
           infos: ["3-4h", "~25-35€/pers", "Réserver à l'avance !", "Note 5/5"],
           rating: "5.0",
@@ -1786,7 +1795,7 @@ const CODEX = [
         },
       ]},
       { cat: "🍷 Vignobles & Gastronomie", items: [
-        { name: "Vignobles de Godinje", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Vranac_grapes.jpg/1280px-Vranac_grapes.jpg", googleSearch: "Godinje vignobles Lac Skadar", icon: "🍷", tag: "Dégustation",
+        { name: "Vignobles de Godinje", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Vranac_grapes.jpg/1280px-Vranac_grapes.jpg&w=400&h=280&fit=cover", googleSearch: "Godinje vignobles Lac Skadar", icon: "🍷", tag: "Dégustation",
           desc: "Village perché au-dessus du lac Skadar. Dégustation de Vranac (cépage autochtone unique au monde) chez des producteurs familiaux. Miel, figues et fromage en prime. Cadre authentique hors des sentiers touristiques.",
           infos: ["5 min de Virpazar", "Dégustation chez producteur", "Vranac = cépage unique"],
           rating: "4.7",
@@ -1794,14 +1803,14 @@ const CODEX = [
         },
       ]},
       { cat: "🏔 Monastères", items: [
-        { name: "Monastère d'Ostrog", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Ostrog_monastery.jpg/1024px-Ostrog_monastery.jpg", googleSearch: "Monastère Ostrog Monténégro", icon: "⛪", tag: "Pèlerinage",
+        { name: "Monastère d'Ostrog", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Ostrog_monastery.jpg/1024px-Ostrog_monastery.jpg&w=400&h=280&fit=cover", googleSearch: "Monastère Ostrog Monténégro", icon: "⛪", tag: "Pèlerinage",
           desc: "L'un des lieux les plus sacrés des Balkans. Incrusté dans une falaise blanche verticale à 900m d'altitude. Lieu de pèlerinage à la fois chrétien orthodoxe ET musulman — une rareté unique au monde. Route d'accès vertigineuse et très étroite.",
           infos: ["Route très étroite", "Tenue correcte exigée", "Pèlerinage chrétien & musulman", "Altitude : 900m"],
           rating: "4.8",
           photos: [{url:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Ostrog_monastery.jpg/1024px-Ostrog_monastery.jpg", label:"Monastère d'Ostrog"}],
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Ostrog+Monastery+Montenegro"}]
         },
-        { name: "Monastère de Kom", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Kom_monastery_Skadar.jpg/1024px-Kom_monastery_Skadar.jpg", googleSearch: "Monastère Kom Lac Skadar", icon: "⛪", tag: "Sur l'eau",
+        { name: "Monastère de Kom", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Kom_monastery_Skadar.jpg/1024px-Kom_monastery_Skadar.jpg&w=400&h=280&fit=cover", googleSearch: "Monastère Kom Lac Skadar", icon: "⛪", tag: "Sur l'eau",
           desc: "Monastère médiéval sur un îlot du lac Skadar. Accessible uniquement en bateau lors de la croisière. Vue imprenable sur le lac et les montagnes environnantes.",
           infos: ["Accessible en bateau", "Visible depuis la croisière"],
           rating: "4.6",
@@ -1814,7 +1823,7 @@ const CODEX = [
     zone: "Biogradska Gora & Canyon Tara", emoji: "🌲", sub: "Jour 6",
     cats: [
       { cat: "🌿 Nature", items: [
-        { name: "Parc National Biogradska Gora", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Biogradsko_jezero.jpg/1280px-Biogradsko_jezero.jpg", googleSearch: "Biogradska Gora forêt primaire", icon: "🌲", tag: "Forêt primaire",
+        { name: "Parc National Biogradska Gora", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Biogradsko_jezero.jpg/1280px-Biogradsko_jezero.jpg&w=400&h=280&fit=cover", googleSearch: "Biogradska Gora forêt primaire", icon: "🌲", tag: "Forêt primaire",
           desc: "Une des trois dernières forêts primaires d'Europe. Arbres de 500 ans, lac glaciaire turquoise. Tour du lac en 1h30 (3,5 km). Canot en bois disponible à louer (10€/h). Ambiance mystique et hors du temps.",
           infos: ["Entrée : 4€/pers", "Tour du lac : 3,5 km / 1h30", "Canot : 10€/h", "Arbres de 500 ans"],
           rating: "4.8",
@@ -1824,7 +1833,7 @@ const CODEX = [
             {label:"Parc officiel", icon:"web", url:"https://nparkovi.me/biogradska-gora"},
           ]
         },
-        { name: "Canyon de la Tara", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Tara_River_Canyon.jpg/1280px-Tara_River_Canyon.jpg", googleSearch: "Canyon Tara Monténégro", icon: "🏔", tag: "2e canyon du monde",
+        { name: "Canyon de la Tara", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/4/41/Tara_River_Canyon.jpg/1280px-Tara_River_Canyon.jpg&w=400&h=280&fit=cover", googleSearch: "Canyon Tara Monténégro", icon: "🏔", tag: "2e canyon du monde",
           desc: "Deuxième canyon au monde après le Grand Canyon avec 1 300m de profondeur. Eau turquoise glacée, falaises vertigineuses. Pont Đurđevića à 150m au-dessus du vide. Tyrolienne depuis le pont disponible (20-30€).",
           infos: ["Profondeur : 1 300m", "Pont à 150m de hauteur", "Tyrolienne : 20-30€"],
           rating: "4.9",
@@ -1849,14 +1858,14 @@ const CODEX = [
     zone: "Parc National du Durmitor", emoji: "🏔", sub: "Jour 7",
     cats: [
       { cat: "🥾 Randonnées", items: [
-        { name: "Lac Noir (Crno Jezero)", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Crno_Jezero_Durmitor.jpg/1280px-Crno_Jezero_Durmitor.jpg", googleSearch: "Lac Noir Durmitor Montenegro", icon: "🖤", tag: "Incontournable",
+        { name: "Lac Noir (Crno Jezero)", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Crno_Jezero_Durmitor.jpg/1280px-Crno_Jezero_Durmitor.jpg&w=400&h=280&fit=cover", googleSearch: "Lac Noir Durmitor Montenegro", icon: "🖤", tag: "Incontournable",
           desc: "Lac glaciaire le plus célèbre du Durmitor. Tour de 3,5 km en 1h. En septembre, premières couleurs d'automne dans les arbres qui se reflètent dans l'eau noire. Le lever du soleil ici est inoubliable.",
           infos: ["Tour : 3,5 km / 1h", "Lever du soleil +++", "Entrée parc : 3€"],
           rating: "4.9",
           photos: [{url:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Crno_Jezero_Durmitor.jpg/1280px-Crno_Jezero_Durmitor.jpg", label:"Lac Noir"}],
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Crno+Jezero+Durmitor+Montenegro"}]
         },
-        { name: "Savin Kuk (2 313m)", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Durmitor_mountain_Montenegro.jpg/1280px-Durmitor_mountain_Montenegro.jpg", googleSearch: "Savin Kuk Durmitor sommet", icon: "⛰", tag: "Sommet",
+        { name: "Savin Kuk (2 313m)", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Durmitor_mountain_Montenegro.jpg/1280px-Durmitor_mountain_Montenegro.jpg&w=400&h=280&fit=cover", googleSearch: "Savin Kuk Durmitor sommet", icon: "⛰", tag: "Sommet",
           desc: "Point culminant accessible du Durmitor. Randonnée 3h A/R depuis le lac Noir. Vue totale sur les 18 lacs glaciaires et la côte adriatique par temps clair. Couche chaude obligatoire en septembre.",
           infos: ["Alt. : 2 313m", "3h A/R", "Couche chaude obligatoire", "Télésiège : 10€ (montée)"],
           rating: "4.8",
@@ -1864,7 +1873,7 @@ const CODEX = [
         },
       ]},
       { cat: "🚢 Activités", items: [
-        { name: "Rafting sur la Tara", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Tara_rafting_Montenegro.jpg/1280px-Tara_rafting_Montenegro.jpg", googleSearch: "Rafting Tara Monténégro", icon: "🛶", tag: "Adrénaline",
+        { name: "Rafting sur la Tara", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/8/82/Tara_rafting_Montenegro.jpg/1280px-Tara_rafting_Montenegro.jpg&w=400&h=280&fit=cover", googleSearch: "Rafting Tara Monténégro", icon: "🛶", tag: "Adrénaline",
           desc: "Demi-journée de rafting sur la Tara, classe III-IV. L'un des meilleurs spots de rafting d'Europe. Eau turquoise glacée, parois du canyon à pic. Opérateurs basés à Žabljak.",
           infos: ["Classe III-IV", "Demi-journée", "~40-60€/pers", "Réservable 1 sem. avant"],
           rating: "4.8",
@@ -1888,20 +1897,20 @@ const CODEX = [
     zone: "Ulcinj", emoji: "☀️", sub: "Jours 8-11 (4 nuits)",
     cats: [
       { cat: "🏖 Plages", items: [
-        { name: "Grande Plage (Velika Plaža)", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Velika_plaza_Ulcinj.jpg/1280px-Velika_plaza_Ulcinj.jpg", googleSearch: "Grande Plage Ulcinj Montenegro", icon: "🏖", tag: "12 km de sable",
+        { name: "Grande Plage (Velika Plaža)", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Velika_plaza_Ulcinj.jpg/1280px-Velika_plaza_Ulcinj.jpg&w=400&h=280&fit=cover", googleSearch: "Grande Plage Ulcinj Montenegro", icon: "🏖", tag: "12 km de sable",
           desc: "12 km de sable fin, la plus longue plage de la côte adriatique. Quasi déserte fin septembre. Eau la plus chaude de la côte (~24°C). Transats 10-12€/jour. Kitesurfing et windsurf au spot le plus réputé de l'Adriatique.",
           infos: ["12 km de sable", "Eau ~24°C en sept.", "Kitesurf +++", "Quasi déserte en sept."],
           rating: "4.7",
           photos: [{url:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Velika_plaza_Ulcinj.jpg/1280px-Velika_plaza_Ulcinj.jpg", label:"Velika Plaža"}],
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Velika+Plaza+Ulcinj+Montenegro"}]
         },
-        { name: "Valdanos Beach", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Valdanos_cove_Montenegro.jpg/1280px-Valdanos_cove_Montenegro.jpg", googleSearch: "Valdanos crique Ulcinj", icon: "🌿", tag: "Cachée",
+        { name: "Valdanos Beach", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Valdanos_cove_Montenegro.jpg/1280px-Valdanos_cove_Montenegro.jpg&w=400&h=280&fit=cover", googleSearch: "Valdanos crique Ulcinj", icon: "🌿", tag: "Cachée",
           desc: "Crique émeraude nichée dans une oliveraie millénaire. Zéro touriste, eau cristalline, cadre sauvage. L'une des criques les plus secrètes du Monténégro.",
           infos: ["Oliveraie millénaire", "Zéro touriste", "10 min d'Ulcinj"],
           rating: "4.8",
           links: [{label:"Google Maps", icon:"map", url:"https://maps.google.com/?q=Valdanos+beach+Ulcinj+Montenegro"}]
         },
-        { name: "Ada Bojana", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ada_Bojana.jpg/1280px-Ada_Bojana.jpg", googleSearch: "Ada Bojana île fluviale", icon: "🏝", tag: "Île fluviale",
+        { name: "Ada Bojana", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ada_Bojana.jpg/1280px-Ada_Bojana.jpg&w=400&h=280&fit=cover", googleSearch: "Ada Bojana île fluviale", icon: "🏝", tag: "Île fluviale",
           desc: "Île fluviale triangulaire à la frontière albanaise, formée par deux bras de la rivière Bojana. Plage sauvage et naturiste, restaurants sur pilotis directement au-dessus de l'eau. Ambiance unique et décontractée.",
           infos: ["15 min d'Ulcinj", "Plage sauvage", "Restaurants sur pilotis"],
           rating: "4.6",
@@ -1924,7 +1933,7 @@ const CODEX = [
         },
       ]},
       { cat: "🏛 À voir", items: [
-        { name: "Vieille ville ottomane d'Ulcinj", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Ulcinj_old_town.jpg/1280px-Ulcinj_old_town.jpg", googleSearch: "Vieille ville Ulcinj ottomane", icon: "🕌", tag: "Historique",
+        { name: "Vieille ville ottomane d'Ulcinj", photo: "https://images.weserv.nl/?url=upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Ulcinj_old_town.jpg/1280px-Ulcinj_old_town.jpg&w=400&h=280&fit=cover", googleSearch: "Vieille ville Ulcinj ottomane", icon: "🕌", tag: "Historique",
           desc: "Forteresse et vieille ville à dominante albanophone — une atmosphère unique sur la côte monténégrine. Vue depuis les remparts sur l'Albanie et la Grande Plage. Bazars, mosquées et ruelles ottomanes.",
           infos: ["Entrée libre", "Vue sur l'Albanie", "Ambiance albanophone"],
           rating: "4.4",
@@ -1998,7 +2007,7 @@ function buildCodex(){
             <div class="codex-item-in">
               <div class="codex-photos">
                 ${item.photo ? `
-                  <a class="codex-photo-link" href="${item.photo}" target="_blank" rel="noopener" title="Voir la photo">
+                  <a class="codex-photo-link" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent((item.googleSearch||item.name)+' Montenegro')}" target="_blank" rel="noopener" title="Voir plus de photos">
                     <img class="codex-photo" src="${item.photo}" alt="${item.name}" loading="lazy"
                       onerror="this.parentElement.outerHTML='<div class=\'codex-photo-placeholder\'>${item.icon}</div>'"/>
                   </a>` : `<div class="codex-photo-placeholder">${item.icon}</div>`}
