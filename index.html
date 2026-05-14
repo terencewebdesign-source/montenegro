@@ -183,6 +183,24 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .ci input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
 .ci span{font-size:.79rem;color:var(--text);transition:.15s;line-height:1.45;cursor:pointer}
 .ci input:checked+span{color:var(--muted);text-decoration:line-through;opacity:.6}
+.ci-block{border-radius:8px;overflow:hidden;margin-bottom:2px}
+.ci-row{display:flex;align-items:flex-start;gap:.5rem;padding:.3rem 0}
+.ci-row label.ci{flex:1;margin:0;padding:0}
+.ci-toggle{background:none;border:1px solid var(--border);border-radius:6px;padding:2px 6px;font-size:.7rem;color:var(--muted);cursor:pointer;white-space:nowrap;flex-shrink:0;margin-top:2px;transition:.15s;font-family:'Outfit',sans-serif}
+.ci-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.ci-toggle.open{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ci-dropdown{max-height:0;overflow:hidden;transition:max-height .3s ease;background:var(--input-bg);border-radius:0 0 8px 8px;margin-left:1.6rem}
+.ci-dropdown.open{max-height:500px}
+.ci-dropdown-in{padding:.65rem .85rem .75rem;border-top:1px solid var(--border)}
+.ci-dd-name{font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:.3rem}
+.ci-dd-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.45rem}
+.ci-dd-chip{font-size:.68rem;padding:2px 7px;border-radius:99px;background:var(--card);border:1px solid var(--border);color:var(--muted)}
+.ci-dd-desc{font-size:.77rem;color:var(--muted);line-height:1.55;margin-bottom:.5rem}
+.ci-dd-links{display:flex;flex-wrap:wrap;gap:.35rem}
+.ci-dd-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:500;padding:.3rem .65rem;border-radius:99px;text-decoration:none;border:1px solid var(--border);color:var(--text);background:var(--card);transition:.15s;white-space:nowrap}
+.ci-dd-link:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ci-dd-link svg{width:11px;height:11px;flex-shrink:0}
+.ci-dd-rating{font-size:.72rem;color:#F4A228;font-weight:600;margin-bottom:.3rem}
 
 
 
@@ -918,6 +936,325 @@ function updateCountdown(){
 updateCountdown();
 setInterval(updateCountdown, 60000); // mise à jour toutes les minutes
 
+
+// ═══════════════════════════════════════
+// CODEX ITEMS — fiches par lieu
+// ═══════════════════════════════════════
+const CODEX_ITEMS = {
+  "Vieille ville de Kotor": {
+    icon:"🏰", rating:"4.7",
+    infos:["Entrée libre","Remparts ~8€","Ouvert 24h/24"],
+    desc:"Vieille ville médiévale inscrite au patrimoine UNESCO. Remparts vénitiens du XVe siècle, ruelles pavées, places cachées et chats partout. Compter 2h pour une visite complète.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Old+Town+Kotor+Montenegro"},{label:"Site officiel",icon:"web",url:"https://www.kotor.travel"}],
+    search:"Kotor vieille ville"
+  },
+  "Forteresse San Giovanni": {
+    icon:"🏔", rating:"4.8",
+    infos:["Départ avant 7h30","~2h A/R","Entrée ~8€","Eau indispensable"],
+    desc:"1 350 marches qui mènent à 280m d'altitude. Vue panoramique sur toute la baie de Kotor. Départ impératif avant 7h30 pour éviter la chaleur.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Fortress+San+Giovanni+Kotor"}],
+    search:"Forteresse San Giovanni Kotor"
+  },
+  "Cathédrale Saint-Tryphon": {
+    icon:"⛪", rating:"4.6",
+    infos:["Entrée 2€","9h-19h en saison"],
+    desc:"Cathédrale romane du XIIe siècle, l'un des plus beaux exemples d'architecture médiévale de la côte adriatique. Trésor médiéval et balcon avec vue sur la ville.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Cathedral+Saint+Tryphon+Kotor"}],
+    search:"Cathédrale Saint-Tryphon Kotor"
+  },
+  "Galion": {
+    icon:"🦞", rating:"4.5",
+    infos:["Réservation conseillée","30-50€/pers","Vue port"],
+    desc:"Le restaurant le plus emblématique de Kotor. Vue directe sur les remparts. Spécialité : plateau de fruits de mer pour deux et brodet de poisson.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Restaurant+Galion+Kotor"},{label:"TripAdvisor",icon:"web",url:"https://www.tripadvisor.com/Restaurant_Review-g304076-d1088830-Reviews-Galion-Kotor_Kotor_Municipality.html"}],
+    search:"Restaurant Galion Kotor"
+  },
+  "PRŽUN": {
+    icon:"🐟", rating:"4.4",
+    infos:["Vieille ville","20-35€/pers","Ambiance locale"],
+    desc:"Adresse locale dans la vieille ville. Brodet de fruits de mer traditionnel, cuisine du terroir. Ambiance authentique, loin des pièges à touristes.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=PRZUN+restaurant+Kotor"}],
+    search:"PRZUN restaurant Kotor"
+  },
+  "Perast": {
+    icon:"⛵", rating:"4.8",
+    infos:["15 min de Kotor","Entrée libre","45 min suffisent"],
+    desc:"Minuscule village vénitien à 15 min de Kotor. 5 rues, des palais baroques et la vue sur deux îlots : Notre-Dame-des-Rochers et Saint-Georges. La vue depuis le front de mer est magnifique.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Perast+Montenegro"}],
+    search:"Perast Montenegro îlots"
+  },
+  "Route des 25 lacets": {
+    icon:"🛣", rating:"4.9",
+    infos:["Départ Kotor","45 min de montée","Stop photo mi-route"],
+    desc:"Route spectaculaire qui monte de Kotor vers le plateau du Lovcen. 25 virages en épingle avec vue plongeante sur la baie à chaque lacet. Stop photo obligatoire à mi-hauteur.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Kotor+serpentine+road+Montenegro"}],
+    search:"Route 25 lacets Kotor Montenegro"
+  },
+  "Mausolée de Njegoš": {
+    icon:"🗿", rating:"4.8",
+    infos:["Altitude 1 749m","461 marches","Entrée 8€","Tenue correcte exigée"],
+    desc:"À 1 749m d'altitude, au sommet du mont Lovcen. 461 marches taillées dans la roche mènent à ce mausolée en granit noir. Vue à 360° sur le Monténégro et la mer Adriatique.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Njegos+Mausoleum+Montenegro"},{label:"Parc Lovcen",icon:"web",url:"https://nparkovi.me/lovcen"}],
+    search:"Mausolée Njegos Lovcen Montenegro"
+  },
+  "Cetinje": {
+    icon:"👑", rating:"4.3",
+    infos:["45 min depuis Lovcen","Monastère + Palais royal","1h30 de visite"],
+    desc:"Ancienne capitale royale du Monténégro. Monastère du XVe siècle, Palais royal, résidence des Biljarda. Ville musée à ciel ouvert, atmosphère hors du temps.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Cetinje+Montenegro"}],
+    search:"Cetinje ancienne capitale Monténégro"
+  },
+  "Restaurant Vladika": {
+    icon:"🥩", rating:"4.5",
+    infos:["Sur le Lovcen","Vue panoramique","Njeguški steak 600g"],
+    desc:"Sur le mont Lovcen, avec vue panoramique imprenable. Njeguški steak (600g) de réputation légendaire dans tout le Monténégro. Surprenant de qualité pour un restaurant d'altitude.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Restaurant+Vladika+Lovcen+Montenegro"}],
+    search:"Restaurant Vladika Lovcen Montenegro"
+  },
+  "Sveti Stefan": {
+    icon:"🏝", rating:"4.8",
+    infos:["Belvédère gratuit","Meilleure lumière tôt le matin","30 min A/R depuis Bečići"],
+    desc:"L'image la plus iconique du Monténégro — un village médiéval sur un îlot relié à la terre par un isthme. La vue depuis le belvédère est gratuite et imprenable.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Sveti+Stefan+Montenegro"}],
+    search:"Sveti Stefan Montenegro"
+  },
+  "Plage Mogren": {
+    icon:"🪨", rating:"4.6",
+    infos:["15 min à pied de Budva","Peu fréquentée","Saut de falaise possible"],
+    desc:"Plage cachée derrière les rochers, accessible à pied depuis la vieille ville de Budva. Moins fréquentée, eau turquoise, ambiance intime.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Mogren+beach+Budva+Montenegro"}],
+    search:"Plage Mogren Budva Montenegro"
+  },
+  "Jaz Beach": {
+    icon:"🌊", rating:"4.5",
+    infos:["3 km de Budva","Quasi déserte en sept.","Eau cristalline"],
+    desc:"Grande plage de sable à 3 km de Budva. Quasi déserte en septembre. Eau cristalline, ambiance décontractée. Cadre naturel préservé.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Jaz+beach+Budva+Montenegro"}],
+    search:"Jaz Beach Budva Montenegro"
+  },
+  "Vieille ville de Budva": {
+    icon:"🏛", rating:"4.4",
+    infos:["Entrée libre","Citadelle ~4€","Coucher de soleil +++"],
+    desc:"Vieille ville fortifiée sur un promontoire. Remparts, ruelles médiévales, citadelle avec vue mer. Particulièrement belle au coucher du soleil. Cocktail dans les remparts : 4€.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Old+Town+Budva+Montenegro"}],
+    search:"Vieille ville Budva Montenegro"
+  },
+  "Lake Skadar Cruise": {
+    icon:"🚤", rating:"5.0",
+    infos:["3-4h","~25-35€/pers","⚠️ Réserver à l'avance !","Note 5/5"],
+    desc:"Croisière sur le plus grand lac des Balkans. Pélicans frisés (espèce rare), monastère de Kom sur son îlot, village de Karuc, baignade dans le lac. 589 avis 5 étoiles.",
+    links:[{label:"Réserver",icon:"web",url:"https://www.lakeskadarcruise.me"},{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Virpazar+Montenegro"}],
+    search:"Lake Skadar Cruise Montenegro"
+  },
+  "Vignobles Godinje": {
+    icon:"🍷", rating:"4.7",
+    infos:["5 min de Virpazar","Dégustation chez producteur","Vranac = cépage unique"],
+    desc:"Village perché au-dessus du lac Skadar. Dégustation de Vranac (cépage autochtone unique au monde) chez des producteurs familiaux. Miel, figues et fromage en prime.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Godinje+village+Montenegro"}],
+    search:"Godinje vignobles Lac Skadar Montenegro"
+  },
+  "Monastère d'Ostrog": {
+    icon:"⛪", rating:"4.8",
+    infos:["Route très étroite","Tenue correcte exigée","Pèlerinage chrétien & musulman","Alt. 900m"],
+    desc:"L'un des lieux les plus sacrés des Balkans. Incrusté dans une falaise blanche verticale à 900m. Lieu de pèlerinage à la fois chrétien orthodoxe ET musulman — une rareté unique au monde.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Ostrog+Monastery+Montenegro"}],
+    search:"Monastère Ostrog Montenegro"
+  },
+  "Biogradska Gora": {
+    icon:"🌲", rating:"4.8",
+    infos:["Entrée 4€/pers","Tour du lac 3,5km / 1h30","Canot 10€/h","Arbres de 500 ans"],
+    desc:"Une des trois dernières forêts primaires d'Europe. Arbres de 500 ans, lac glaciaire turquoise. Tour du lac en 1h30. Canot en bois disponible à louer. Ambiance mystique.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Biogradska+Gora+National+Park"},{label:"Parc officiel",icon:"web",url:"https://nparkovi.me/biogradska-gora"}],
+    search:"Biogradska Gora forêt primaire Montenegro"
+  },
+  "Canyon de la Tara": {
+    icon:"🏔", rating:"4.9",
+    infos:["Profondeur 1 300m","Pont à 150m de hauteur","Tyrolienne 20-30€"],
+    desc:"Deuxième canyon au monde après le Grand Canyon avec 1 300m de profondeur. Eau turquoise glacée, falaises vertigineuses. Pont Đurđevića à 150m au-dessus du vide.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Tara+River+Canyon+Montenegro"},{label:"Tyrolienne",icon:"web",url:"https://www.ziplinetara.com"}],
+    search:"Canyon Tara Montenegro"
+  },
+  "Rafting sur la Tara": {
+    icon:"🛶", rating:"4.8",
+    infos:["Classe III-IV","Demi-journée","~40-60€/pers","Réservable 1 sem. avant"],
+    desc:"Demi-journée de rafting sur la Tara, classe III-IV. L'un des meilleurs spots de rafting d'Europe. Eau turquoise glacée, parois du canyon à pic.",
+    links:[{label:"Opérateur",icon:"web",url:"https://www.raftingtara.com"},{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Zabljak+Montenegro"}],
+    search:"Rafting Tara Montenegro"
+  },
+  "Lac Noir": {
+    icon:"🖤", rating:"4.9",
+    infos:["Tour 3,5km / 1h","Lever du soleil +++","Entrée parc 3€"],
+    desc:"Lac glaciaire le plus célèbre du Durmitor. Tour de 3,5 km en 1h. En septembre, premières couleurs d'automne. Le lever du soleil ici est inoubliable.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Crno+Jezero+Durmitor+Montenegro"}],
+    search:"Lac Noir Crno Jezero Durmitor Montenegro"
+  },
+  "Savin Kuk": {
+    icon:"⛰", rating:"4.8",
+    infos:["Alt. 2 313m","3h A/R","Couche chaude obligatoire","Télésiège 10€"],
+    desc:"Point culminant accessible du Durmitor. Randonnée 3h A/R depuis le lac Noir. Vue totale sur les 18 lacs glaciaires et la côte adriatique par temps clair.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Savin+Kuk+Durmitor+Montenegro"}],
+    search:"Savin Kuk Durmitor sommet Montenegro"
+  },
+  "Restaurant Crno Jezero": {
+    icon:"🐟", rating:"4.5",
+    infos:["Vue Lac Noir","Truite fraîche du lac","Žabljak"],
+    desc:"Restaurant avec vue directe sur le Lac Noir. Spécialité : truite du lac fraîche. Cadre montagnard exceptionnel, service simple et authentique.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Nacionalni+restoran+Crno+jezero+Zabljak"}],
+    search:"Restaurant Crno Jezero Žabljak Montenegro"
+  },
+  "Agneau sous la cloche": {
+    icon:"🍖", rating:"4.6",
+    infos:["Žabljak","Spécialité monténégrine","Ambiance montagne"],
+    desc:"Le jagnjetina ispod sača — agneau cuit lentement sous une cloche en fonte avec des braises. La spécialité monténégrine par excellence. Restaurant Or'O ou Koliba à Žabljak.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Restaurant+OrO+Zabljak+Montenegro"}],
+    search:"Agneau sous la cloche Žabljak Montenegro"
+  },
+  "Grande Plage Ulcinj": {
+    icon:"🏖", rating:"4.7",
+    infos:["12 km de sable","Eau ~24°C en sept.","Kitesurf +++","Quasi déserte en sept."],
+    desc:"12 km de sable fin, la plus longue plage de la côte adriatique. Quasi déserte fin septembre. Eau la plus chaude de la côte. Meilleur spot de kitesurf de l'Adriatique.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Velika+Plaza+Ulcinj+Montenegro"}],
+    search:"Grande Plage Ulcinj Velika Plaza Montenegro"
+  },
+  "Ada Bojana": {
+    icon:"🏝", rating:"4.6",
+    infos:["15 min d'Ulcinj","Plage sauvage","Restaurants sur pilotis"],
+    desc:"Île fluviale triangulaire à la frontière albanaise. Plage sauvage, restaurants sur pilotis directement au-dessus de l'eau. Ambiance unique et décontractée.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Ada+Bojana+Montenegro"}],
+    search:"Ada Bojana île fluviale Montenegro"
+  },
+  "Valdanos": {
+    icon:"🌿", rating:"4.8",
+    infos:["Oliveraie millénaire","Zéro touriste","10 min d'Ulcinj"],
+    desc:"Crique émeraude nichée dans une oliveraie millénaire. Zéro touriste, eau cristalline, cadre sauvage. L'une des criques les plus secrètes du Monténégro.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Valdanos+beach+Ulcinj+Montenegro"}],
+    search:"Valdanos crique Ulcinj Montenegro"
+  },
+  "Misko": {
+    icon:"🐟", rating:"4.7",
+    infos:["Poisson du matin","Légende d'Ulcinj","20-35€/pers"],
+    desc:"La table de référence d'Ulcinj depuis des décennies. Poisson pêché le matin même, soupe de poisson légendaire, bar grillé. Ambiance familiale authentique.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Restaurant+Misko+Ulcinj+Montenegro"}],
+    search:"Restaurant Misko Ulcinj Montenegro"
+  },
+  "Ćirkova Čarda": {
+    icon:"🏡", rating:"4.8",
+    infos:["Ada Bojana","Sur pilotis","Poisson sauvage"],
+    desc:"Maison sur pilotis au milieu de l'eau sur Ada Bojana. Poisson sauvage pêché le matin, anguille de rivière, carpe. Cadre absolument unique.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Cirkova+Carda+Ada+Bojana+Montenegro"}],
+    search:"Cirkova Carda Ada Bojana Montenegro"
+  },
+  "Vieille ville d'Ulcinj": {
+    icon:"🕌", rating:"4.4",
+    infos:["Entrée libre","Vue sur l'Albanie","Ambiance albanophone"],
+    desc:"Forteresse et vieille ville à dominante albanophone. Vue depuis les remparts sur l'Albanie et la Grande Plage. Bazars, mosquées et ruelles ottomanes.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Ulcinj+old+town+Montenegro"}],
+    search:"Vieille ville Ulcinj ottomane Montenegro"
+  },
+  "Monastère de la Morača": {
+    icon:"⛪", rating:"4.6",
+    infos:["XIIe siècle","Dans les gorges","45 min de visite"],
+    desc:"Monastère du XIIe siècle niché dans les gorges de la Morača. Fresques médiévales remarquables, jardin de roses et ruches des moines.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Moraca+Monastery+Montenegro"}],
+    search:"Monastère Morača Montenegro"
+  },
+  "Blue Cave": {
+    icon:"🌊", rating:"4.7",
+    infos:["Bateau depuis Kotor","~30-40€/pers","Eau turquoise"],
+    desc:"Grottes marines aux eaux turquoise aux alentours de Kotor. Tour en bateau avec plusieurs arrêts baignade. Opérateur recommandé : 360 Monte.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Blue+Cave+Kotor+Montenegro"},{label:"360 Monte",icon:"web",url:"https://www.360monte.com"}],
+    search:"Blue Cave Kotor Montenegro"
+  },
+  "Kitesurfing Ulcinj": {
+    icon:"🪁", rating:"4.9",
+    infos:["Velika Plaža","Meilleur spot Adriatique","Cours disponibles"],
+    desc:"La Grande Plage d'Ulcinj est considérée comme le meilleur spot de kitesurf et windsurf de toute la côte adriatique. Vent régulier, eau peu profonde, idéal pour débuter.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Velika+Plaza+Ulcinj+Montenegro"}],
+    search:"Kitesurfing Ulcinj Montenegro"
+  },
+};
+
+// Keywords → codex item key
+const CODEX_KEYWORDS = [
+  {keys:["San Giovanni","1 350 marches","forteresse","Forteresse"], item:"Forteresse San Giovanni"},
+  {keys:["Saint-Tryphon","cathédrale","Cathédrale"], item:"Cathédrale Saint-Tryphon"},
+  {keys:["chats","remparts","Kotor Old Town","vieille ville de Kotor"], item:"Vieille ville de Kotor"},
+  {keys:["25 lacets","lacets"], item:"Route des 25 lacets"},
+  {keys:["Njegoš","Lovcen","mausolée","461 marches"], item:"Mausolée de Njegoš"},
+  {keys:["Cetinje","capitale royale","Biljarda"], item:"Cetinje"},
+  {keys:["Galion"], item:"Galion"},
+  {keys:["PRŽUN","PRZUN"], item:"PRŽUN"},
+  {keys:["Vladika"], item:"Restaurant Vladika"},
+  {keys:["Sveti Stefan","belvédère"], item:"Sveti Stefan"},
+  {keys:["Mogren"], item:"Plage Mogren"},
+  {keys:["Jaz Beach","Jaz"], item:"Jaz Beach"},
+  {keys:["Bečići","plage de sable en arc"], item:"Lake Skadar Cruise"},
+  {keys:["Budva","Citadelle","remparts de Budva"], item:"Vieille ville de Budva"},
+  {keys:["Lake Skadar Cruise","bateau","pélicans frisés","croisière","Virpazar"], item:"Lake Skadar Cruise"},
+  {keys:["Godinje","Vranac","vigne","dégustation"], item:"Vignobles Godinje"},
+  {keys:["Ostrog"], item:"Monastère d'Ostrog"},
+  {keys:["Biogradska","forêt primaire","lac Biogradsko","Biogradsko"], item:"Biogradska Gora"},
+  {keys:["Tara","canyon","Đurđevića","pont Đurđevića"], item:"Canyon de la Tara"},
+  {keys:["Rafting","rafting"], item:"Rafting sur la Tara"},
+  {keys:["Tyrolienne","tyrolienne"], item:"Canyon de la Tara"},
+  {keys:["Lac Noir","Crno Jezero","lac noir"], item:"Lac Noir"},
+  {keys:["Savin Kuk"], item:"Savin Kuk"},
+  {keys:["truite du lac","Crno Jezero","Nacionalni"], item:"Restaurant Crno Jezero"},
+  {keys:["agneau sous la cloche","jagnjetina","Or'O","Koliba"], item:"Agneau sous la cloche"},
+  {keys:["Grande Plage","Velika Plaža","12 km"], item:"Grande Plage Ulcinj"},
+  {keys:["Ada Bojana"], item:"Ada Bojana"},
+  {keys:["Valdanos"], item:"Valdanos"},
+  {keys:["Misko","Misko"], item:"Misko"},
+  {keys:["Ćirkova","Čarda","pilotis"], item:"Ćirkova Čarda"},
+  {keys:["ottomane","Ulcinj","forteresse d'Ulcinj"], item:"Vieille ville d'Ulcinj"},
+  {keys:["Morača","fresques médiévales"], item:"Monastère de la Morača"},
+  {keys:["Blue Cave","grottes marines","360 Monte"], item:"Blue Cave"},
+  {keys:["Kitesurfing","kitesurfing","windsurf","kitesurf"], item:"Kitesurfing Ulcinj"},
+  {keys:["Perast","îlots","Notre-Dame-des-Rochers"], item:"Perast"},
+  {keys:["Pavlova Strana","fer à cheval"], item:"Canyon de la Tara"},
+];
+
+function findCodexEntry(text){
+  const lower = text.toLowerCase();
+  for(const entry of CODEX_KEYWORDS){
+    if(entry.keys.some(k => lower.includes(k.toLowerCase()))){
+      return CODEX_ITEMS[entry.item] || null;
+    }
+  }
+  return null;
+}
+
+function ciDropdownHTML(item, idx){
+  const chips = item.infos.map(i=>`<span class="ci-dd-chip">${i}</span>`).join('');
+  const links = item.links.map(l=>`
+    <a class="ci-dd-link" href="${l.url}" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        ${l.icon==='map'
+          ? '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>'
+          : '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>'}
+      </svg>${l.label}
+    </a>`).join('');
+  const photosLink = `<a class="ci-dd-link" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.search)}" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Photos
+  </a>`;
+  return `<div class="ci-dropdown-in">
+    ${item.rating ? `<div class="ci-dd-rating">${item.icon} ★ ${item.rating}</div>` : ''}
+    ${chips ? `<div class="ci-dd-chips">${chips}</div>` : ''}
+    <div class="ci-dd-desc">${item.desc}</div>
+    <div class="ci-dd-links">${links}${photosLink}</div>
+  </div>`;
+}
+
+function toggleCiDropdown(idx){
+  const dd = document.getElementById('ci-dd-'+idx);
+  const btn = document.getElementById('ci-btn-'+idx);
+  if(!dd || !btn) return;
+  const isOpen = dd.classList.contains('open');
+  dd.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? 'ℹ️' : '✕';
+}
+
 // ═══════════════════════════════════════
 // BUILD ITINERARY
 // ═══════════════════════════════════════
@@ -954,7 +1291,21 @@ DAYS.forEach((d,idx)=>{
   let clHTML='';
   if(d.checks&&d.checks.length){
     clHTML=`<div class="cl"><div class="cl-title">À voir / à faire</div>`;
-    d.checks.forEach(c=>{clHTML+=`<label class="ci"><input type="checkbox" data-c="${ci}"/><span>${c}</span></label>`;ci++;});
+    d.checks.forEach(c=>{
+      const entry = findCodexEntry(c);
+      if(entry){
+        clHTML+=`<div class="ci-block">
+          <div class="ci-row">
+            <label class="ci"><input type="checkbox" data-c="${ci}"/><span>${c}</span></label>
+            <button class="ci-toggle" id="ci-btn-${ci}" onclick="toggleCiDropdown(${ci})">ℹ️</button>
+          </div>
+          <div class="ci-dropdown" id="ci-dd-${ci}">${ciDropdownHTML(entry,ci)}</div>
+        </div>`;
+      } else {
+        clHTML+=`<label class="ci"><input type="checkbox" data-c="${ci}"/><span>${c}</span></label>`;
+      }
+      ci++;
+    });
     clHTML+=`</div>`;
   }
 
