@@ -206,15 +206,15 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .cl-cat-add{background:none;border:none;cursor:pointer;color:var(--accent);font-size:.75rem;font-weight:500;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:.25rem;padding:0;opacity:.8}
 .cl-cat-add:hover{opacity:1}
 .ci{display:flex;align-items:center;gap:.6rem;flex:1}
-.ci input{appearance:none;-webkit-appearance:none;width:19px;height:19px;min-width:19px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;cursor:pointer;transition:.15s;position:relative;background:var(--card)}
-.ci input:checked{background:var(--accent);border-color:var(--accent)}
-.ci input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
-.ci span{font-size:.85rem;color:var(--text);line-height:1.5;flex:1}
-.ci input:checked+span{color:var(--muted);text-decoration:line-through;opacity:.6}
+.ci-checkbox{appearance:none;-webkit-appearance:none;width:19px;height:19px;min-width:19px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;cursor:pointer;transition:.15s;position:relative;background:var(--card)}
+.ci-checkbox:checked{background:var(--accent);border-color:var(--accent)}
+.ci-checkbox:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
+.ci-name{font-size:.85rem;color:var(--text);line-height:1.5;flex:1}
+.ci-checkbox:checked~.ci-name{color:var(--muted);text-decoration:line-through;opacity:.6}
 .ci-block{border:1px solid var(--border);border-radius:12px;margin-bottom:.5rem;overflow:hidden;background:var(--card);transition:border-color .2s}
 .ci-block:hover{border-color:var(--muted)}
 .ci-block.open{border-color:var(--accent)}
-.ci-row{display:flex;align-items:center;gap:.6rem;padding:.7rem .6rem;cursor:default;user-select:none}
+.ci-row{display:flex;align-items:center;gap:.6rem;padding:.7rem .6rem;user-select:none}
 .ci-edit-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:.2rem .25rem;opacity:.45;transition:.15s;font-size:.82rem;flex-shrink:0;line-height:1}
 .ci-edit-btn:hover{opacity:1;color:var(--accent)}
 .ci-chevron{width:16px;height:16px;flex-shrink:0;color:var(--muted);transition:transform .2s}
@@ -2180,12 +2180,13 @@ function renderCheckItem(item, dayNum, catKey){
   const hasInfo = item.desc || (item.infos && item.infos.length) || (item.links && item.links.length);
   const ddHTML = hasInfo ? ciDropdownFromItem(item) : '';
 
-  return `<div class="ci-block${item.checked?' ci-checked':''}" id="ci-fb-${item.id}">
-    <div class="ci-row" onclick="handleCiFbClick(event,'${item.id}','${dayNum}','${catKey}')">
-      <label class="ci" onclick="event.stopPropagation()">
-        <input type="checkbox" ${item.checked?'checked':''} onclick="event.stopPropagation();toggleCheckFb('${item.id}','${dayNum}','${catKey}',this.checked)"/>
-        <span>${item.name}</span>
-      </label>
+  // Whole block opens dropdown on click
+  // Checkbox stops propagation and just toggles
+  // Edit button stops propagation and opens modal
+  return `<div class="ci-block${item.checked?' ci-checked':''}" id="ci-fb-${item.id}" onclick="handleCiFbClick(event,'${item.id}','${dayNum}','${catKey}')" style="cursor:pointer">
+    <div class="ci-row">
+      <input type="checkbox" class="ci-checkbox" ${item.checked?'checked':''} onclick="event.stopPropagation();toggleCheckFb('${item.id}','${dayNum}','${catKey}',this.checked)"/>
+      <span class="ci-name">${item.name}</span>
       <button class="ci-edit-btn" onclick="event.stopPropagation();openEditItem('${item.id}','${dayNum}','${catKey}')" title="Modifier">✏️</button>
       ${hasInfo ? `<svg class="ci-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>` : '<span style="width:16px;flex-shrink:0"></span>'}
     </div>
