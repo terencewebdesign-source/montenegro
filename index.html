@@ -700,7 +700,7 @@ stops:[
 {t:"Matin",n:"Vol Paris → Tivat (TIV)",d:"~2h30. Récupération SUV. Assurance tous risques, vérifier le contrat pour les pistes non goudronnées.",tips:[["warn","Assurance tous risques obligatoire"]]},
 {t:"14h00",n:"Perast — visite à pied",d:"Minuscule village vénitien de 5 rues. Vue sur les deux îlots depuis le quai : Notre-Dame-des-Rochers et Saint-Georges. Pas besoin de prendre le bateau — la vue depuis le front de mer est déjà magnifique. Palais baroque, chats, calme absolu.",tips:[["go","45 min suffisent"]]},
 {t:"17h00",n:"Kotor Old Town",d:"Vieille ville UNESCO — remparts vénitiens, ruelles pavées, chats partout. Dîner face à la baie.",night:"Nuit à Kotor"}],
-checks:["📸 Vue sur les îlots depuis le quai de Perast","🏛 Photo des palais baroques de Perast","🔔 Tour de cloche Saint-Nicolas à Perast — vue 360° sur la baie (quelques €)","⛪ Cathédrale Saint-Tryphon — reliques et balcon (2€)","🛒 Marché paysan devant les remparts (matin) — fromage, figues, olives","🐱 Trouver la place des Chats de Kotor","🌅 Dîner face à la baie au coucher du soleil","🍽 Restaurant Galion — vue remparts + montagne Vrmac, cuisine côtière réinterprétée","🥐 Croissant Njeguši prosciutto + roquette au café près de la cathédrale","🥙 Goûter un burek dans une boulangerie locale","🐱 Compter les chats (record : 87)"]},
+checks:["📸 Vue sur les îlots depuis le quai de Perast","🏛 Photo des palais baroques de Perast","🔔 Tour de cloche Saint-Nicolas à Perast — vue 360° sur la baie (quelques €)","⛪ Cathédrale Saint-Tryphon — reliques et balcon (2€)","🛒 Marché paysan devant les remparts (matin) — fromage, figues, olives","🌅 Dîner face à la baie au coucher du soleil","🍽 Restaurant Galion — vue remparts + montagne Vrmac, cuisine côtière réinterprétée","🥐 Croissant Njeguši prosciutto + roquette au café près de la cathédrale","🥙 Goûter un burek dans une boulangerie locale","🍽 Konoba Scala Santa — vieille ville, terrasse cachée, risotto aux fruits de mer","🍽 Restaurant Cattaro — remparts illuminés, meilleur cadre de Kotor"]},
 
 {num:2,date:"Jeu 18 sept",type:"coast",badge:"2",weather:"Kotor",
 title:"Forteresse + Lovcen + Cetinje → Bečići",sub:"Journée chargée · Nuit 1/3 à Bečići",
@@ -719,7 +719,7 @@ drive:{text:"Bečići → Sveti Stefan → Budva",km:"~15 km",time:"~20 min",not
 stops:[
 {t:"Jour 3",n:"Sveti Stefan (matin) + plage",d:"Belvédère avant 10h — LA photo iconique du Monténégro. Puis plage de Bečići.",tips:[["go","30 min A/R depuis Bečići"]]},
 {t:"Jour 4",n:"Piscine & plage",d:"Transats, mer, beach bars. Vieille ville de Budva le soir si motivé.",tips:[["ch","Programme officiel : ne rien faire"]],night:"Nuits 2-3/3 à Bečići"}],
-checks:["🌅 Photo Sveti Stefan — belvédère golden hour en fin d'après-midi","🏖 Plage Mogren 2 — la secrète derrière les rochers","🪨 Saut de falaise à Mogren","🏖 Jaz Beach — sable, eau cristalline, quasi déserte en septembre","🌆 Vieille ville de Budva au coucher du soleil","🍹 Cocktail dans les remparts de la Citadelle (4€, vue mer)","🐟 Montenegrin fish soup dans la vieille ville","🐱 Trouver le chat le plus gros de Budva"]},
+checks:["🌅 Photo Sveti Stefan — belvédère golden hour en fin d'après-midi","🏖 Plage Mogren 2 — la secrète derrière les rochers","🪨 Saut de falaise à Mogren","🏖 Jaz Beach — sable, eau cristalline, quasi déserte en septembre","🌆 Vieille ville de Budva au coucher du soleil","🍹 Cocktail dans les remparts de la Citadelle (4€, vue mer)","🐟 Montenegrin fish soup dans la vieille ville","🍽 Restaurant Jadran — terrasse sur les remparts, poisson grillé, vue mer imprenable","🍽 Porto — vieille ville de Budva, fruits de mer et ambiance locale"]},
 
 {num:5,date:"Dim 21 sept",type:"lake",badge:"5",weather:"Virpazar",
 title:"Lac Skadar + Vignobles + Ostrog",sub:"Pélicans · Vin Vranac · Falaise · Nuit Ostrog/Nikšić",
@@ -1174,6 +1174,224 @@ const CODEX_ITEMS = {
     links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Blue+Cave+Kotor+Montenegro"},{label:"360 Monte",icon:"web",url:"https://www.360monte.com"}],
     search:"Blue Cave Kotor Montenegro"
   },
+
+  "Tour de cloche Saint-Nicolas": {
+    icon:"🔔", rating:"4.5",
+    infos:["Quelques €","Vue 360° sur la baie","Perast"],
+    desc:"Le clocher de l'église Saint-Nicolas à Perast offre une vue panoramique à 360° sur la baie de Kotor et les deux îlots. Montée facile, récompense garantie.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Church+Saint+Nicholas+Perast+Montenegro"}],
+    search:"Saint Nicolas Perast Montenegro clocher vue"
+  },
+  "Marché paysan Kotor": {
+    icon:"🛒", rating:"4.4",
+    infos:["Devant les remparts","Le matin uniquement","Fromage, figues, olives locales"],
+    desc:"Petit marché paysan tenu chaque matin devant les remparts de Kotor. Producteurs locaux : fromage de brebis, figues fraîches, olives, miel de montagne, prosciutto de Njeguši.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Kotor+old+town+market+Montenegro"}],
+    search:"Marché paysan Kotor Montenegro"
+  },
+  "Burek Kotor": {
+    icon:"🥙", rating:"4.6",
+    infos:["Boulangerie locale","1-2€","Déjeuner rapide idéal"],
+    desc:"Le burek est la street food balkanique par excellence — une pâte feuilletée garnie de fromage, viande ou épinards. Les boulangeries locales de Kotor en font de l'excellent, chaud sorti du four.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=bakery+Kotor+Montenegro"}],
+    search:"Burek boulangerie Kotor Montenegro"
+  },
+  "Konoba Scala Santa": {
+    icon:"🍝", rating:"4.7",
+    infos:["Vieille ville de Kotor","Terrasse cachée","20-35€/pers","Réservation conseillée"],
+    desc:"Konoba cachée dans la vieille ville, accessible par un escalier étroit. Terrasse ombragée, risotto aux fruits de mer de la baie, poulpe grillé. Une des meilleures tables de Kotor loin des touristes.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Konoba+Scala+Santa+Kotor"}],
+    search:"Konoba Scala Santa Kotor restaurant"
+  },
+  "Restaurant Cattaro": {
+    icon:"🌊", rating:"4.6",
+    infos:["Vue remparts illuminés","Fruits de mer","25-45€/pers"],
+    desc:"Adresse romantique dans la vieille ville avec vue sur les remparts illuminés le soir. Plateau de fruits de mer de la baie, bar sauvage, ambiance méditerranéenne raffinée.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Restaurant+Cattaro+Kotor"}],
+    search:"Restaurant Cattaro Kotor Montenegro"
+  },
+  "Palais royal Cetinje": {
+    icon:"👑", rating:"4.4",
+    infos:["Cetinje","Entrée ~5€","Salle du trône","1h de visite"],
+    desc:"L'ancien palais royal de la dynastie Petrović-Njegoš, aujourd'hui musée. La salle du trône avec ses décorations d'époque est le clou de la visite. Collections de portraits royaux et mobilier d'époque.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Royal+Palace+Cetinje+Montenegro"}],
+    search:"Palais royal Cetinje salle du trône Montenegro"
+  },
+  "Monastère de Cetinje": {
+    icon:"⛪", rating:"4.5",
+    infos:["XVe siècle","Reliques sacrées","Tenue correcte","Cetinje"],
+    desc:"Le monastère orthodoxe le plus important du Monténégro, fondé au XVe siècle. Abrite la main droite de Saint Jean-Baptiste et un fragment de la Vraie Croix — reliques parmi les plus vénérées des Balkans.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Cetinje+Monastery+Montenegro"}],
+    search:"Monastère Cetinje reliques Montenegro"
+  },
+  "Canyoning Škurda": {
+    icon:"🏊", rating:"4.7",
+    infos:["Depuis Kotor","~50-70€/pers","Guide obligatoire","3-4h"],
+    desc:"Canyon de la rivière Škurda juste derrière Kotor. Tobogans naturels, sauts, tyroliennes dans une gorge calcaire spectaculaire. Opérateur référence : Montenegro Canyoning.",
+    links:[{label:"Réserver",icon:"web",url:"https://www.montenegro-canyoning.com"},{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Skurda+canyon+Kotor+Montenegro"}],
+    search:"Canyoning Škurda Kotor Montenegro"
+  },
+  "Miel de montagne": {
+    icon:"🍯", rating:"4.8",
+    infos:["En route vers Lovcen","Producteurs locaux","5-15€ le pot"],
+    desc:"Les apiculteurs monténégrins produisent un miel de montagne exceptionnel grâce à la diversité florale du Lovcen et du Durmitor. Les petits stands sur le bord des routes sont les meilleurs.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Lovcen+Montenegro"}],
+    search:"Miel de montagne Montenegro producteur"
+  },
+  "Cocktail Citadelle Budva": {
+    icon:"🍹", rating:"4.5",
+    infos:["Dans les remparts","~4€","Vue mer","Coucher de soleil +++"],
+    desc:"Le bar dans les remparts de la Citadelle de Budva est l'un des endroits les plus photogéniques de la côte. Cocktail à 4€ avec vue directe sur la mer et les îlots.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Citadel+Budva+Montenegro"}],
+    search:"Citadelle Budva bar cocktail vue mer"
+  },
+  "Restaurant Jadran Budva": {
+    icon:"🐟", rating:"4.6",
+    infos:["Terrasse sur les remparts","Poisson grillé","Vue mer imprenable","25-40€/pers"],
+    desc:"Terrasse directement accrochée aux remparts de la vieille ville de Budva avec vue plongeante sur la mer. Poisson grillé du jour, risotto à l'encre de seiche, fruits de mer.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Restaurant+Jadran+Budva+Montenegro"}],
+    search:"Restaurant Jadran Budva Montenegro"
+  },
+  "Porto Budva": {
+    icon:"🦐", rating:"4.5",
+    infos:["Vieille ville de Budva","Ambiance locale","20-35€/pers"],
+    desc:"Table locale dans la vieille ville de Budva, loin de l'agitation des rues principales. Fruits de mer frais, crevettes à l'ail, brodet de poisson. Rapport qualité/prix excellent.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Porto+restaurant+Budva+Montenegro"}],
+    search:"Porto restaurant Budva vieille ville Montenegro"
+  },
+  "Pavlova Strana": {
+    icon:"📸", rating:"4.9",
+    infos:["Top 3 vues du Monténégro","Depuis la route Rijeka Crnojevića","Accès voiture"],
+    desc:"Le méandre en fer à cheval de la rivière Crnojevića vu depuis ce belvédère est considéré comme l'une des trois plus belles vues du Monténégro. Lumière magique en fin de journée.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Pavlova+Strana+viewpoint+Montenegro"}],
+    search:"Pavlova Strana méandre Crnojevića Montenegro"
+  },
+  "Ajvar Virpazar": {
+    icon:"🛒", rating:"4.6",
+    infos:["Virpazar","Producteurs locaux","5-10€ le bocal"],
+    desc:"L'ajvar est une confiture de poivrons grillés — la condiment des Balkans. Les producteurs de Virpazar en font un excellent, légèrement fumé. À ramener absolument.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Virpazar+Montenegro"}],
+    search:"Ajvar Virpazar producteur local Montenegro"
+  },
+  "Kajmak": {
+    icon:"🧀", rating:"4.7",
+    infos:["Spécialité balkanique","Crème de lait fermentée","Dans tous les restaurants locaux"],
+    desc:"Le kajmak est une crème de lait fermentée épaisse, entre fromage frais et beurre. Sur du pain grillé chaud c'est une expérience gastronomique simple et inoubliable.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Montenegro+local+food"}],
+    search:"Kajmak spécialité balkanique Montenegro"
+  },
+  "Bière Nikšićko": {
+    icon:"🍺", rating:"4.5",
+    infos:["Bière nationale","~2€ dans les bars","Brassée à Nikšić"],
+    desc:"La Nikšićko Pivo est la bière nationale du Monténégro, brassée à Nikšić depuis 1896. Légère et rafraîchissante, c'est la bière de tout le pays. La boire à Nikšić, c'est la boire à la source.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Niksic+Montenegro"}],
+    search:"Nikšićko pivo bière Montenegro"
+  },
+  "Viewpoint Čurevac": {
+    icon:"🔭", rating:"4.8",
+    infos:["10 km A/R depuis Žabljak","Vue vertigineuse","Canyon de la Tara en dessous"],
+    desc:"Belvédère spectaculaire qui surplombe le canyon de la Tara à pic. L'un des points de vue les plus vertigineux du Monténégro. Coucher de soleil depuis ici : exceptionnel.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Curevac+viewpoint+Durmitor+Montenegro"}],
+    search:"Viewpoint Čurevac canyon Tara Montenegro"
+  },
+  "Lac Zminje Jezero": {
+    icon:"🌲", rating:"4.7",
+    infos:["3 km depuis Žabljak","Zéro touriste","Dans la forêt de pins"],
+    desc:"Lac glaciaire caché dans la forêt de pins de Žabljak. Accessible en 45 min à pied. Aucun touriste, eau limpide, ambiance sauvage totale. Le lac secret du Durmitor.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Zminje+Jezero+Durmitor+Montenegro"}],
+    search:"Lac Zminje Jezero Durmitor Montenegro"
+  },
+  "Durmitor Ring": {
+    icon:"🚗", rating:"4.8",
+    infos:["Circuit 85 km","Villages authentiques","Lacs cachés","Demi-journée"],
+    desc:"Circuit en voiture autour du massif du Durmitor. 85 km de routes de montagne qui traversent des villages de bergers, des lacs glaciaires cachés et des paysages de haute altitude époustouflants.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Durmitor+National+Park+Montenegro"}],
+    search:"Durmitor Ring circuit Montenegro"
+  },
+  "Fromage brebis Žabljak": {
+    icon:"🧀", rating:"4.7",
+    infos:["Chez les bergers locaux","~5-10€/kg","Fromage cru de montagne"],
+    desc:"Les bergers de la région de Žabljak produisent un fromage de brebis cru affiné en altitude, d'une finesse rare. À acheter directement auprès des producteurs locaux sur les marchés ou bords de route.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Zabljak+Montenegro"}],
+    search:"Fromage brebis berger Žabljak Montenegro"
+  },
+  "Gorges de la Morača": {
+    icon:"📸", rating:"4.8",
+    infos:["Sur la route Podgorica-Kolašin","Arrêt voiture","Falaises à pic"],
+    desc:"Les gorges spectaculaires de la rivière Morača s'ouvrent brutalement sur la route principale. Falaises calcaires à pic plongeant dans une rivière turquoise. Stop photo obligatoire.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Moraca+canyon+Montenegro"}],
+    search:"Gorges Morača canyon Montenegro"
+  },
+  "Mala Plaža Ulcinj": {
+    icon:"🏖", rating:"4.5",
+    infos:["Centre-ville Ulcinj","Parasols en chaume","Style Maldives","Eau chaude"],
+    desc:"Petite plage de sable au cœur d'Ulcinj avec des parasols en chaume qui lui donnent un air de plage tropicale. Eaux les plus chaudes de la côte, ambiance décontractée.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Mala+Plaza+Ulcinj+Montenegro"}],
+    search:"Mala Plaža Ulcinj petite plage Montenegro"
+  },
+  "Forteresse Ulcinj": {
+    icon:"🔭", rating:"4.4",
+    infos:["Centre Ulcinj","Vue sur l'Albanie","Entrée libre","Coucher de soleil +++"],
+    desc:"La forteresse d'Ulcinj domine la ville depuis un promontoire. Vue sur la Grande Plage, la mer et l'Albanie au sud. Au coucher du soleil, le panorama est saisissant.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Ulcinj+fortress+Montenegro"}],
+    search:"Forteresse Ulcinj vue Albanie Montenegro"
+  },
+  "Byrek Ulcinj": {
+    icon:"🥙", rating:"4.6",
+    infos:["Spécialité albanophone","1-2€","Dans les boulangeries locales"],
+    desc:"À Ulcinj, à majorité albanophone, le byrek (burek albanais) est omniprésent. Garni de fromage blanc (djathë) ou de viande, cuit au four à bois. Une des meilleures street foods des Balkans.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Ulcinj+Montenegro"}],
+    search:"Byrek burek albanais Ulcinj Montenegro"
+  },
+  "Marche frontière Ulcinj": {
+    icon:"🚶", rating:"4.3",
+    infos:["Depuis Velika Plaža","Vue frontière albanaise","Balade 1-2h"],
+    desc:"Marcher jusqu'à l'extrémité de la Grande Plage permet de voir la frontière albanaise à l'horizon. Sensation unique de se trouver au bout de la côte monténégrine, les pieds dans l'eau.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Velika+Plaza+Ulcinj+Montenegro"}],
+    search:"Grande Plage Ulcinj frontière Albanie"
+  },
+  "Figues Ulcinj": {
+    icon:"🍑", rating:"4.7",
+    infos:["Marché local","2-4€/kg","Septembre = pleine saison"],
+    desc:"Ulcinj est réputée pour ses figues extraordinaires, gorgées de soleil. Septembre est le plein de la saison. Au marché local, les figues fraîches et sèches sont d'une qualité incomparable.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Ulcinj+market+Montenegro"}],
+    search:"Figues marché Ulcinj Montenegro"
+  },
+  "Village de Muo": {
+    icon:"⛵", rating:"4.5",
+    infos:["En bateau depuis Kotor","10 min de traversée","Village de pêcheurs authentique"],
+    desc:"Petit village de pêcheurs de l'autre côté de la baie de Kotor, accessible uniquement par bateau. Ruelles médiévales, bateaux de pêche, pas un touriste. L'anti-Kotor.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Muo+village+Montenegro"}],
+    search:"Village Muo bateau pêcheurs Kotor Montenegro"
+  },
+  "Truffes de Kolašin": {
+    icon:"🍄", rating:"4.8",
+    infos:["Shopping souvenirs","~15-40€","Délicatesse locale"],
+    desc:"Les forêts autour de Kolašin produisent des truffes noires et blanches d'excellente qualité. Les épiceries fines et marchés de Kotor en proposent en pot — un souvenir gastronomique de premier choix.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Kotor+Montenegro"}],
+    search:"Truffes Kolašin Montenegro souvenir"
+  },
+  "Huile d'olive Kotor": {
+    icon:"🫒", rating:"4.7",
+    infos:["Shopping souvenirs","~10-20€","Côte monténégrine"],
+    desc:"L'huile d'olive produite dans les oliveraies de la baie de Kotor et de la côte est fruitée et parfumée. Les producteurs artisanaux vendent en direct dans les marchés de Kotor.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Kotor+Montenegro"}],
+    search:"Huile d'olive artisanale Kotor Montenegro"
+  },
+  "Bastion 1": {
+    icon:"🦞", rating:"4.6",
+    infos:["Porte nord de Kotor","Vue port","Fruits de mer","30-50€/pers"],
+    desc:"Restaurant gastronomique installé dans une ancienne fortification à la porte nord de Kotor. Vue sur le port et les bateaux. Plateau de fruits de mer de la baie, langoustines, poulpe.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Bastion+restaurant+Kotor+Montenegro"}],
+    search:"Bastion restaurant Kotor Montenegro"
+  },
+  "Etoiles Žabljak": {
+    icon:"⭐", rating:"5.0",
+    infos:["Žabljak, 1 456m","Zéro pollution lumineuse","Ciel étoilé exceptionnel"],
+    desc:"À 1 456m d'altitude et loin de toute pollution lumineuse, le ciel nocturne de Žabljak est parmi les plus beaux d'Europe. Voie lactée visible à l'œil nu. Prévoir un pull chaud.",
+    links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Zabljak+Montenegro"}],
+    search:"Etoiles ciel nuit Žabljak Montenegro"
+  },
   "Kitesurfing Ulcinj": {
     icon:"🪁", rating:"4.9",
     infos:["Velika Plaža","Meilleur spot Adriatique","Cours disponibles"],
@@ -1185,42 +1403,80 @@ const CODEX_ITEMS = {
 
 // Keywords → codex item key
 const CODEX_KEYWORDS = [
-  {keys:["San Giovanni","1 350 marches","forteresse","Forteresse"], item:"Forteresse San Giovanni"},
-  {keys:["Saint-Tryphon","cathédrale","Cathédrale"], item:"Cathédrale Saint-Tryphon"},
-  {keys:["chats","remparts","Kotor Old Town","vieille ville de Kotor"], item:"Vieille ville de Kotor"},
+  {keys:["San Giovanni","1 350 marches"], item:"Forteresse San Giovanni"},
+  {keys:["Saint-Tryphon","cathédrale Saint-Tryphon"], item:"Cathédrale Saint-Tryphon"},
+  {keys:["Kotor Old Town","vieille ville de Kotor","remparts vénitiens","coucher de soleil sur les remparts de Kotor"], item:"Vieille ville de Kotor"},
   {keys:["25 lacets","lacets"], item:"Route des 25 lacets"},
   {keys:["Njegoš","Lovcen","mausolée","461 marches"], item:"Mausolée de Njegoš"},
+  {keys:["salle du trône","Palais royal"], item:"Palais royal Cetinje"},
+  {keys:["Monastère de Cetinje","reliques sacrées"], item:"Monastère de Cetinje"},
   {keys:["Cetinje","capitale royale","Biljarda"], item:"Cetinje"},
   {keys:["Galion"], item:"Galion"},
-  {keys:["PRŽUN","PRZUN"], item:"PRŽUN"},
+  {keys:["Scala Santa"], item:"Konoba Scala Santa"},
+  {keys:["Cattaro"], item:"Restaurant Cattaro"},
+  {keys:["PRŽUN","PRZUN","brodet de fruits de mer, ambiance locale"], item:"PRŽUN"},
   {keys:["Vladika"], item:"Restaurant Vladika"},
-  {keys:["Sveti Stefan","belvédère"], item:"Sveti Stefan"},
+  {keys:["Sveti Stefan","belvédère golden hour"], item:"Sveti Stefan"},
   {keys:["Mogren"], item:"Plage Mogren"},
   {keys:["Jaz Beach","Jaz"], item:"Jaz Beach"},
-  {keys:["Bečići","plage de sable en arc"], item:"Lake Skadar Cruise"},
-  {keys:["Budva","Citadelle","remparts de Budva"], item:"Vieille ville de Budva"},
-  {keys:["Lake Skadar Cruise","bateau","pélicans frisés","croisière","Virpazar"], item:"Lake Skadar Cruise"},
-  {keys:["Godinje","Vranac","vigne","dégustation"], item:"Vignobles Godinje"},
-  {keys:["Ostrog"], item:"Monastère d'Ostrog"},
-  {keys:["Biogradska","forêt primaire","lac Biogradsko","Biogradsko"], item:"Biogradska Gora"},
-  {keys:["Tara","canyon","Đurđevića","pont Đurđevića"], item:"Canyon de la Tara"},
+  {keys:["Jadran"], item:"Restaurant Jadran Budva"},
+  {keys:["Porto —","Porto restaurant"], item:"Porto Budva"},
+  {keys:["Citadelle","remparts de la Citadelle","Cocktail dans les remparts"], item:"Cocktail Citadelle Budva"},
+  {keys:["vieille ville de Budva","Budva au coucher du soleil"], item:"Vieille ville de Budva"},
+  {keys:["Montenegrin fish soup","fish soup"], item:"Restaurant Jadran Budva"},
+  {keys:["Lake Skadar Cruise","pélicans frisés","croisière","Réserver le Lake Skadar"], item:"Lake Skadar Cruise"},
+  {keys:["bord du lac Skadar","dernier café au bord du lac"], item:"Lake Skadar Cruise"},
+  {keys:["Village de Karuc","barques"], item:"Lake Skadar Cruise"},
+  {keys:["Monastère de Kom","Kom sur son îlot"], item:"Monastère de la Morača"},
+  {keys:["Pavlova Strana","fer à cheval","Crnojevića"], item:"Pavlova Strana"},
+  {keys:["Godinje","Vranac","dégustation Vranac"], item:"Vignobles Godinje"},
+  {keys:["ajvar","Ajvar"], item:"Ajvar Virpazar"},
+  {keys:["Kajmak","kajmak"], item:"Kajmak"},
+  {keys:["Nikšićko","bière Nikšićko"], item:"Bière Nikšićko"},
+  {keys:["Ostrog","falaise blanche","miel de monastère"], item:"Monastère d'Ostrog"},
+  {keys:["Biogradska","forêt primaire","lac Biogradsko","canot en bois","arbre centenaire","kiosques locaux sur la route du parc"], item:"Biogradska Gora"},
+  {keys:["pont Đurđevića","milieu du pont"], item:"Canyon de la Tara"},
   {keys:["Rafting","rafting"], item:"Rafting sur la Tara"},
   {keys:["Tyrolienne","tyrolienne"], item:"Canyon de la Tara"},
-  {keys:["Lac Noir","Crno Jezero","lac noir"], item:"Lac Noir"},
-  {keys:["Savin Kuk"], item:"Savin Kuk"},
-  {keys:["truite du lac","Crno Jezero","Nacionalni"], item:"Restaurant Crno Jezero"},
+  {keys:["Čurevac","belvédère vertigineux sur le canyon"], item:"Viewpoint Čurevac"},
+  {keys:["pieds dans la Tara","Tremper ses pieds"], item:"Canyon de la Tara"},
   {keys:["agneau sous la cloche","jagnjetina","Or'O","Koliba"], item:"Agneau sous la cloche"},
-  {keys:["Grande Plage","Velika Plaža","12 km"], item:"Grande Plage Ulcinj"},
+  {keys:["étoiles depuis Žabljak","observer les étoiles","zéro pollution lumineuse"], item:"Etoiles Žabljak"},
+  {keys:["Lac Noir","Crno Jezero","reflets des montagnes dans le lac","lever du soleil — reflets"], item:"Lac Noir"},
+  {keys:["Zminje","lac caché dans la forêt"], item:"Lac Zminje Jezero"},
+  {keys:["Savin Kuk","télésiège"], item:"Savin Kuk"},
+  {keys:["Durmitor Ring","circuit 85 km"], item:"Durmitor Ring"},
+  {keys:["Déjeuner au Nacionalni","truite du lac","Nacionalni Restoran"], item:"Restaurant Crno Jezero"},
+  {keys:["fromage de brebis","berger de Žabljak"], item:"Fromage brebis Žabljak"},
+  {keys:["pique-nique au bord d'un des 18 lacs"], item:"Lac Noir"},
+  {keys:["gorges de la Morača","falaises à pic sur rivière turquoise"], item:"Gorges de la Morača"},
+  {keys:["Monastère de la Morača","fresques médiévales du XIIe"], item:"Monastère de la Morača"},
+  {keys:["Mala Plaža","parasols en chaume"], item:"Mala Plaža Ulcinj"},
+  {keys:["Grande Plage","Velika Plaža","12 km","baignade au coucher du soleil","Premier bain sur la Grande Plage"], item:"Grande Plage Ulcinj"},
+  {keys:["Tour de la forteresse — vue sur l'Albanie"], item:"Forteresse Ulcinj"},
+  {keys:["Marcher jusqu'à l'extrémité de Velika Plaža","frontière albanaise à pied"], item:"Marche frontière Ulcinj"},
+  {keys:["Byrek me djathë","burek albanais"], item:"Byrek Ulcinj"},
   {keys:["Ada Bojana"], item:"Ada Bojana"},
-  {keys:["Valdanos"], item:"Valdanos"},
-  {keys:["Misko","Misko"], item:"Misko"},
   {keys:["Ćirkova","Čarda","pilotis"], item:"Ćirkova Čarda"},
-  {keys:["ottomane","Ulcinj","forteresse d'Ulcinj"], item:"Vieille ville d'Ulcinj"},
-  {keys:["Morača","fresques médiévales"], item:"Monastère de la Morača"},
-  {keys:["Blue Cave","grottes marines","360 Monte"], item:"Blue Cave"},
+  {keys:["Misko"], item:"Misko"},
   {keys:["Kitesurfing","kitesurfing","windsurf","kitesurf"], item:"Kitesurfing Ulcinj"},
-  {keys:["Perast","îlots","Notre-Dame-des-Rochers"], item:"Perast"},
-  {keys:["Pavlova Strana","fer à cheval"], item:"Canyon de la Tara"},
+  {keys:["Valdanos"], item:"Valdanos"},
+  {keys:["Figues sèches au marché"], item:"Figues Ulcinj"},
+  {keys:["raki avec un pêcheur"], item:"Misko"},
+  {keys:["ottomane d'Ulcinj","vieille ville ottomane à pied"], item:"Vieille ville d'Ulcinj"},
+  {keys:["vin Vranac en route"], item:"Vignobles Godinje"},
+  {keys:["miel de montagne","Acheter du miel"], item:"Miel de montagne"},
+  {keys:["Muo","autre côté en bateau"], item:"Village de Muo"},
+  {keys:["Blue Cave","grottes marines","360 Monte"], item:"Blue Cave"},
+  {keys:["truffes de Kolašin"], item:"Truffes de Kolašin"},
+  {keys:["huile d'olive artisanale"], item:"Huile d'olive Kotor"},
+  {keys:["Bastion 1","porte nord"], item:"Bastion 1"},
+  {keys:["Tour de cloche Saint-Nicolas","cloche Saint-Nicolas"], item:"Tour de cloche Saint-Nicolas"},
+  {keys:["Marché paysan","fromage, figues, olives"], item:"Marché paysan Kotor"},
+  {keys:["burek dans une boulangerie"], item:"Burek Kotor"},
+  {keys:["Perast","îlots","Notre-Dame-des-Rochers","palais baroques de Perast","Vue sur les îlots depuis le quai de Perast"], item:"Perast"},
+  {keys:["Canyoning","canyon de la Škurda"], item:"Canyoning Škurda"},
+  {keys:["Shopping : vin Vranac"], item:"Vignobles Godinje"},
 ];
 
 function findCodexEntry(text){
