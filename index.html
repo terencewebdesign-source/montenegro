@@ -187,6 +187,17 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 
 
+/* ═══ CHECKLIST TOGGLE ═══ */
+.cl-toggle{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;cursor:pointer;border-top:1px solid var(--border);user-select:none;transition:background .15s}
+.cl-toggle:hover{background:var(--input-bg)}
+.cl-toggle-left{display:flex;align-items:center;gap:.6rem;font-size:.82rem;font-weight:500;color:var(--muted)}
+.cl-toggle-count{font-size:.72rem;background:var(--accent-lt);color:var(--accent);border-radius:99px;padding:.1rem .5rem;font-weight:600}
+.cl-toggle-chevron{width:16px;height:16px;color:var(--muted);transition:transform .25s;flex-shrink:0}
+.cl-toggle.open .cl-toggle-chevron{transform:rotate(180deg)}
+.cl-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.cl-body.open{max-height:4000px}
+.cl-body-in{padding:.5rem 1.25rem 1rem}
+
 /* ═══ CHECKLIST ITEMS ═══ */
 .cl{margin-top:.75rem}
 .cl-cat-header{display:flex;align-items:center;justify-content:space-between;margin:1.4rem 0 .4rem;padding:0}
@@ -1702,7 +1713,19 @@ DAYS.forEach((d,idx)=>{
 
   const dayNumForCl = idx + 1; // 1-based index
   const clHTML = d.checks && d.checks.length
-    ? `<div class="cl" id="cl-container-${dayNumForCl}"><div style="text-align:center;padding:1rem;color:var(--muted);font-size:.8rem">Chargement…</div></div>`
+    ? `<div class="cl-toggle" id="cl-toggle-${dayNumForCl}" onclick="toggleCl(${dayNumForCl})">
+        <div class="cl-toggle-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          À faire
+          <span class="cl-toggle-count" id="cl-count-${dayNumForCl}">0</span>
+        </div>
+        <svg class="cl-toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="cl-body" id="cl-body-${dayNumForCl}">
+        <div class="cl-body-in">
+          <div class="cl" id="cl-container-${dayNumForCl}"><div style="text-align:center;padding:1rem;color:var(--muted);font-size:.8rem">Chargement…</div></div>
+        </div>
+      </div>`
     : '';
 
 
@@ -1766,6 +1789,14 @@ if(savedTab){
 function loadC(){ /* handled by Firebase checklist */ }
 function saveC(){ /* handled by Firebase checklist */ }
 function updC(){ updCFromFirebase && updCFromFirebase(); }
+
+function toggleCl(dayNum){
+  const toggle = document.getElementById('cl-toggle-'+dayNum);
+  const body = document.getElementById('cl-body-'+dayNum);
+  if(!toggle||!body) return;
+  toggle.classList.toggle('open');
+  body.classList.toggle('open');
+}
 
 function loadP(){
   if(window._fbReady && window._fbReady()){
@@ -2078,13 +2109,23 @@ function startChecklistListener(){
 
 function updCFromFirebase(){
   let total=0, checked=0;
-  Object.values(_checklistData).forEach(day=>{
+  Object.entries(_checklistData).forEach(([dayKey, day])=>{
+    let dayTotal=0, dayChecked=0;
     Object.values(day).forEach(cat=>{
       Object.values(cat).forEach(item=>{
-        total++;
-        if(item.checked) checked++;
+        total++; dayTotal++;
+        if(item.checked){ checked++; dayChecked++; }
       });
     });
+    // Update per-day count badge
+    const dayNum = dayKey.replace('d','');
+    const countEl = document.getElementById('cl-count-'+dayNum);
+    if(countEl){
+      const remaining = dayTotal - dayChecked;
+      countEl.textContent = remaining > 0 ? remaining + ' restant' + (remaining>1?'s':'') : '✓ tout fait';
+      countEl.style.background = remaining === 0 ? 'var(--accent)' : '';
+      countEl.style.color = remaining === 0 ? '#fff' : '';
+    }
   });
   const pFill = document.getElementById('pFill');
   const pTxt = document.getElementById('pTxt');
