@@ -1428,26 +1428,73 @@ function addExpense(){
 }
 
 function deleteExpense(id){
+  const exp = expenses.find(e=>e.id===id);
+  if(!exp) return;
+  // Show confirmation popover
+  const existing = document.getElementById('del-confirm');
+  if(existing) existing.remove();
+
+  const tag = EXPENSE_TAGS.find(t=>t.key===exp.tag)||EXPENSE_TAGS[EXPENSE_TAGS.length-1];
+  const overlay = document.createElement('div');
+  overlay.id = 'del-confirm';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1rem';
+  overlay.innerHTML = `
+    <div style="background:var(--card);border-radius:14px;padding:1.5rem;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25);text-align:center">
+      <div style="font-size:2rem;margin-bottom:.75rem">${tag.emoji}</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:.4rem">Supprimer cette dépense ?</div>
+      <div style="font-size:.85rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.5">
+        <strong>${exp.desc}</strong> — ${exp.amount.toFixed(2)}€<br>
+        payé par ${MEMBERS.find(m=>m.id===exp.payer)?.name||exp.payer}
+      </div>
+      <div style="display:flex;gap:.75rem">
+        <button onclick="document.getElementById('del-confirm').remove()"
+          style="flex:1;padding:.6rem;border-radius:8px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem;font-family:'Outfit',sans-serif;cursor:pointer;font-weight:500">
+          Annuler
+        </button>
+        <button onclick="confirmDelete('${id}')"
+          style="flex:1;padding:.6rem;border-radius:8px;border:none;background:#D32F2F;color:#fff;font-size:.9rem;font-family:'Outfit',sans-serif;cursor:pointer;font-weight:600">
+          Supprimer
+        </button>
+      </div>
+    </div>`;
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
+function confirmDelete(id){
+  document.getElementById('del-confirm')?.remove();
   expenses = expenses.filter(e=>e.id!==id);
   saveExpenses();
   renderExpenseList();
   updateBudgetUI();
+  showToast('Dépense supprimée 🗑');
 }
 
-function toggleExpensePayer(id, newPayer){
+function toggleExpensePayer(id){
   const exp = expenses.find(e=>e.id===id);
   if(!exp) return;
-  exp.payer = newPayer;
+  // Cycle through members
+  const idx = MEMBERS.findIndex(m=>m.id===exp.payer);
+  exp.payer = MEMBERS[(idx+1)%MEMBERS.length].id;
   saveExpenses();
-  renderExpenseList();
+  // Update the row in place without full re-render
+  const row = document.querySelector(`.tc-exp-row[data-id="${id}"]`);
+  if(row){
+    const payerMember = MEMBERS.find(m=>m.id===exp.payer);
+    const tag = EXPENSE_TAGS.find(t=>t.key===exp.tag)||EXPENSE_TAGS[EXPENSE_TAGS.length-1];
+    row.querySelector('.tc-exp-tag').style.background = payerMember.color+'22';
+    row.querySelector('.tc-exp-tag').style.color = payerMember.color;
+    row.querySelector('.tc-exp-meta').innerHTML = `${exp.date||''} · payé par <strong>${payerMember.name}</strong>`;
+  }
   updateBudgetUI();
 }
 
 function renderExpenseList(){
   const list = document.getElementById('tc-list');
   if(!list) return;
-  // Don't re-render if user is typing in the list
-  if(list.contains(document.activeElement)) return;
+  // Ne pas re-render uniquement si l'user tape dans un input texte
+  const active = document.activeElement;
+  if(active && list.contains(active) && (active.tagName==='INPUT' || active.tagName==='TEXTAREA')) return;
 
   if(expenses.length===0){
     list.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);font-size:.85rem">Aucune dépense pour l'instant 👆</div>`;
@@ -1467,7 +1514,7 @@ function renderExpenseList(){
       <div class="tc-exp-right">
         <div class="tc-exp-amount">${e.amount.toFixed(2)}€</div>
         <div class="tc-exp-actions">
-          <button class="tc-switch-btn" onclick="toggleExpensePayer('${e.id}','${otherMember.id}')" title="Changer payeur">⇄</button>
+          <button class="tc-switch-btn" onclick="toggleExpensePayer('${e.id}')" title="Changer payeur">⇄</button>
           <button class="tc-del-btn" onclick="deleteExpense('${e.id}')" title="Supprimer">✕</button>
         </div>
       </div>
