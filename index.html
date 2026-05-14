@@ -708,11 +708,16 @@ function startRealtimeListeners(){
 // ── Initialisation au démarrage ───────────────────────────────────────────
 initFirebase();
 
-// Exposer globalement
+// Exposer globalement — fonctions Firebase + helpers
 window._fbSet = fbSet;
 window._fbGet = fbGet;
 window._fbReady = () => firebaseReady;
 window._startRealtimeListeners = startRealtimeListeners;
+// Expose Firebase primitives needed by checklist system
+window._fbRef = (path) => ref(db, path);
+window._fbOnValue = onValue;
+window._fbGetSnap = (path) => get(ref(db, path));
+window._fbSetRaw = (path, val) => set(ref(db, path), val);
 
 // Signaler que Firebase est prêt
 // On utilise un flag au cas où l'event est dispatché avant le listener
@@ -2073,11 +2078,11 @@ function findCodexKey(name){
 async function migrateChecklistIfNeeded(){
   if(!window._fbReady || !window._fbReady()) return;
   try{
-    const snap = await get(ref(db, 'mne/checklist'));
+    const snap = await window._fbGetSnap('mne/checklist');
     if(snap.exists()) return; // Already migrated
     console.log('Migrating checklist to Firebase...');
     const data = buildDefaultChecklist();
-    await set(ref(db, 'mne/checklist'), data);
+    await window._fbSetRaw('mne/checklist', data);
     console.log('Checklist migrated ✅');
   }catch(e){ console.warn('Migration error:', e); }
 }
@@ -2086,7 +2091,7 @@ async function migrateChecklistIfNeeded(){
 
 function startChecklistListener(){
   if(!window._fbReady || !window._fbReady()) return;
-  onValue(ref(db, 'mne/checklist'), snap=>{
+  window._fbOnValue(window._fbRef('mne/checklist'), snap=>{
     _checklistData = snap.exists() ? snap.val() : {};
     renderAllChecklists();
     updCFromFirebase();
@@ -2215,7 +2220,7 @@ async function toggleCheckFb(itemId, dayNum, catKey, checked){
   const span = document.querySelector(`#ci-fb-${itemId} span, .ci-plain span`);
   // Update Firebase
   if(window._fbReady && window._fbReady()){
-    try{ await set(ref(db, `mne/checklist/${key}/${catKey}/${itemId}/checked`), checked); }catch(e){}
+    try{ await window._fbSetRaw(`mne/checklist/${key}/${catKey}/${itemId}/checked`, checked); }catch(e){}
   }
   updCFromFirebase();
 }
@@ -2322,7 +2327,7 @@ async function saveEditItem(){
 
   // Save to Firebase
   if(window._fbReady && window._fbReady()){
-    try{ await set(ref(db, `mne/checklist/${fbKey}/${newCatKey}/${id}`), item); }catch(e){}
+    try{ await window._fbSetRaw(`mne/checklist/${fbKey}/${newCatKey}/${id}`, item); }catch(e){}
   }
 
   closeEditModal();
@@ -2352,7 +2357,7 @@ async function deleteEditItem(){
   // Delete
   if(_checklistData[fbKey]?.[catKey]?.[itemId]) delete _checklistData[fbKey][catKey][itemId];
   if(window._fbReady && window._fbReady()){
-    try{ await set(ref(db, `mne/checklist/${fbKey}/${catKey}/${itemId}`), null); }catch(e){}
+    try{ await window._fbSetRaw(`mne/checklist/${fbKey}/${catKey}/${itemId}`, null); }catch(e){}
   }
   closeEditModal();
   renderDayChecklist(dayNum);
