@@ -162,17 +162,14 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 [data-theme="dark"] .tip.warn{background:#2E1800;color:#D4A020}
 [data-theme="dark"] .tip.info{background:#0D2535;color:#5BB8D8}
 [data-theme="dark"] .tip.go{background:#0F2808;color:#6DC44D}
+[data-theme="dark"] .ci-block{background:#1C1E1A;border-color:#2E302B}
+[data-theme="dark"] .ci-plain{background:#1C1E1A;border-color:#2E302B}
+[data-theme="dark"] .ci-block:hover{border-color:#4A4E48}
 [data-theme="dark"] .tip.ch{background:#0A2A1E;color:#4DC49A}
 .night{display:inline-flex;font-size:.7rem;padding:3px 10px;border-radius:99px;background:var(--mtn-lt);color:var(--mtn);margin-top:6px}
 [data-theme="dark"] .night{background:#1E1A3A;color:#9A92D8}
 
-/* ═══ NOTES ═══ */
-.notes-wrap{margin-top:.75rem;padding-top:.75rem;border-top:1px dashed var(--border)}
-.notes-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.35rem;font-weight:500;display:flex;align-items:center;gap:.35rem}
-.notes-label svg{width:13px;height:13px}
-.notes-input{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:.6rem .75rem;font-size:.8rem;font-family:'Outfit',sans-serif;color:var(--text);resize:vertical;min-height:60px;transition:.2s;line-height:1.5}
-.notes-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,107,82,.12)}
-.notes-input::placeholder{color:var(--muted);opacity:.7}
+
 
 /* ═══ CHECKLIST ═══ */
 .cl{margin-top:.75rem}
@@ -185,8 +182,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .ci input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
 .ci span{font-size:.79rem;color:var(--text);transition:.15s;line-height:1.45;cursor:pointer}
 .ci input:checked+span{color:var(--muted);text-decoration:line-through;opacity:.6}
-.ci-block{border:1.5px solid var(--border);border-radius:10px;margin-bottom:.4rem;overflow:hidden;background:var(--card);transition:border-color .2s}
-.ci-block:hover{border-color:var(--accent)}
+.ci-block{border:1px solid var(--border);border-radius:10px;margin-bottom:.35rem;overflow:hidden;background:var(--card);transition:border-color .2s,background .2s}
+.ci-block:hover{border-color:var(--muted)}
 .ci-block.open{border-color:var(--accent)}
 .ci-row{display:flex;align-items:center;gap:.5rem;padding:.55rem .7rem;cursor:pointer;user-select:none}
 .ci-row label.ci{flex:1;margin:0;padding:0;pointer-events:none}
@@ -195,7 +192,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .ci-chevron{width:16px;height:16px;color:var(--muted);flex-shrink:0;transition:transform .25s}
 .ci-block.open .ci-chevron{transform:rotate(180deg)}
 /* Plain ci (no dropdown) also gets a bordered container */
-.ci-plain{border:1.5px solid var(--border);border-radius:10px;margin-bottom:.4rem;padding:.55rem .7rem;background:var(--card);display:flex;align-items:flex-start;gap:.5rem}
+.ci-plain{border:1px solid var(--border);border-radius:10px;margin-bottom:.35rem;padding:.55rem .7rem;background:var(--card);display:flex;align-items:flex-start;gap:.5rem}
 .ci-plain input{appearance:none;-webkit-appearance:none;width:17px;height:17px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer;transition:.15s;position:relative;background:var(--card)}
 .ci-plain input:checked{background:var(--accent);border-color:var(--accent)}
 .ci-plain input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
@@ -494,9 +491,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
       <div class="urgence-head"><span class="urgence-icon">🚗</span><span class="urgence-title">Voiture & Assurance</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Assistance routière Monténégro (AMSCG)</div><div class="urgence-detail">Panne ou accident sur route</div></div><span class="urgence-num">19807</span><a class="urgence-call" href="tel:19807">📞 Appeler</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Numéro de ta carte de crédit</div><div class="urgence-detail">Note-le ici avant de partir ↓</div></div></div>
-      <div style="padding:.5rem 1.25rem 1rem"><input class="notes-input" data-note="urgence_cc" placeholder="Ex : Visa Boursorama — opposition : 0800 XXX XXX" style="min-height:44px"/></div>
+      <div style="padding:.5rem 1.25rem 1rem;font-size:.8rem;color:var(--muted)">Note-le dans tes contacts avant de partir.</div>
       <div class="urgence-row"><div><div class="urgence-label">Numéro du loueur de voiture</div><div class="urgence-detail">Meridian Rentacar ou autre</div></div></div>
-      <div style="padding:.5rem 1.25rem 1rem"><input class="notes-input" data-note="urgence_car" placeholder="Ex : Meridian +382 XX XXX XXX" style="min-height:44px"/></div>
+      <div style="padding:.5rem 1.25rem 1rem;font-size:.8rem;color:var(--muted)">Note-le dans tes contacts avant de partir.</div>
     </div>
 
     <div class="urgence-card">
@@ -694,15 +691,7 @@ function startRealtimeListeners(){
     updateBudgetUI();
   });
 
-  // Notes
-  onValue(ref(db, 'mne/notes'), snap => {
-    const data = snap.exists() ? snap.val() : {};
-    Object.entries(data).forEach(([k, v]) => {
-      const realKey = k.replace(/__/g, '/');
-      const el = document.querySelector(`[data-note="${realKey}"]`);
-      if(el && document.activeElement !== el) el.value = v || '';
-    });
-  });
+
 }
 
 // ── Initialisation au démarrage ───────────────────────────────────────────
@@ -1709,12 +1698,6 @@ DAYS.forEach((d,idx)=>{
     ? `<div class="cl" id="cl-container-${dayNumForCl}"><div style="text-align:center;padding:1rem;color:var(--muted);font-size:.8rem">Chargement…</div></div>`
     : '';
 
-  const notesKey=`note_day_${idx}`;
-  const savedNote=localStorage.getItem(notesKey)||'';
-  const notesHTML=`<div class="notes-wrap">
-    <div class="notes-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Notes personnelles</div>
-    <textarea class="notes-input" data-note="${notesKey}" placeholder="Hôtel réservé, confirmation, infos pratiques…">${savedNote}</textarea>
-  </div>`;
 
   el.innerHTML=`
     <div class="day-head">
@@ -1723,7 +1706,7 @@ DAYS.forEach((d,idx)=>{
       <div class="day-meta"><div class="day-date">${d.date}</div><div class="day-weather-mini" id="wmini-${idx}"></div></div>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
-    <div class="day-body"><div class="day-body-in">${driveHTML}${chillHTML}${stopsHTML}${clHTML}${notesHTML}</div></div>`;
+    <div class="day-body"><div class="day-body-in">${driveHTML}${chillHTML}${stopsHTML}${clHTML}</div></div>`;
   ctn.appendChild(el);
 });
 const totalC=ci;
@@ -1799,29 +1782,14 @@ document.addEventListener('change',e=>{
   if(e.target.matches('[data-p]'))saveP();
 });
 
-// Notes autosave
-let noteDebounce={};
+// Budget input autosave
 document.addEventListener('input',e=>{
-  if(e.target.matches('[data-note]')){
-    const key = e.target.dataset.note;
-    const val = e.target.value;
-    localStorage.setItem(key, val);
-    // Debounce Firebase writes (1s)
-    clearTimeout(noteDebounce[key]);
-    noteDebounce[key] = setTimeout(()=>{
-      if(window._fbSet) window._fbSet('notes/'+key.replace(/\//g,'__'), val);
-    }, 1000);
-  }
   if(e.target.matches('.budget-input')){
     saveBudget();updateBudgetUI();
   }
 });
 
-// Load saved notes
-document.querySelectorAll('[data-note]').forEach(el=>{
-  const v=localStorage.getItem(el.dataset.note);
-  if(v)el.value=v;
-});
+
 
 loadC();loadP();
 
