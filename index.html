@@ -186,6 +186,45 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 
 
+
+/* ═══ CHECKLIST ITEMS ═══ */
+.cl{margin-top:.75rem}
+.cl-cat-header{display:flex;align-items:center;justify-content:space-between;margin:1.4rem 0 .4rem;padding:0}
+.cl-cat-header:first-child{margin-top:.1rem}
+.cl-cat-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin:0;opacity:.75}
+.cl-cat-add{background:none;border:none;cursor:pointer;color:var(--accent);font-size:.75rem;font-weight:500;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:.25rem;padding:0;opacity:.8}
+.cl-cat-add:hover{opacity:1}
+.ci{display:flex;align-items:flex-start;gap:.5rem;flex:1;padding:.45rem 0}
+.ci input{appearance:none;-webkit-appearance:none;width:17px;height:17px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px;cursor:pointer;transition:.15s;position:relative;background:var(--card)}
+.ci input:checked{background:var(--accent);border-color:var(--accent)}
+.ci input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
+.ci span{font-size:.82rem;color:var(--text);transition:.15s;line-height:1.45;cursor:pointer}
+.ci input:checked+span{color:var(--muted);text-decoration:line-through;opacity:.6}
+.ci-block{border:1px solid var(--border);border-radius:10px;margin-bottom:.35rem;overflow:hidden;background:var(--card);transition:border-color .2s}
+.ci-block:hover{border-color:var(--muted)}
+.ci-block.open{border-color:var(--accent)}
+.ci-row{display:flex;align-items:center;gap:.5rem;padding:.3rem .7rem;cursor:pointer;user-select:none}
+.ci-edit-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:.2rem .25rem;opacity:.45;transition:.15s;font-size:.82rem;flex-shrink:0;line-height:1}
+.ci-edit-btn:hover{opacity:1;color:var(--accent)}
+.ci-chevron{width:16px;height:16px;flex-shrink:0;color:var(--muted);transition:transform .2s}
+.ci-block.open .ci-chevron{transform:rotate(180deg)}
+.ci-dropdown{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.ci-dropdown.open{max-height:600px}
+.ci-dropdown-in{padding:.6rem .9rem .85rem;border-top:1px solid var(--border)}
+.ci-dd-rating{font-size:.78rem;font-weight:600;color:var(--accent);margin-bottom:.4rem}
+.ci-dd-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.5rem}
+.ci-dd-chip{background:var(--accent-lt);color:var(--accent);font-size:.7rem;padding:.2rem .55rem;border-radius:99px;font-weight:500}
+.ci-dd-desc{font-size:.8rem;color:var(--muted);line-height:1.55;margin-bottom:.6rem}
+.ci-dd-links{display:flex;flex-wrap:wrap;gap:.5rem}
+.ci-dd-link{display:inline-flex;align-items:center;gap:.35rem;background:var(--card);border:1px solid var(--border);border-radius:7px;padding:.3rem .65rem;font-size:.75rem;color:var(--text);text-decoration:none;transition:.15s;font-weight:500}
+.ci-dd-link:hover{border-color:var(--accent);color:var(--accent)}
+.ci-dd-link svg{width:12px;height:12px;flex-shrink:0;color:currentColor}
+.ci-plain{border:1px solid var(--border);border-radius:10px;margin-bottom:.35rem;padding:.4rem .7rem;background:var(--card);display:flex;align-items:flex-start;gap:.5rem}
+[data-theme="dark"] .ci-block{background:#1C1E1A;border-color:#2E302B}
+[data-theme="dark"] .ci-plain{background:#1C1E1A;border-color:#2E302B}
+[data-theme="dark"] .ci-block:hover{border-color:#4A4E48}
+[data-theme="dark"] .ci-dd-link{background:#1C1E1A;border-color:#2E302B}
+[data-theme="dark"] .ci-dropdown-in{border-top-color:#2E302B}
 /* ═══ PREP TAB ═══ */
 .prep-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:1.25rem;overflow:hidden;box-shadow:var(--shadow);transition:.3s}
 .prep-head{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;cursor:pointer;user-select:none;border-bottom:1px solid transparent;transition:.2s}
@@ -1631,7 +1670,7 @@ DAYS.forEach((d,idx)=>{
     return `<div class="stop"><div class="stop-t">${s.t}</div><div class="stop-c"><div class="stop-n">${s.n}</div><div class="stop-d">${s.d}</div>${tips}${night}</div></div>`;
   }).join('');
 
-  const dayNumForCl = typeof d.num==='string' ? parseInt(d.num) : d.num;
+  const dayNumForCl = idx + 1; // 1-based index
   const clHTML = d.checks && d.checks.length
     ? `<div class="cl" id="cl-container-${dayNumForCl}"><div style="text-align:center;padding:1rem;color:var(--muted);font-size:.8rem">Chargement…</div></div>`
     : '';
@@ -1942,8 +1981,8 @@ let _editContext = null; // { dayNum, cat, itemId } or null for new
 
 function buildDefaultChecklist(){
   const result = {};
-  DAYS.forEach(d=>{
-    const dayNum = typeof d.num==='string' ? parseInt(d.num) : d.num;
+  DAYS.forEach((d, idx)=>{
+    const dayNum = idx + 1; // Use 1-based index, not d.num
     const key = 'd'+dayNum;
     result[key] = {};
     if(!d.checks || !d.checks.length) return;
@@ -1984,12 +2023,15 @@ function findCodexKey(name){
 async function migrateChecklistIfNeeded(){
   if(!window._fbReady || !window._fbReady()) return;
   try{
-    const snap = await window._fbGetSnap('mne/checklist');
-    if(snap.exists()) return; // Already migrated
-    console.log('Migrating checklist to Firebase...');
+    const vsnap = await window._fbGetSnap('mne/checklist_version');
+    const version = vsnap.exists() ? vsnap.val() : 0;
+    if(version >= 2) return; // Already migrated with correct index
+    // Wipe old data and remigrate
+    console.log('Migrating checklist v2 with correct day indices...');
     const data = buildDefaultChecklist();
     await window._fbSetRaw('mne/checklist', data);
-    console.log('Checklist migrated ✅');
+    await window._fbSetRaw('mne/checklist_version', 2);
+    console.log('Checklist migrated v2 ✅');
   }catch(e){ console.warn('Migration error:', e); }
 }
 
@@ -2023,9 +2065,8 @@ function updCFromFirebase(){
 // ── Render ────────────────────────────────────────────────────────────────
 
 function renderAllChecklists(){
-  DAYS.forEach(d=>{
-    const dayNum = typeof d.num==='string' ? parseInt(d.num) : d.num;
-    renderDayChecklist(dayNum);
+  DAYS.forEach((d, idx)=>{
+    renderDayChecklist(idx + 1);
   });
 }
 
