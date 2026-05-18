@@ -41,23 +41,20 @@ html{scroll-behavior:smooth}
 body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 
 /* ═══ HERO ═══ */
-.hero{position:relative;background:linear-gradient(135deg,#1A1F3A 0%,#2A3560 55%,#1E3A6E 100%);color:#fff;padding:3rem 2rem 2.5rem;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
-.hero-c{position:relative;max-width:900px;margin:0 auto}
-.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
-.hero h1{font-family:'Sora',sans-serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:400;letter-spacing:-.5px;margin-bottom:.4rem}
-.hero-sub{font-size:.95rem;opacity:.85;font-weight:300}
-.hero-actions{display:flex;gap:.5rem;flex-shrink:0}
-.hero-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;padding:.45rem .75rem;font-size:.78rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:.2s;white-space:nowrap;font-family:'Lato',sans-serif}
-.hero-btn:hover{background:rgba(255,255,255,.25)}
-.hero-btn svg{width:15px;height:15px}
-.countdown{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:.6rem 1rem;margin-top:1rem;display:inline-flex;align-items:center;gap:.75rem;font-size:.85rem}
-.countdown-num{font-size:1.4rem;font-weight:600;font-family:'Sora',sans-serif}
-.countdown-lbl{font-size:.7rem;opacity:.7;text-transform:uppercase;letter-spacing:.05em}
-.hero-stats{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
-.hero-stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.5rem 1rem;backdrop-filter:blur(4px)}
-.hero-stat small{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;opacity:.7;display:block}
-.hero-stat span{font-size:1.1rem;font-weight:500}
+.hero{background:#111113;color:#fff;padding:2.5rem 1.5rem 1.5rem}
+.hero-c{max-width:800px;margin:0 auto}
+.hero-top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.hero-label{font-family:'Lato',sans-serif;font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.4);font-weight:700}
+.hero-share-btn{background:rgba(255,255,255,.08);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.5);transition:.2s}
+.hero-share-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(2rem,6vw,2.8rem);font-weight:800;margin:0 0 .4rem;letter-spacing:-.02em;line-height:1.1;color:#F0EDE8}
+.hero-sub{font-size:.85rem;color:rgba(255,255,255,.45);margin:0 0 1.25rem;font-weight:400}
+.hero-countdown{margin-bottom:1.25rem}
+.hero-cd{display:flex;align-items:baseline;gap:.5rem}
+.hero-cd-num{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:800;color:var(--accent);letter-spacing:-.02em}
+.hero-cd-text{font-size:.82rem;color:rgba(255,255,255,.4);font-weight:400}
+.hero-pills{display:flex;gap:.5rem;flex-wrap:wrap}
+.hero-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:99px;padding:.35rem .85rem;font-size:.72rem;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.01em}
 
 /* ═══ MAIN TABS ═══ */
 .main-tabs{background:var(--nav-bg);border-bottom:2px solid var(--border);position:sticky;top:0;z-index:300;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:background .3s}
@@ -209,7 +206,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);line-h
 .ci-checkbox:checked~.ci-name{color:var(--muted);text-decoration:line-through;opacity:.6}
 .ci-block{border:none;border-radius:14px;margin-bottom:.65rem;overflow:hidden;background:#242428;transition:.2s}
 .ci-block:hover{opacity:.92}
-.ci-block.open{outline:2px solid var(--accent)}
+.ci-block.open{background:#282830}
 .ci-row{display:flex;align-items:center;gap:.75rem;padding:1rem 1rem;user-select:none}
 .ci-edit-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:.2rem .25rem;opacity:.45;transition:.15s;font-size:.82rem;flex-shrink:0;line-height:1}
 .ci-edit-btn:hover{opacity:1;color:var(--accent)}
@@ -523,24 +520,20 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);line-h
 <!-- ═══ HERO ═══ -->
 <div class="hero">
 <div class="hero-c">
-  <div class="hero-top">
-    <div>
-      <h1>Roadtrip Monténégro</h1>
-      <p class="hero-sub">17 au 30 septembre · Paris ✈ Tivat · SUV de location</p>
-    </div>
-    <div class="hero-actions">
-            <button class="hero-btn" onclick="showShare()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Partager
-      </button>
-    </div>
+  <div class="hero-top-bar">
+    <span class="hero-label">Roadtrip</span>
+    <button class="hero-share-btn" onclick="showShare()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+    </button>
   </div>
-  <div class="countdown" id="countdown"></div>
-  <div class="hero-stats">
-    <div class="hero-stat"><small>Durée</small><span>14 jours</span></div>
-    <div class="hero-stat"><small>Nuits</small><span>13 nuits</span></div>
-    <div class="hero-stat"><small>Chill</small><span>7 nuits</span></div>
-    <div class="hero-stat"><small>Distance</small><span>~850 km</span></div>
+  <h1>Monténégro 🇲🇪</h1>
+  <p class="hero-sub">17 → 30 sept · Paris ✈ Tivat</p>
+  <div class="hero-countdown" id="countdown"></div>
+  <div class="hero-pills">
+    <span class="hero-pill">14 jours</span>
+    <span class="hero-pill">13 nuits</span>
+    <span class="hero-pill">~850 km</span>
+    <span class="hero-pill">SUV</span>
   </div>
 </div>
 </div>
@@ -1225,13 +1218,12 @@ function updateCountdown(){
   const el=document.getElementById('countdown');
   if(now<dep){
     const diff=Math.ceil((dep-now)/(1000*60*60*24));
-    el.innerHTML=`<span class="countdown-num">J-${diff}</span><div><div style="font-weight:500">avant le décollage !</div><div class="countdown-lbl">Paris → Tivat · 17 sept</div></div>`;
+    el.innerHTML=`<div class="hero-cd"><span class="hero-cd-num">J-${diff}</span><span class="hero-cd-text">avant le décollage</span></div>`;
   }else if(now<=ret){
     const dayNum=Math.floor((now-dep)/(1000*60*60*24))+1;
-    el.innerHTML=`<span class="countdown-num">J+${dayNum}</span><div><div style="font-weight:500">En route au Monténégro !</div><div class="countdown-lbl">Jour ${dayNum} du voyage</div></div>`;
+    el.innerHTML=`<div class="hero-cd"><span class="hero-cd-num">Jour ${dayNum}</span><span class="hero-cd-text">sur 14 · en route !</span></div>`;
   }else{
-    const diff=Math.floor((now-ret)/(1000*60*60*24));
-    el.innerHTML=`<span>🇲🇪</span><div><div style="font-weight:500">Voyage terminé il y a ${diff} jours</div><div class="countdown-lbl">Les souvenirs durent toujours !</div></div>`;
+    el.innerHTML=`<div class="hero-cd"><span class="hero-cd-num">🇲🇪</span><span class="hero-cd-text">Voyage terminé</span></div>`;
   }
 }
 updateCountdown();
