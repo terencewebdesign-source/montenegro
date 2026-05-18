@@ -237,6 +237,21 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 [data-theme="dark"] .ci-dd-link{background:#1C1E1A;border-color:#2E302B}
 [data-theme="dark"] .ci-dropdown-in{border-top-color:#2E302B}
 
+/* ═══ LOGIN SCREEN ═══ */
+#login-screen{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0F3D2E 0%,#1A6B4F 50%,#1780A1 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:2rem}
+.login-card{background:rgba(255,255,255,.97);border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-logo{font-size:2.5rem;margin-bottom:.5rem}
+.login-title{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#0F3D2E;margin-bottom:.25rem}
+.login-sub{font-size:.85rem;color:#777;margin-bottom:2rem}
+.login-btn{display:flex;align-items:center;justify-content:center;gap:.75rem;width:100%;background:#fff;border:2px solid #E0E0E0;border-radius:12px;padding:.85rem 1.25rem;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;color:#333;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.login-btn:hover{border-color:#1D6B52;box-shadow:0 4px 16px rgba(29,107,82,.15)}
+.login-btn svg{width:22px;height:22px;flex-shrink:0}
+.login-error{margin-top:1rem;font-size:.8rem;color:#D32F2F;min-height:1.2rem}
+.login-footer{margin-top:1.5rem;font-size:.72rem;color:rgba(255,255,255,.6);text-align:center}
+#login-user-bar{position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);border-top:1px solid var(--border);padding:.5rem 1.25rem;display:flex;align-items:center;justify-content:space-between;font-size:.75rem;color:var(--muted);z-index:500}
+#login-user-bar button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem;border-radius:6px;transition:.15s}
+#login-user-bar button:hover{color:#D32F2F}
+
 /* ═══ EDIT MODAL ═══ */
 .edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s}
 .edit-modal-overlay.show{opacity:1;pointer-events:all}
@@ -500,25 +515,25 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
     </div>
 
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon">🇫🇷</span><span class="urgence-title">Consulat de France</span></div>
-      <div class="urgence-row"><div><div class="urgence-label">Ambassade de France à Podgorica</div><div class="urgence-detail">Perte de passeport, assistance consulaire</div></div><a class="urgence-call" href="tel:+38220224161">📞 +382 20 224 161</a></div>
-      <div class="urgence-row"><div><div class="urgence-label">Numéro d'urgence consulaire (24h/24)</div><div class="urgence-detail">Français en détresse à l'étranger</div></div><a class="urgence-call" href="tel:+33140459100">📞 +33 1 40 45 91 00</a></div>
+      <div class="urgence-head"><span class="urgence-icon">🇫🇷</span><span class="urgence-title">Ambassade de France</span></div>
+      <div class="urgence-row"><div><div class="urgence-label">Ambassade de France à Podgorica</div><div class="urgence-detail">98 bd George Washington — perte de passeport, assistance</div></div><a class="urgence-call" href="tel:+38220655348">📞 +382 20 655 348</a></div>
+      <div class="urgence-row"><div><div class="urgence-label">Service consulaire</div><div class="urgence-detail">Lun–ven 9h–17h</div></div><a class="urgence-call" href="tel:+38220405812">📞 +382 20 405 812</a></div>
+      <div class="urgence-row"><div><div class="urgence-label">Urgence consulaire 24h/24</div><div class="urgence-detail">En dehors des heures d'ouverture</div></div><a class="urgence-call red" href="tel:+382069143074">📞 +382 69 143 074</a></div>
     </div>
 
     <div class="urgence-card">
       <div class="urgence-head"><span class="urgence-icon">🚗</span><span class="urgence-title">Voiture & Assurance</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Assistance routière Monténégro (AMSCG)</div><div class="urgence-detail">Panne ou accident sur route</div></div><span class="urgence-num">19807</span><a class="urgence-call" href="tel:19807">📞 Appeler</a></div>
-      <div class="urgence-row"><div><div class="urgence-label">Numéro de ta carte de crédit</div><div class="urgence-detail">Note-le ici avant de partir ↓</div></div></div>
-      <div style="padding:.5rem 1.25rem 1rem;font-size:.8rem;color:var(--muted)">Note-le dans tes contacts avant de partir.</div>
-      <div class="urgence-row"><div><div class="urgence-label">Numéro du loueur de voiture</div><div class="urgence-detail">Meridian Rentacar ou autre</div></div></div>
-      <div style="padding:.5rem 1.25rem 1rem;font-size:.8rem;color:var(--muted)">Note-le dans tes contacts avant de partir.</div>
+      <div class="urgence-row"><div><div class="urgence-label">Opposition Amex Gold</div><div class="urgence-detail">En cas de perte ou vol de carte</div></div><a class="urgence-call red" href="tel:+33147777000">📞 +33 1 47 77 70 00</a></div>
+      <div class="urgence-row"><div><div class="urgence-label">Delta Car (loueur)</div><div class="urgence-detail">Meet & greet Tivat — à sauvegarder avant départ</div></div><a class="urgence-call" href="https://www.deltacar.me" target="_blank">🌐 deltacar.me</a></div>
     </div>
 
     <div class="urgence-card">
       <div class="urgence-head"><span class="urgence-icon">🏥</span><span class="urgence-title">Hôpitaux principaux</span></div>
-      <div class="urgence-row"><div><div class="urgence-label">Hôpital Clinique de Podgorica</div><div class="urgence-detail">Principal hôpital du pays</div></div><a class="urgence-call" href="tel:+38220225151">📞 Appeler</a></div>
-      <div class="urgence-row"><div><div class="urgence-label">Urgences Kotor</div><div class="urgence-detail">Dom zdravlja Kotor</div></div><a class="urgence-call" href="tel:+38232304900">📞 Appeler</a></div>
-      <div class="urgence-row"><div><div class="urgence-label">Urgences Budva</div><div class="urgence-detail">Dom zdravlja Budva</div></div><a class="urgence-call" href="tel:+38233451282">📞 Appeler</a></div>
+      <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Kotor</div><div class="urgence-detail">Dobrota bb, Kotor — urgences et soins</div></div><a class="urgence-call" href="tel:+38232334533">📞 +382 32 334 533</a></div>
+      <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Budva</div><div class="urgence-detail">Popa Jola Zeca, Budva</div></div><a class="urgence-call" href="tel:+38233427200">📞 +382 33 427 200</a></div>
+      <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Tivat</div><div class="urgence-detail">Aéroport à 5 min</div></div><a class="urgence-call" href="tel:+38232671774">📞 +382 32 671 774</a></div>
+      <div class="urgence-row"><div><div class="urgence-label">Hôpital Clinique de Podgorica</div><div class="urgence-detail">Principal hôpital du pays — cas graves</div></div><a class="urgence-call" href="tel:+38220225151">📞 +382 20 225 151</a></div>
     </div>
 
     <!-- PHRASES -->
@@ -618,6 +633,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // ═══════════════════════════════════════
 // FIREBASE CONFIG & SYNC
@@ -634,19 +650,73 @@ const firebaseConfig = {
 };
 
 let db = null;
+let auth = null;
 let firebaseReady = false;
+let currentUser = null;
+// Seuls ces emails ont accès
+const ALLOWED_EMAILS = ["terence.webdesign@gmail.com"]; // Deborah à ajouter plus tard
 
 function initFirebase(){
   try{
     const app = initializeApp(firebaseConfig, 'mne-roadtrip');
     db = getDatabase(app);
-    firebaseReady = true;
-    console.log('✅ Firebase connecté');
+    auth = getAuth(app);
+    // Watch auth state
+    onAuthStateChanged(auth, user => {
+      if(user && ALLOWED_EMAILS.includes(user.email)){
+        currentUser = user;
+        firebaseReady = true;
+        showApp();
+        window._fbOnValue = onValue;
+        window._fbRef = (path) => ref(db, path);
+        window._fbGetSnap = (path) => get(ref(db, path));
+        window._fbSetRaw = (path, val) => set(ref(db, path), val);
+        window._fbReady = () => firebaseReady;
+        initAfterFirebase();
+      } else if(user) {
+        // Logged in but not allowed
+        signOut(auth);
+        showLogin('Accès non autorisé pour ' + user.email);
+      } else {
+        currentUser = null;
+        firebaseReady = false;
+        showLogin();
+      }
+    });
+    console.log('✅ Firebase + Auth initialisés');
     return true;
   }catch(e){
     console.warn('Firebase init error:', e);
     return false;
   }
+}
+
+function showLogin(msg=''){
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app-root').style.display = 'none';
+  if(msg) document.getElementById('login-error').textContent = msg;
+}
+
+function showApp(){
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app-root').style.display = 'block';
+  // Update user display
+  const el = document.getElementById('login-user');
+  if(el && currentUser) el.textContent = currentUser.displayName || currentUser.email;
+}
+
+window.loginWithGoogle = async function(){
+  try{
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  }catch(e){
+    document.getElementById('login-error').textContent = 'Erreur de connexion — réessaie';
+    console.warn(e);
+  }
+}
+
+window.logout = async function(){
+  await signOut(auth);
 }
 
 // ── Fonctions de sync génériques ──────────────────────────────────────────
@@ -720,11 +790,8 @@ window._fbSet = fbSet;
 window._fbGet = fbGet;
 window._fbReady = () => firebaseReady;
 window._startRealtimeListeners = startRealtimeListeners;
-// Expose Firebase primitives needed by checklist system
-window._fbRef = (path) => ref(db, path);
 window._fbOnValue = onValue;
-window._fbGetSnap = (path) => get(ref(db, path));
-window._fbSetRaw = (path, val) => set(ref(db, path), val);
+// _fbRef, _fbGetSnap, _fbSetRaw sont exposés après login dans onAuthStateChanged
 
 // Signaler que Firebase est prêt
 // On utilise un flag au cas où l'event est dispatché avant le listener
@@ -1840,14 +1907,7 @@ loadC();loadP();
 // Le module Firebase est async : on attend 'firebase-ready' avant de
 // démarrer les listeners, sinon le DOM n'est pas encore construit.
 // Si Firebase était déjà prêt avant ce script, on démarre directement
-if(window._firebaseReadyFired){
-  initAfterFirebase();
-} else {
-  window.addEventListener('firebase-ready', function(){
-    initAfterFirebase();
-  });
-}
-
+// initAfterFirebase est maintenant appelé depuis onAuthStateChanged après login
 async function initAfterFirebase(){
   if(window._startRealtimeListeners) window._startRealtimeListeners();
   await migrateChecklistIfNeeded();
@@ -2760,5 +2820,13 @@ window.addEventListener('beforeinstallprompt',e=>{
   document.querySelector('.hero-actions').appendChild(btn);
 });
 </script>
+</div><!-- end app-root -->
+
+<!-- User bar -->
+<div id="login-user-bar">
+  <span>👤 <span id="login-user"></span></span>
+  <button onclick="logout()">Déconnexion</button>
+</div>
+
 </body>
 </html>
