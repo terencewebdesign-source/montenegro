@@ -437,7 +437,26 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 }
 </style>
 </head>
-<body>
+<body data-theme="dark">
+
+<!-- ═══ LOGIN SCREEN ═══ -->
+<div id="login-screen" style="display:flex;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0F3D2E 0%,#1A6B4F 50%,#1780A1 100%);align-items:center;justify-content:center;flex-direction:column;padding:2rem">
+  <div class="login-card">
+    <div class="login-logo">🇲🇪</div>
+    <div class="login-title">Monténégro</div>
+    <div class="login-sub">17 — 30 septembre 2026</div>
+    <div style="display:flex;flex-direction:column;gap:.75rem;margin-top:.5rem">
+      <input class="login-input" id="login-email" type="email" placeholder="Email" autocomplete="email"/>
+      <input class="login-input" id="login-password" type="password" placeholder="Mot de passe" autocomplete="current-password" onkeydown="if(event.key==='Enter')window.loginWithEmail()"/>
+    </div>
+    <button class="login-btn" id="login-submit" onclick="window.loginWithEmail()" style="margin-top:1rem">Se connecter</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+  <div style="margin-top:1.5rem;font-size:.72rem;color:rgba(255,255,255,.6)">Accès réservé à Terence & Deborah</div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app-root" style="display:none">
 
 <!-- ═══ HERO ═══ -->
 <div class="hero">
@@ -2750,10 +2769,17 @@ window.addEventListener('beforeinstallprompt',e=>{
 </div><!-- end app-root -->
 
 <!-- User bar -->
-<div id="login-user-bar">
+<div id="login-user-bar" style="display:none">
   <span>👤 <span id="login-user"></span></span>
-  <button onclick="logout()">Déconnexion</button>
+  <button onclick="window.logout()">Déconnexion</button>
+</div>
+
+</div><!-- end app-root -->
+
+<!-- User bar -->
+<div id="login-user-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);border-top:1px solid var(--border);padding:.5rem 1.25rem;align-items:center;justify-content:space-between;font-size:.75rem;color:var(--muted);z-index:500">
+  <span>👤 <span id="login-user"></span></span>
+  <button onclick="window.logout()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem">Déconnexion</button>
 </div>
 
 </body>
-</html>
