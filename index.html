@@ -405,18 +405,18 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 [data-theme="dark"] .maps-btn{background:#0D2535;color:#5BB8D8}
 
 /* ═══ BUDGET TRACKER ═══ */
-.budget-hero{background:linear-gradient(135deg,#1A1F3A 0%,#2A3560 100%);border-radius:var(--r);padding:1.5rem 1.5rem;margin-bottom:1.4rem;color:#fff}
+.budget-hero{background:linear-gradient(135deg,#1E2340 0%,#252B4A 60%,#1E2340 100%);border-radius:var(--r);padding:1.75rem 1.5rem;margin-bottom:1rem;color:#fff}
 .budget-hero h2{font-family:'DM Serif Display',serif;font-size:1.3rem;font-weight:400;margin-bottom:.25rem}
-.budget-total-row{display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap}
-.budget-kpi{background:rgba(255,255,255,.12);border-radius:8px;padding:.65rem 1rem;flex:1;min-width:90px}
+.budget-total-row{display:flex;gap:.6rem;margin-top:1.1rem;flex-wrap:wrap}
+.budget-kpi{background:rgba(255,255,255,.07);border-radius:12px;padding:.85rem 1rem;flex:1;min-width:90px;border:1px solid rgba(255,255,255,.08)}
 .budget-kpi small{font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;opacity:.7;display:block}
 .budget-kpi span{font-size:1.1rem;font-weight:600}
 .budget-kpi.over span{color:#FF8A80}
 /* Solde */
-.solde-card{border-radius:var(--r);padding:1.2rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;border:none}
-.solde-card.equilibre{background:var(--nature-lt);border-color:var(--nature)}
-.solde-card.doit{background:#FEF3F2;border-color:#FECDCA}
-[data-theme="dark"] .solde-card.equilibre{background:#0F2808;border-color:#3B7A1E}
+.solde-card{border-radius:var(--r);padding:1.3rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--text)}
+.solde-card.equilibre{background:#1A2A1A;border:1px solid rgba(91,176,129,.25)}
+.solde-card.doit{background:#2A1C1C;border:1px solid rgba(211,47,47,.25)}
+
 [data-theme="dark"] .solde-card.doit{background:#2D0F0F;border-color:#7F2020}
 .solde-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.2rem;font-weight:500}
 .solde-sentence{font-size:.95rem;font-weight:600;color:var(--text)}
@@ -427,7 +427,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .avatar.T{background:#5B7EC9}
 .avatar.D{background:#1780A1}
 /* Form nouvelle dépense */
-.tc-form{background:var(--card);border:none;border-radius:var(--r);padding:1.35rem 1.25rem;margin-bottom:1rem;box-shadow:var(--shadow)}
+.tc-form{background:#1C1C1F;border:none;border-radius:var(--r);padding:1.35rem 1.25rem;margin-bottom:1rem;box-shadow:var(--shadow)}
 .tc-form-title{font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:.85rem;color:var(--text)}
 .tc-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
 .tc-tag{background:var(--input-bg);border:1.5px solid var(--border);border-radius:99px;padding:.4rem .9rem;font-size:.8rem;cursor:pointer;font-family:'Outfit',sans-serif;color:var(--text);transition:.15s}
@@ -444,7 +444,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .tc-add-btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.8rem;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s}
 .tc-add-btn:hover{opacity:.88}
 /* Liste dépenses */
-.tc-exp-row{display:flex;align-items:center;gap:.85rem;padding:1rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:.5rem;box-shadow:var(--shadow);transition:.2s}
+.tc-exp-row{display:flex;align-items:center;gap:.85rem;padding:.9rem 1rem;background:#242428;border-radius:12px;margin-bottom:.5rem;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:.5rem;box-shadow:var(--shadow);transition:.2s}
 .tc-exp-tag{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
 .tc-exp-info{flex:1;min-width:0}
 .tc-exp-desc{font-size:.88rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
