@@ -283,8 +283,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .res-btn.primary:hover{opacity:.88}
 .res-btn.danger{color:#D32F2F;border-color:transparent}
 .res-btn.danger:hover{border-color:#D32F2F}
-.res-screenshot{width:100%;border-radius:10px;margin-top:.75rem;cursor:pointer;transition:.2s}
-.res-screenshot:hover{opacity:.88}
+.res-screenshot{width:90px;height:90px;object-fit:cover;border-radius:8px;margin-top:.75rem;cursor:pointer;transition:.2s;border:1.5px solid var(--border)}
+.res-screenshot:hover{opacity:.85;transform:scale(1.03)}
 .res-screenshot-placeholder{border:2px dashed var(--border);border-radius:10px;padding:1.5rem;text-align:center;color:var(--muted);font-size:.8rem;cursor:pointer;transition:.2s;margin-top:.75rem}
 .res-screenshot-placeholder:hover{border-color:var(--accent);color:var(--accent)}
 .res-add-btn{width:100%;background:none;border:1.5px dashed var(--border);border-radius:12px;padding:.85rem;font-size:.85rem;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s;display:flex;align-items:center;justify-content:center;gap:.5rem}
@@ -881,15 +881,15 @@ function startRealtimeListeners(){
 // DATA
 // ═══════════════════════════════════════
 const WEATHER_CITIES=[
-  {name:"Tivat",lat:42.404,lon:18.723},
-  {name:"Kotor",lat:42.425,lon:18.771},
-  {name:"Bečići",lat:42.265,lon:18.865},
-  {name:"Virpazar",lat:42.245,lon:19.092},
-  {name:"Ostrog",lat:42.675,lon:19.030},
-  {name:"Kolašin",lat:42.824,lon:19.523},
-  {name:"Žabljak",lat:43.155,lon:19.121},
-  {name:"Morača",lat:42.705,lon:19.365},
-  {name:"Ulcinj",lat:41.931,lon:19.215},
+  {name:"Tivat",    id:"Tivat",    lat:42.404,lon:18.723},
+  {name:"Kotor",    id:"Kotor",    lat:42.425,lon:18.771},
+  {name:"Bečići",   id:"Becici",   lat:42.265,lon:18.865},
+  {name:"Virpazar", id:"Virpazar", lat:42.245,lon:19.092},
+  {name:"Ostrog",   id:"Ostrog",   lat:42.675,lon:19.030},
+  {name:"Kolašin",  id:"Kolasin",  lat:42.824,lon:19.523},
+  {name:"Žabljak",  id:"Zabljak",  lat:43.155,lon:19.121},
+  {name:"Morača",   id:"Moraca",   lat:42.705,lon:19.365},
+  {name:"Ulcinj",   id:"Ulcinj",   lat:41.931,lon:19.215},
 ];
 
 const routeCoords=[
@@ -2086,10 +2086,10 @@ async function loadWeatherWithCache(){
   WEATHER_CITIES.forEach(c=>{
     const card=document.createElement('div');
     card.className='wcard';
-    card.id='wcard-'+c.name;
-    const isCached=cached&&cached.data&&cached.data[c.name];
+    card.id='wcard-'+(c.id||c.name);
+    const isCached=cached&&cached.data&&cached.data[c.id||c.name];
     if(isCached){
-      const d=cached.data[c.name];
+      const d=cached.data[c.id||c.name];
       card.innerHTML=`<div class="wcard-city">${c.name}</div><div class="wcard-icon">${d.icon}</div><div class="wcard-temp">${d.temp}°C</div>${d.minmaxHTML}<div class="wcard-desc">${d.desc}</div><div class="wcard-feels">ressenti ${d.feels}°C</div>`;
       card.style.borderColor='var(--accent)';card.style.borderWidth='1.5px';
     } else {
@@ -2123,17 +2123,17 @@ async function loadWeatherWithCache(){
       const tmax=data.daily?Math.round(data.daily.temperature_2m_max[0]):null;
       const tmin=data.daily?Math.round(data.daily.temperature_2m_min[0]):null;
       const minmaxHTML=(tmax!==null&&tmin!==null)?`<div class="wcard-minmax"><span class="wcard-max">↑${tmax}°</span><span class="wcard-min">↓${tmin}°</span></div>`:'';
-      newCache.data[c.name]={icon,desc,temp,feels,humidity,wind,minmaxHTML};
-      const card=document.getElementById('wcard-'+c.name);
+      newCache.data[c.id||c.name]={icon,desc,temp,feels,humidity,wind,minmaxHTML};
+      const card=document.getElementById('wcard-'+(c.id||c.name));
       if(!card)return;
       card.innerHTML=`<div class="wcard-city">${c.name}</div><div class="wcard-icon">${icon}</div><div class="wcard-temp">${temp}°C</div>${minmaxHTML}<div class="wcard-desc">${desc}</div><div class="wcard-feels">ressenti ${feels}°C</div>`;
       card.title=`Humidité : ${humidity}% · Vent : ${wind} km/h`;
       card.style.borderColor='var(--accent)';card.style.borderWidth='1.5px';
     }catch(e){
-      const card=document.getElementById('wcard-'+c.name);
+      const card=document.getElementById('wcard-'+(c.id||c.name));
       if(card){
         // Keep cached data if available
-        const cd=cached&&cached.data&&cached.data[c.name];
+        const cd=cached&&cached.data&&cached.data[c.id||c.name];
         if(cd){
           card.innerHTML=`<div class="wcard-city">${c.name}</div><div class="wcard-icon">${cd.icon}</div><div class="wcard-temp">${cd.temp}°C</div>${cd.minmaxHTML}<div class="wcard-desc">${cd.desc} <span style="font-size:.55rem;opacity:.6">(hors-ligne)</span></div>`;
           card.style.borderColor='var(--border)';
@@ -2599,7 +2599,7 @@ function renderResCard(res){
         ${res.phone ? `<div class="res-field"><div class="res-field-label">Téléphone</div><div class="res-field-value"><a href="tel:${res.phone}">${res.phone}</a></div></div>` : ''}
         ${res.address ? `<div class="res-field"><div class="res-field-label">Adresse / Lien</div><div class="res-field-value">${res.address.startsWith('http') ? `<a href="${res.address}" target="_blank" rel="noopener">${res.address}</a>` : res.address}</div></div>` : ''}
         ${res.notes ? `<div class="res-field"><div class="res-field-label">Notes</div><div class="res-field-value">${res.notes}</div></div>` : ''}
-        ${res.img ? `<img class="res-screenshot" src="${res.img}" alt="Screenshot" onclick="openResLightbox('${res.id}')"/>` : ''}
+        ${res.img ? `<div style="margin-top:.75rem"><img class="res-screenshot" src="${res.img}" alt="Screenshot résa" onclick="openResLightbox('${res.id}')"/><div style="font-size:.65rem;color:var(--muted);margin-top:.3rem">Tap pour agrandir</div></div>` : ''}
         <div class="res-actions">
           ${res.phone ? `<a class="res-btn primary" href="tel:${res.phone}">📞 Appeler</a>` : ''}
           ${res.address && res.address.startsWith('http') ? `<a class="res-btn" href="${res.address}" target="_blank" rel="noopener">🔗 Ouvrir</a>` : ''}
@@ -2637,7 +2637,7 @@ function openResModal(type='hotel', editId=null){
   const preview = document.getElementById('res-img-preview');
   const label = document.getElementById('res-img-label');
   if(res && res.img){
-    preview.innerHTML = `<img src="${res.img}" style="width:100%;border-radius:8px;margin-bottom:.5rem;cursor:pointer" onclick="openResLightbox('${res.id}')"/>`;
+    preview.innerHTML = `<img src="${res.img}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;margin-bottom:.5rem;cursor:pointer;border:1.5px solid var(--border)" onclick="openResLightbox('${res.id}')"/>`;
     label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer la photo`;
   } else {
     preview.innerHTML = '';
@@ -2659,7 +2659,7 @@ async function handleResImg(input){
   // Compress to 800px max, 60% quality
   const compressed = await compressImage(file, 800, 0.6);
   _resPendingImg = compressed;
-  document.getElementById('res-img-preview').innerHTML = `<img src="${compressed}" style="width:100%;border-radius:8px;margin-bottom:.5rem"/>`;
+  document.getElementById('res-img-preview').innerHTML = `<img src="${compressed}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;margin-bottom:.5rem;cursor:pointer;border:1.5px solid var(--border)" onclick="document.getElementById('resLightboxImg').src=this.src;document.getElementById('resLightbox').classList.add('show')"/>`;
   document.getElementById('res-img-label').innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer la photo`;
 }
 
