@@ -665,45 +665,25 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
     <div class="edit-modal-body">
       <div class="edit-field">
         <label class="edit-label">Type</label>
-        <select class="edit-input edit-select" id="res-type">
+        <select class="edit-input edit-select" id="res-type" onchange="renderResFields()">
           <option value="hotel">🏨 Hôtel</option>
           <option value="flight">✈️ Vol</option>
           <option value="car">🚗 Voiture</option>
           <option value="activity">🎟 Activité</option>
         </select>
       </div>
-      <div class="edit-field">
-        <label class="edit-label">Nom *</label>
-        <input class="edit-input" id="res-name" placeholder="Ex: Hôtel Cattaro, Vol Paris→Tivat…"/>
-      </div>
-      <div class="edit-field">
-        <label class="edit-label">Dates / Horaires</label>
-        <input class="edit-input" id="res-dates" placeholder="Ex: 17–20 sept · Check-in 15h"/>
-      </div>
-      <div class="edit-field">
-        <label class="edit-label">N° de confirmation</label>
-        <input class="edit-input" id="res-conf" placeholder="Ex: ABC123456"/>
-      </div>
-      <div class="edit-field">
-        <label class="edit-label">Téléphone direct</label>
-        <input class="edit-input" id="res-phone" type="tel" placeholder="Ex: +382 32 334 533"/>
-      </div>
-      <div class="edit-field">
-        <label class="edit-label">Adresse / Lien</label>
-        <input class="edit-input" id="res-address" placeholder="Adresse ou lien de réservation"/>
-      </div>
-      <div class="edit-field">
-        <label class="edit-label">Notes</label>
-        <textarea class="edit-input edit-textarea" id="res-notes" placeholder="Infos utiles, accès, parking…"></textarea>
-      </div>
+      <!-- Screenshot + OCR -->
       <div class="edit-field">
         <label class="edit-label">Screenshot de réservation</label>
         <div id="res-img-preview"></div>
         <label class="res-screenshot-placeholder" id="res-img-label">
           <input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/>
-          📎 Appuyer pour ajouter une photo
+          📎 Ajouter un screenshot
         </label>
+        <div id="res-ocr-status" style="font-size:.75rem;color:var(--accent);margin-top:.4rem;min-height:1.2rem"></div>
       </div>
+      <!-- Dynamic fields injected here -->
+      <div id="res-fields"></div>
     </div>
     <div class="edit-modal-footer">
       <button class="edit-btn-cancel" onclick="closeResModal()">Annuler</button>
@@ -2529,9 +2509,70 @@ const RES_TYPES = {
   activity: {icon:'🎟', label:'Activité'},
 };
 
+// Field definitions per type
+const RES_FIELDS = {
+  flight: [
+    {id:'name',       label:'Compagnie aérienne *',    placeholder:'Ex: Ryanair, Air France…'},
+    {id:'flight_num', label:'N° de vol',                placeholder:'Ex: FR1234'},
+    {id:'conf',       label:'N° de réservation / PNR', placeholder:'Ex: ABC123'},
+    {id:'depart',     label:'Départ',                   placeholder:'Ex: Paris CDG · 17 sept · 07h30'},
+    {id:'arrivee',    label:'Arrivée',                  placeholder:'Ex: Tivat TIV · 09h55'},
+    {id:'siege',      label:'Siège / Classe',            placeholder:'Ex: 14A · Économique'},
+    {id:'bagage',     label:'Bagage',                   placeholder:'Ex: Cabine 10kg inclus'},
+    {id:'phone',      label:'Téléphone compagnie',       placeholder:'Ex: +33 1 XX XX XX XX', type:'tel'},
+    {id:'notes',      label:'Notes',                    placeholder:'Infos utiles…', multiline:true},
+  ],
+  hotel: [
+    {id:"name",      label:"Nom de l'hôtel *",   placeholder:"Ex: Hôtel Cattaro"},
+    {id:'address',   label:'Adresse',             placeholder:'Ex: Stari Grad bb, Kotor'},
+    {id:'conf',      label:'N° de confirmation', placeholder:'Ex: BK-123456789'},
+    {id:'checkin',   label:'Check-in',            placeholder:'Ex: 17 sept · à partir de 15h00'},
+    {id:'checkout',  label:'Check-out',           placeholder:'Ex: 20 sept · avant 11h00'},
+    {id:'chambre',   label:'Type de chambre',     placeholder:'Ex: Chambre double vue mer'},
+    {id:'annulation',label:'Politique annulation',placeholder:'Ex: Gratuit avant le 14 sept'},
+    {id:'phone',     label:'Téléphone direct',    placeholder:'Ex: +382 32 XXX XXX', type:'tel'},
+    {id:'link',      label:'Lien réservation',    placeholder:'https://…'},
+    {id:'notes',     label:'Notes',               placeholder:'Parking, accès, code…', multiline:true},
+  ],
+  car: [
+    {id:'name',       label:'Loueur *',             placeholder:'Ex: Delta Car'},
+    {id:'vehicle',    label:'Véhicule',             placeholder:'Ex: Škoda Kamiq · Automatique'},
+    {id:'conf',       label:'N° de réservation',   placeholder:'Ex: DC-123456'},
+    {id:'pickup',     label:'Prise en charge',     placeholder:'Ex: Tivat Aéroport · 17 sept · 10h00'},
+    {id:'dropoff',    label:'Restitution',         placeholder:'Ex: Tivat Aéroport · 30 sept · 09h00'},
+    {id:'phone',      label:'Téléphone loueur',    placeholder:'Ex: +382 XX XXX XXX', type:'tel'},
+    {id:'assurance',  label:'Assurances incluses', placeholder:'Ex: CDW · Amex Gold · SereniTrip'},
+    {id:'link',       label:'Site loueur',         placeholder:'https://deltacar.me'},
+    {id:'notes',      label:'Notes',               placeholder:'Contrat, pistes non goudronnées…', multiline:true},
+  ],
+  activity: [
+    {id:'name',      label:'Activité *',           placeholder:'Ex: Rafting Tara · Montenegro Rafting'},
+    {id:'operateur', label:'Opérateur',            placeholder:'Ex: Montenegro Rafting Club'},
+    {id:'conf',      label:'N° de confirmation',  placeholder:'Ex: MRC-789'},
+    {id:'date',      label:'Date / Heure',        placeholder:'Ex: 22 sept · 09h00'},
+    {id:'rdv',       label:'Point de rendez-vous',placeholder:'Ex: Parking Šćepan Polje'},
+    {id:'pers',      label:'Nombre de personnes', placeholder:'Ex: 2 personnes'},
+    {id:'phone',     label:'Téléphone opérateur', placeholder:'Ex: +382 XX XXX XXX', type:'tel'},
+    {id:'link',      label:'Lien réservation',    placeholder:'https://…'},
+    {id:'notes',     label:'Notes',               placeholder:'Matériel fourni, niveau requis…', multiline:true},
+  ],
+};
+
+// OCR patterns per field
+const OCR_PATTERNS = {
+  conf:       [/(?:confirmation|booking|PNR|reference)\s*[:#]?\s*([A-Z0-9-]{4,20})/i, /\b([A-Z]{2}\d{6,})\b/, /\b([A-Z0-9]{6,10})\b/],
+  flight_num: [/\b([A-Z]{2}\d{3,4})\b/],
+  phone:      [/(\+?[\d \-\.]{10,16})/],
+  checkin:    [/check.?in[^\d]*(\d{1,2}[\/-]\d{1,2})/i],
+  checkout:   [/check.?out[^\d]*(\d{1,2}[\/-]\d{1,2})/i],
+  date:       [/(\d{1,2}[\/-]\d{1,2}(?:[\/-]\d{2,4})?)/],
+  pickup:     [/pick.?up[^\d]*(\d{1,2}[\/-]\d{1,2})/i],
+  dropoff:    [/drop.?off[^\d]*(\d{1,2}[\/-]\d{1,2})/i],
+};
 let _resData = [];
 let _resEditId = null;
-let _resPendingImg = null; // base64
+let _resPendingImg = null;
+let _tesseractLoaded = false;
 
 // ── Firebase sync ─────────────────────────────────────────────────────────
 
@@ -2553,7 +2594,111 @@ async function deleteResFromFb(id){
   await window._fbSetRaw('mne/reservations/' + id, null);
 }
 
-// ── Render ────────────────────────────────────────────────────────────────
+// ── Dynamic fields render ─────────────────────────────────────────────────
+
+function renderResFields(prefill={}){
+  const type = document.getElementById('res-type').value;
+  const fields = RES_FIELDS[type] || RES_FIELDS.hotel;
+  const container = document.getElementById('res-fields');
+
+  container.innerHTML = fields.map(f => `
+    <div class="edit-field">
+      <label class="edit-label">${f.label}</label>
+      ${f.multiline
+        ? `<textarea class="edit-input edit-textarea" id="resf-${f.id}" placeholder="${f.placeholder}">${prefill[f.id]||''}</textarea>`
+        : `<input class="edit-input" id="resf-${f.id}" type="${f.type||'text'}" placeholder="${f.placeholder}" value="${(prefill[f.id]||'').replace(/"/g,'&quot;')}"/>`
+      }
+    </div>`).join('');
+}
+
+function getResFieldValues(){
+  const type = document.getElementById('res-type').value;
+  const fields = RES_FIELDS[type] || RES_FIELDS.hotel;
+  const values = {type};
+  fields.forEach(f => {
+    const el = document.getElementById('resf-' + f.id);
+    if(el) values[f.id] = el.value.trim();
+  });
+  return values;
+}
+
+// ── OCR with Tesseract ────────────────────────────────────────────────────
+
+async function loadTesseract(){
+  if(window.Tesseract) return true;
+  return new Promise(resolve => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js';
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);
+    document.head.appendChild(s);
+  });
+}
+
+function extractFromOCR(text, type){
+  const extracted = {};
+  const fields = RES_FIELDS[type] || [];
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+
+  // Try each field's patterns
+  fields.forEach(f => {
+    const patterns = OCR_PATTERNS[f.id];
+    if(!patterns) return;
+    for(const pattern of patterns){
+      const m = text.match(pattern);
+      if(m && m[1]){
+        extracted[f.id] = m[1].trim();
+        break;
+      }
+    }
+  });
+
+  // Name heuristic — first meaningful line (not a number, not too short)
+  if(!extracted.name){
+    const nameLine = lines.find(l => l.length > 5 && !/^[\d\s\-\+]+$/.test(l) && !/^https?/.test(l));
+    if(nameLine) extracted.name = nameLine.slice(0, 60);
+  }
+
+  return extracted;
+}
+
+async function runOCR(dataUrl){
+  const statusEl = document.getElementById('res-ocr-status');
+  statusEl.textContent = '🔍 Lecture du screenshot…';
+
+  const loaded = await loadTesseract();
+  if(!loaded){ statusEl.textContent = '❌ OCR indisponible'; return; }
+
+  try{
+    const result = await Tesseract.recognize(dataUrl, 'fra+eng', {
+      logger: m => { if(m.status === 'recognizing text') statusEl.textContent = `🔍 Analyse… ${Math.round(m.progress*100)}%`; }
+    });
+    const text = result.data.text;
+    const type = document.getElementById('res-type').value;
+    const extracted = extractFromOCR(text, type);
+    const count = Object.keys(extracted).length;
+
+    if(count > 0){
+      // Pre-fill fields with extracted values (don't overwrite existing)
+      const fields = RES_FIELDS[type] || [];
+      fields.forEach(f => {
+        if(extracted[f.id]){
+          const el = document.getElementById('resf-' + f.id);
+          if(el && !el.value) el.value = extracted[f.id];
+        }
+      });
+      statusEl.textContent = `✅ ${count} champ${count>1?'s':''} rempli${count>1?'s':''}`;
+    } else {
+      statusEl.textContent = '⚠️ Aucune info extraite — remplis manuellement';
+    }
+    setTimeout(()=>{ statusEl.textContent = ''; }, 4000);
+  }catch(e){
+    statusEl.textContent = '❌ Erreur OCR — remplis manuellement';
+    console.warn('OCR error:', e);
+  }
+}
+
+// ── Render tab ────────────────────────────────────────────────────────────
 
 function renderResTab(){
   const container = document.getElementById('res-content');
@@ -2583,29 +2728,40 @@ function renderResTab(){
 }
 
 function renderResCard(res){
-  const type = RES_TYPES[res.type] || {icon:'📋', label:''};
+  const type = RES_TYPES[res.type] || {icon:'📋'};
+  const fields = RES_FIELDS[res.type] || [];
+  const mainLabel = res.name || '—';
+  const subLabel = res.checkin || res.depart || res.pickup || res.date || res.dates || '';
+
+  const fieldRows = fields
+    .filter(f => f.id !== 'name' && res[f.id])
+    .map(f => `<div class="res-field">
+      <div class="res-field-label">${f.label.replace(' *','')}</div>
+      <div class="res-field-value">${
+        f.id === 'phone' ? `<a href="tel:${res[f.id]}">${res[f.id]}</a>` :
+        f.id === 'link' && res[f.id].startsWith('http') ? `<a href="${res[f.id]}" target="_blank" rel="noopener">${res[f.id]}</a>` :
+        res[f.id]
+      }</div>
+    </div>`).join('');
+
+  const callBtn = res.phone ? `<a class="res-btn primary" href="tel:${res.phone}">📞 Appeler</a>` : '';
+  const linkBtn = res.link && res.link.startsWith('http') ? `<a class="res-btn" href="${res.link}" target="_blank" rel="noopener">🔗 Ouvrir</a>` : '';
+  const mapsBtn = res.address && !res.address.startsWith('http') ? `<a class="res-btn" href="https://maps.google.com/?q=${encodeURIComponent(res.address)}" target="_blank" rel="noopener">🗺 Maps</a>` : '';
+
   return `<div class="res-card" id="res-card-${res.id}">
     <div class="res-card-head" onclick="toggleResCard('${res.id}')">
       <span class="res-icon">${type.icon}</span>
       <div class="res-card-info">
-        <div class="res-card-name">${res.name || '—'}</div>
-        <div class="res-card-sub">${res.dates || ''}</div>
+        <div class="res-card-name">${mainLabel}</div>
+        <div class="res-card-sub">${subLabel}</div>
       </div>
       <svg class="res-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <div class="res-card-body">
       <div class="res-card-body-in">
-        ${res.conf ? `<div class="res-field"><div class="res-field-label">N° Confirmation</div><div class="res-field-value">${res.conf}</div></div>` : ''}
-        ${res.phone ? `<div class="res-field"><div class="res-field-label">Téléphone</div><div class="res-field-value"><a href="tel:${res.phone}">${res.phone}</a></div></div>` : ''}
-        ${res.address ? `<div class="res-field"><div class="res-field-label">Adresse / Lien</div><div class="res-field-value">${res.address.startsWith('http') ? `<a href="${res.address}" target="_blank" rel="noopener">${res.address}</a>` : res.address}</div></div>` : ''}
-        ${res.notes ? `<div class="res-field"><div class="res-field-label">Notes</div><div class="res-field-value">${res.notes}</div></div>` : ''}
-        ${res.img ? `<div style="margin-top:.75rem"><img class="res-screenshot" src="${res.img}" alt="Screenshot résa" onclick="openResLightbox('${res.id}')"/><div style="font-size:.65rem;color:var(--muted);margin-top:.3rem">Tap pour agrandir</div></div>` : ''}
-        <div class="res-actions">
-          ${res.phone ? `<a class="res-btn primary" href="tel:${res.phone}">📞 Appeler</a>` : ''}
-          ${res.address && res.address.startsWith('http') ? `<a class="res-btn" href="${res.address}" target="_blank" rel="noopener">🔗 Ouvrir</a>` : ''}
-          ${res.address && !res.address.startsWith('http') ? `<a class="res-btn" href="https://maps.google.com/?q=${encodeURIComponent(res.address)}" target="_blank" rel="noopener">🗺 Maps</a>` : ''}
-          <button class="res-btn" onclick="openResModal('${res.type}','${res.id}')">✏️ Modifier</button>
-        </div>
+        ${fieldRows}
+        ${res.img ? `<div style="margin-top:.75rem"><img class="res-screenshot" src="${res.img}" alt="Screenshot" onclick="openResLightbox('${res.id}')"/><div style="font-size:.65rem;color:var(--muted);margin-top:.3rem">Tap pour agrandir</div></div>` : ''}
+        <div class="res-actions">${callBtn}${linkBtn}${mapsBtn}<button class="res-btn" onclick="openResModal('${res.type}','${res.id}')">✏️ Modifier</button></div>
       </div>
     </div>
   </div>`;
@@ -2625,23 +2781,21 @@ function openResModal(type='hotel', editId=null){
 
   document.getElementById('resModalTitle').textContent = editId ? 'Modifier' : 'Ajouter une réservation';
   document.getElementById('res-type').value = res ? res.type : type;
-  document.getElementById('res-name').value = res ? (res.name||'') : '';
-  document.getElementById('res-dates').value = res ? (res.dates||'') : '';
-  document.getElementById('res-conf').value = res ? (res.conf||'') : '';
-  document.getElementById('res-phone').value = res ? (res.phone||'') : '';
-  document.getElementById('res-address').value = res ? (res.address||'') : '';
-  document.getElementById('res-notes').value = res ? (res.notes||'') : '';
   document.getElementById('res-delete-btn').style.display = editId ? '' : 'none';
+  document.getElementById('res-ocr-status').textContent = '';
+
+  // Render fields with prefill
+  renderResFields(res || {});
 
   // Image preview
   const preview = document.getElementById('res-img-preview');
   const label = document.getElementById('res-img-label');
   if(res && res.img){
-    preview.innerHTML = `<img src="${res.img}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;margin-bottom:.5rem;cursor:pointer;border:1.5px solid var(--border)" onclick="openResLightbox('${res.id}')"/>`;
-    label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer la photo`;
+    preview.innerHTML = `<img src="${res.img}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;margin-bottom:.5rem;cursor:pointer;border:1.5px solid var(--border)" onclick="document.getElementById('resLightboxImg').src=this.src;document.getElementById('resLightbox').classList.add('show')"/>`;
+    label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer`;
   } else {
     preview.innerHTML = '';
-    label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 📎 Appuyer pour ajouter une photo`;
+    label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 📎 Ajouter un screenshot`;
   }
 
   document.getElementById('resModal').classList.add('show');
@@ -2656,11 +2810,12 @@ function closeResModal(){
 async function handleResImg(input){
   const file = input.files[0];
   if(!file) return;
-  // Compress to 800px max, 60% quality
   const compressed = await compressImage(file, 800, 0.6);
   _resPendingImg = compressed;
   document.getElementById('res-img-preview').innerHTML = `<img src="${compressed}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;margin-bottom:.5rem;cursor:pointer;border:1.5px solid var(--border)" onclick="document.getElementById('resLightboxImg').src=this.src;document.getElementById('resLightbox').classList.add('show')"/>`;
-  document.getElementById('res-img-label').innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer la photo`;
+  document.getElementById('res-img-label').innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer`;
+  // Run OCR
+  runOCR(compressed);
 }
 
 function compressImage(file, maxPx, quality){
@@ -2686,21 +2841,16 @@ function compressImage(file, maxPx, quality){
 }
 
 async function saveRes(){
-  const name = document.getElementById('res-name').value.trim();
-  if(!name){ document.getElementById('res-name').focus(); return; }
+  const type = document.getElementById('res-type').value;
+  const values = getResFieldValues();
+  if(!values.name){ document.getElementById('resf-name') && document.getElementById('resf-name').focus(); return; }
 
   const existingRes = _resEditId ? _resData.find(r => r.id === _resEditId) : null;
   const id = _resEditId || 'res_' + Date.now().toString(36);
 
   const res = {
     id,
-    type: document.getElementById('res-type').value,
-    name,
-    dates: document.getElementById('res-dates').value.trim(),
-    conf: document.getElementById('res-conf').value.trim(),
-    phone: document.getElementById('res-phone').value.trim(),
-    address: document.getElementById('res-address').value.trim(),
-    notes: document.getElementById('res-notes').value.trim(),
+    ...values,
     img: _resPendingImg || (existingRes ? existingRes.img : null),
     order: existingRes ? existingRes.order : Date.now(),
   };
