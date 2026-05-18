@@ -802,6 +802,7 @@ onAuthStateChanged(auth, user => {
     document.getElementById('login-user-bar').style.display = 'flex';
     // Boot
     if(typeof initAfterFirebase === 'function') initAfterFirebase();
+    watchConnection();
   } else {
     // Not logged in — show login screen
     window._fbReady = () => false;
@@ -854,6 +855,25 @@ function startRealtimeListeners(){
   });
 }
 
+
+// ── Connection state + visibility refresh ────────────────────────────────
+function watchConnection(){
+  const connRef = ref(db, '.info/connected');
+  onValue(connRef, snap => {
+    const indicator = document.getElementById('conn-indicator');
+    if(indicator) indicator.style.background = snap.val() ? '#1D9E75' : '#FF8A80';
+  });
+}
+
+document.addEventListener('visibilitychange', () => {
+  if(document.visibilityState === 'visible' && auth && auth.currentUser){
+    setTimeout(() => {
+      if(typeof renderAllChecklists === 'function') renderAllChecklists();
+      if(typeof renderResTab === 'function') renderResTab();
+      if(typeof renderExpenseList === 'function') renderExpenseList();
+    }, 400);
+  }
+});
 </script>
 
 <script>
@@ -3204,16 +3224,20 @@ document.getElementById('budgetContent').addEventListener('input', e=>{
 
 // Dark mode
 function toggleTheme(){
-  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const isDark=document.body.getAttribute('data-theme')==='dark';
   const next=isDark?'light':'dark';
-  document.documentElement.setAttribute('data-theme',next);
+  document.body.setAttribute('data-theme',next);
   localStorage.setItem('mne4theme',next);
   document.getElementById('themeBtn').innerHTML=isDark
     ?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Mode sombre`
     :`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> Mode clair`;
 }
 const savedTheme=localStorage.getItem('mne4theme');
-if(savedTheme){document.documentElement.setAttribute('data-theme',savedTheme);if(savedTheme==='dark')toggleTheme(),toggleTheme();}
+if(savedTheme && savedTheme!=='dark'){
+  document.body.setAttribute('data-theme',savedTheme);
+  const btn=document.getElementById('themeBtn');
+  if(btn) btn.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Mode sombre`;
+}
 
 // Share
 function showShare(){
@@ -3270,7 +3294,7 @@ window.addEventListener('beforeinstallprompt',e=>{
 
 <!-- User bar -->
 <div id="login-user-bar" style="display:none">
-  <span>👤 <span id="login-user"></span></span>
+  <span style="display:flex;align-items:center;gap:.5rem"><span id="conn-indicator" style="width:7px;height:7px;border-radius:50%;background:#FF8A80;flex-shrink:0;transition:.3s" title="Connexion..."></span>👤 <span id="login-user"></span></span>
   <button onclick="window.logout()">Déconnexion</button>
 </div>
 
@@ -3278,7 +3302,7 @@ window.addEventListener('beforeinstallprompt',e=>{
 
 <!-- User bar -->
 <div id="login-user-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);border-top:1px solid var(--border);padding:.5rem 1.25rem;align-items:center;justify-content:space-between;font-size:.75rem;color:var(--muted);z-index:500">
-  <span>👤 <span id="login-user"></span></span>
+  <span style="display:flex;align-items:center;gap:.5rem"><span id="conn-indicator" style="width:7px;height:7px;border-radius:50%;background:#FF8A80;flex-shrink:0;transition:.3s" title="Connexion..."></span>👤 <span id="login-user"></span></span>
   <button onclick="window.logout()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem">Déconnexion</button>
 </div>
 
