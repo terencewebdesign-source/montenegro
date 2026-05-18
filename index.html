@@ -255,6 +255,52 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 #login-user-bar button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem;border-radius:6px;transition:.15s}
 #login-user-bar button:hover{color:#D32F2F}
 
+/* ═══ RESERVATIONS ═══ */
+.res-section{margin-bottom:1.5rem}
+.res-section-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;margin:0 0 .6rem;opacity:.75}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:.75rem;overflow:hidden;box-shadow:var(--shadow);transition:.2s}
+.res-card-head{display:flex;align-items:center;gap:.85rem;padding:1rem 1.15rem;cursor:pointer;user-select:none}
+.res-card-head:hover{background:var(--input-bg)}
+.res-icon{font-size:1.4rem;flex-shrink:0}
+.res-card-info{flex:1;min-width:0}
+.res-card-name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res-card-sub{font-size:.75rem;color:var(--muted);margin-top:1px}
+.res-card-chevron{width:16px;height:16px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.res-card.open .res-card-chevron{transform:rotate(180deg)}
+.res-card-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.res-card.open .res-card-body{max-height:1200px}
+.res-card-body-in{padding:.25rem 1.15rem 1.15rem;border-top:1px solid var(--border)}
+.res-field{display:flex;flex-direction:column;gap:.2rem;padding:.55rem 0;border-bottom:1px solid var(--border)}
+.res-field:last-of-type{border-bottom:none}
+.res-field-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500}
+.res-field-value{font-size:.85rem;color:var(--text);font-weight:500;word-break:break-all}
+.res-field-value a{color:var(--accent);text-decoration:none}
+.res-field-value a:hover{text-decoration:underline}
+.res-actions{display:flex;gap:.6rem;margin-top:.85rem;flex-wrap:wrap}
+.res-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:.45rem .85rem;font-size:.78rem;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;color:var(--text);transition:.2s;text-decoration:none}
+.res-btn:hover{border-color:var(--accent);color:var(--accent)}
+.res-btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.res-btn.primary:hover{opacity:.88}
+.res-btn.danger{color:#D32F2F;border-color:transparent}
+.res-btn.danger:hover{border-color:#D32F2F}
+.res-screenshot{width:100%;border-radius:10px;margin-top:.75rem;cursor:pointer;transition:.2s}
+.res-screenshot:hover{opacity:.88}
+.res-screenshot-placeholder{border:2px dashed var(--border);border-radius:10px;padding:1.5rem;text-align:center;color:var(--muted);font-size:.8rem;cursor:pointer;transition:.2s;margin-top:.75rem}
+.res-screenshot-placeholder:hover{border-color:var(--accent);color:var(--accent)}
+.res-add-btn{width:100%;background:none;border:1.5px dashed var(--border);border-radius:12px;padding:.85rem;font-size:.85rem;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.res-add-btn:hover{border-color:var(--accent);color:var(--accent)}
+/* Res modal */
+.res-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s}
+.res-modal-overlay.show{opacity:1;pointer-events:all}
+.res-modal{background:var(--bg);width:100%;height:100%;display:flex;flex-direction:column;transform:translateY(30px);transition:transform .25s}
+.res-modal-overlay.show .res-modal{transform:translateY(0)}
+/* Screenshot lightbox */
+.res-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:4000;display:none;align-items:center;justify-content:center;padding:1rem}
+.res-lightbox.show{display:flex}
+.res-lightbox img{max-width:100%;max-height:100%;border-radius:8px;object-fit:contain}
+.res-lightbox-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+[data-theme="dark"] .res-card{background:#1C1E1A;border-color:#2E302B}
+
 /* ═══ EDIT MODAL ═══ */
 .edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s}
 .edit-modal-overlay.show{opacity:1;pointer-events:all}
@@ -492,6 +538,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 <div class="main-tabs-inner">
   <div class="main-tab active" data-tab="itinerary">🗺 Itinéraire</div>
   <div class="main-tab" data-tab="budget">💶 Budget</div>
+  <div class="main-tab" data-tab="reservations">🎫 Réservations</div>
   <div class="main-tab" data-tab="pratique">🧰 Pratique</div>
   <div class="main-tab" data-tab="prep">✅ Préparation</div>
 </div>
@@ -524,6 +571,14 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 </div>
 
 <!-- ═══ PRATIQUE PANEL ═══ -->
+<!-- ═══ RESERVATIONS PANEL ═══ -->
+<div class="tab-panel" id="tab-reservations">
+  <div class="content" id="res-content">
+    <!-- Injected by JS -->
+    <div style="text-align:center;padding:3rem 1rem;color:var(--muted)">Chargement…</div>
+  </div>
+</div>
+
 <div class="tab-panel" id="tab-pratique">
   <div class="content">
 
@@ -599,6 +654,70 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 </div>
 
 <div class="footer">Roadtrip Monténégro · 17 au 30 septembre · Bon voyage ! 🇲🇪</div>
+
+<!-- ═══ RESERVATION MODAL ═══ -->
+<div class="res-modal-overlay" id="resModal">
+  <div class="res-modal">
+    <div class="edit-modal-header">
+      <div class="edit-modal-title" id="resModalTitle">Ajouter une réservation</div>
+      <button class="edit-modal-close" onclick="closeResModal()">✕</button>
+    </div>
+    <div class="edit-modal-body">
+      <div class="edit-field">
+        <label class="edit-label">Type</label>
+        <select class="edit-input edit-select" id="res-type">
+          <option value="hotel">🏨 Hôtel</option>
+          <option value="flight">✈️ Vol</option>
+          <option value="car">🚗 Voiture</option>
+          <option value="activity">🎟 Activité</option>
+        </select>
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">Nom *</label>
+        <input class="edit-input" id="res-name" placeholder="Ex: Hôtel Cattaro, Vol Paris→Tivat…"/>
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">Dates / Horaires</label>
+        <input class="edit-input" id="res-dates" placeholder="Ex: 17–20 sept · Check-in 15h"/>
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">N° de confirmation</label>
+        <input class="edit-input" id="res-conf" placeholder="Ex: ABC123456"/>
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">Téléphone direct</label>
+        <input class="edit-input" id="res-phone" type="tel" placeholder="Ex: +382 32 334 533"/>
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">Adresse / Lien</label>
+        <input class="edit-input" id="res-address" placeholder="Adresse ou lien de réservation"/>
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">Notes</label>
+        <textarea class="edit-input edit-textarea" id="res-notes" placeholder="Infos utiles, accès, parking…"></textarea>
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">Screenshot de réservation</label>
+        <div id="res-img-preview"></div>
+        <label class="res-screenshot-placeholder" id="res-img-label">
+          <input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/>
+          📎 Appuyer pour ajouter une photo
+        </label>
+      </div>
+    </div>
+    <div class="edit-modal-footer">
+      <button class="edit-btn-cancel" onclick="closeResModal()">Annuler</button>
+      <button class="edit-btn-primary" onclick="saveRes()">Enregistrer</button>
+      <button class="edit-btn-danger" id="res-delete-btn" onclick="deleteRes()" style="display:none">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREENSHOT LIGHTBOX ═══ -->
+<div class="res-lightbox" id="resLightbox" onclick="closeResLightbox()">
+  <button class="res-lightbox-close" onclick="closeResLightbox()">✕</button>
+  <img id="resLightboxImg" src="" alt="Screenshot réservation"/>
+</div>
 
 <!-- SHARE MODAL -->
 <div class="modal-overlay" id="shareModal" onclick="if(event.target===this)closeShare()">
@@ -1871,6 +1990,7 @@ async function initAfterFirebase(){
   if(window._startRealtimeListeners) window._startRealtimeListeners();
   await migrateChecklistIfNeeded();
   startChecklistListener();
+  startResListener();
 }
 
 // ═══════════════════════════════════════
@@ -2395,6 +2515,223 @@ async function deleteEditItem(){
   renderDayChecklist(dayNum);
   updCFromFirebase();
   showToast('Item supprimé 🗑');
+}
+
+
+// ═══════════════════════════════════════
+// RESERVATIONS
+// ═══════════════════════════════════════
+
+const RES_TYPES = {
+  hotel:    {icon:'🏨', label:'Hôtel'},
+  flight:   {icon:'✈️', label:'Vol'},
+  car:      {icon:'🚗', label:'Voiture'},
+  activity: {icon:'🎟', label:'Activité'},
+};
+
+let _resData = [];
+let _resEditId = null;
+let _resPendingImg = null; // base64
+
+// ── Firebase sync ─────────────────────────────────────────────────────────
+
+function startResListener(){
+  if(!window._fbReady || !window._fbReady()) return;
+  window._fbOnValue(window._fbRef('mne/reservations'), snap => {
+    _resData = snap.exists() ? Object.values(snap.val()) : [];
+    renderResTab();
+  });
+}
+
+async function saveResToFb(res){
+  if(!window._fbReady || !window._fbReady()) return;
+  await window._fbSetRaw('mne/reservations/' + res.id, res);
+}
+
+async function deleteResFromFb(id){
+  if(!window._fbReady || !window._fbReady()) return;
+  await window._fbSetRaw('mne/reservations/' + id, null);
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+
+function renderResTab(){
+  const container = document.getElementById('res-content');
+  if(!container) return;
+
+  const sections = [
+    {key:'flight',   label:'✈️ Vols'},
+    {key:'car',      label:'🚗 Voiture'},
+    {key:'hotel',    label:'🏨 Hôtels'},
+    {key:'activity', label:'🎟 Activités'},
+  ];
+
+  let html = '';
+  sections.forEach(({key, label}) => {
+    const items = _resData.filter(r => r.type === key).sort((a,b) => (a.order||0)-(b.order||0));
+    html += `<div class="res-section">
+      <div class="res-section-title">${label}</div>`;
+    items.forEach(res => { html += renderResCard(res); });
+    html += `<button class="res-add-btn" onclick="openResModal('${key}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Ajouter
+    </button>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function renderResCard(res){
+  const type = RES_TYPES[res.type] || {icon:'📋', label:''};
+  return `<div class="res-card" id="res-card-${res.id}">
+    <div class="res-card-head" onclick="toggleResCard('${res.id}')">
+      <span class="res-icon">${type.icon}</span>
+      <div class="res-card-info">
+        <div class="res-card-name">${res.name || '—'}</div>
+        <div class="res-card-sub">${res.dates || ''}</div>
+      </div>
+      <svg class="res-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="res-card-body">
+      <div class="res-card-body-in">
+        ${res.conf ? `<div class="res-field"><div class="res-field-label">N° Confirmation</div><div class="res-field-value">${res.conf}</div></div>` : ''}
+        ${res.phone ? `<div class="res-field"><div class="res-field-label">Téléphone</div><div class="res-field-value"><a href="tel:${res.phone}">${res.phone}</a></div></div>` : ''}
+        ${res.address ? `<div class="res-field"><div class="res-field-label">Adresse / Lien</div><div class="res-field-value">${res.address.startsWith('http') ? `<a href="${res.address}" target="_blank" rel="noopener">${res.address}</a>` : res.address}</div></div>` : ''}
+        ${res.notes ? `<div class="res-field"><div class="res-field-label">Notes</div><div class="res-field-value">${res.notes}</div></div>` : ''}
+        ${res.img ? `<img class="res-screenshot" src="${res.img}" alt="Screenshot" onclick="openResLightbox('${res.id}')"/>` : ''}
+        <div class="res-actions">
+          ${res.phone ? `<a class="res-btn primary" href="tel:${res.phone}">📞 Appeler</a>` : ''}
+          ${res.address && res.address.startsWith('http') ? `<a class="res-btn" href="${res.address}" target="_blank" rel="noopener">🔗 Ouvrir</a>` : ''}
+          ${res.address && !res.address.startsWith('http') ? `<a class="res-btn" href="https://maps.google.com/?q=${encodeURIComponent(res.address)}" target="_blank" rel="noopener">🗺 Maps</a>` : ''}
+          <button class="res-btn" onclick="openResModal('${res.type}','${res.id}')">✏️ Modifier</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleResCard(id){
+  const card = document.getElementById('res-card-' + id);
+  if(card) card.classList.toggle('open');
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────
+
+function openResModal(type='hotel', editId=null){
+  _resEditId = editId;
+  _resPendingImg = null;
+  const res = editId ? _resData.find(r => r.id === editId) : null;
+
+  document.getElementById('resModalTitle').textContent = editId ? 'Modifier' : 'Ajouter une réservation';
+  document.getElementById('res-type').value = res ? res.type : type;
+  document.getElementById('res-name').value = res ? (res.name||'') : '';
+  document.getElementById('res-dates').value = res ? (res.dates||'') : '';
+  document.getElementById('res-conf').value = res ? (res.conf||'') : '';
+  document.getElementById('res-phone').value = res ? (res.phone||'') : '';
+  document.getElementById('res-address').value = res ? (res.address||'') : '';
+  document.getElementById('res-notes').value = res ? (res.notes||'') : '';
+  document.getElementById('res-delete-btn').style.display = editId ? '' : 'none';
+
+  // Image preview
+  const preview = document.getElementById('res-img-preview');
+  const label = document.getElementById('res-img-label');
+  if(res && res.img){
+    preview.innerHTML = `<img src="${res.img}" style="width:100%;border-radius:8px;margin-bottom:.5rem;cursor:pointer" onclick="openResLightbox('${res.id}')"/>`;
+    label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer la photo`;
+  } else {
+    preview.innerHTML = '';
+    label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 📎 Appuyer pour ajouter une photo`;
+  }
+
+  document.getElementById('resModal').classList.add('show');
+}
+
+function closeResModal(){
+  document.getElementById('resModal').classList.remove('show');
+  _resEditId = null;
+  _resPendingImg = null;
+}
+
+async function handleResImg(input){
+  const file = input.files[0];
+  if(!file) return;
+  // Compress to 800px max, 60% quality
+  const compressed = await compressImage(file, 800, 0.6);
+  _resPendingImg = compressed;
+  document.getElementById('res-img-preview').innerHTML = `<img src="${compressed}" style="width:100%;border-radius:8px;margin-bottom:.5rem"/>`;
+  document.getElementById('res-img-label').innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer la photo`;
+}
+
+function compressImage(file, maxPx, quality){
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if(w > maxPx || h > maxPx){
+          if(w > h){ h = Math.round(h * maxPx / w); w = maxPx; }
+          else { w = Math.round(w * maxPx / h); h = maxPx; }
+        }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+async function saveRes(){
+  const name = document.getElementById('res-name').value.trim();
+  if(!name){ document.getElementById('res-name').focus(); return; }
+
+  const existingRes = _resEditId ? _resData.find(r => r.id === _resEditId) : null;
+  const id = _resEditId || 'res_' + Date.now().toString(36);
+
+  const res = {
+    id,
+    type: document.getElementById('res-type').value,
+    name,
+    dates: document.getElementById('res-dates').value.trim(),
+    conf: document.getElementById('res-conf').value.trim(),
+    phone: document.getElementById('res-phone').value.trim(),
+    address: document.getElementById('res-address').value.trim(),
+    notes: document.getElementById('res-notes').value.trim(),
+    img: _resPendingImg || (existingRes ? existingRes.img : null),
+    order: existingRes ? existingRes.order : Date.now(),
+  };
+
+  await saveResToFb(res);
+  closeResModal();
+  showToast('Réservation sauvegardée ✅');
+}
+
+async function deleteRes(){
+  const btn = document.getElementById('res-delete-btn');
+  if(btn.dataset.confirming !== 'true'){
+    btn.dataset.confirming = 'true';
+    btn.textContent = 'Confirmer';
+    setTimeout(()=>{ btn.dataset.confirming='false'; btn.textContent='Supprimer'; }, 3000);
+    return;
+  }
+  await deleteResFromFb(_resEditId);
+  closeResModal();
+  showToast('Réservation supprimée 🗑');
+}
+
+function openResLightbox(id){
+  const res = _resData.find(r => r.id === id);
+  if(!res || !res.img) return;
+  document.getElementById('resLightboxImg').src = res.img;
+  document.getElementById('resLightbox').classList.add('show');
+}
+
+function closeResLightbox(){
+  document.getElementById('resLightbox').classList.remove('show');
 }
 
 // ═══════════════════════════════════════
