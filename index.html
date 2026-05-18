@@ -243,6 +243,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .login-logo{font-size:2.5rem;margin-bottom:.5rem}
 .login-title{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#0F3D2E;margin-bottom:.25rem}
 .login-sub{font-size:.85rem;color:#777;margin-bottom:2rem}
+.login-input{width:100%;background:#F5F5F5;border:1.5px solid #E0E0E0;border-radius:10px;padding:.75rem 1rem;font-size:.95rem;font-family:'Outfit',sans-serif;color:#333;outline:none;transition:.2s;box-sizing:border-box}
+.login-input:focus{border-color:#1D6B52;background:#fff}
+.login-input::placeholder{color:#aaa}
 .login-btn{display:flex;align-items:center;justify-content:center;gap:.75rem;width:100%;background:#fff;border:2px solid #E0E0E0;border-radius:12px;padding:.85rem 1.25rem;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;color:#333;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .login-btn:hover{border-color:#1D6B52;box-shadow:0 4px 16px rgba(29,107,82,.15)}
 .login-btn svg{width:22px;height:22px;flex-shrink:0}
@@ -633,7 +636,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // ═══════════════════════════════════════
 // FIREBASE CONFIG & SYNC
@@ -654,7 +657,7 @@ let auth = null;
 let firebaseReady = false;
 let currentUser = null;
 // Seuls ces emails ont accès
-const ALLOWED_EMAILS = ["terence.webdesign@gmail.com"]; // Deborah à ajouter plus tard
+// Auth géré par Firebase — seuls les comptes créés dans la console ont accès
 
 function initFirebase(){
   try{
@@ -663,7 +666,7 @@ function initFirebase(){
     auth = getAuth(app);
     // Watch auth state
     onAuthStateChanged(auth, user => {
-      if(user && ALLOWED_EMAILS.includes(user.email)){
+      if(user){
         currentUser = user;
         firebaseReady = true;
         showApp();
@@ -673,21 +676,12 @@ function initFirebase(){
         window._fbSetRaw = (path, val) => set(ref(db, path), val);
         window._fbReady = () => firebaseReady;
         initAfterFirebase();
-      } else if(user) {
-        // Logged in but not allowed
-        signOut(auth);
-        showLogin('Accès non autorisé pour ' + user.email);
       } else {
         currentUser = null;
         firebaseReady = false;
         showLogin();
       }
     });
-    // Handle redirect result on page load
-    getRedirectResult(auth).then(result => {
-      if(result?.user) console.log('Redirect login:', result.user.email);
-    }).catch(e => console.warn('Redirect result error:', e));
-
     console.log('✅ Firebase + Auth initialisés');
     return true;
   }catch(e){
@@ -710,13 +704,23 @@ function showApp(){
   if(el && currentUser) el.textContent = currentUser.displayName || currentUser.email;
 }
 
-window.loginWithGoogle = async function(){
+window.loginWithEmail = async function(){
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = '';
+  if(!email || !password){ errEl.textContent = 'Remplis les deux champs'; return; }
   try{
-    const provider = new GoogleAuthProvider();
-    await signInWithRedirect(auth, provider);
+    document.getElementById('login-submit').textContent = 'Connexion…';
+    await signInWithEmailAndPassword(auth, email, password);
   }catch(e){
-    document.getElementById('login-error').textContent = 'Erreur de connexion — réessaie';
-    console.warn(e);
+    document.getElementById('login-submit').textContent = 'Se connecter';
+    if(e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'){
+      errEl.textContent = 'Email ou mot de passe incorrect';
+    } else {
+      errEl.textContent = 'Erreur — réessaie';
+      console.warn(e);
+    }
   }
 }
 
