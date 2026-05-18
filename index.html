@@ -204,7 +204,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);line-h
 .ci-checkbox{appearance:none;-webkit-appearance:none;width:22px;height:22px;min-width:22px;border:1.5px solid rgba(255,255,255,.25);border-radius:7px;flex-shrink:0;cursor:pointer;transition:.15s;position:relative;background:rgba(255,255,255,.06)}
 .ci-checkbox:checked{background:var(--accent);border-color:var(--accent)}
 .ci-checkbox:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
-.ci-name{font-size:.9rem;color:var(--text);line-height:1.5;flex:1}
+.ci-name{font-size:.9rem;color:var(--text);line-height:1.5;flex:1;word-spacing:.15em}
 .ci-checkbox:checked~.ci-name{color:var(--muted);text-decoration:line-through;opacity:.6}
 .ci-block{border:none;border-radius:14px;margin-bottom:.8rem;overflow:hidden;background:#242428;transition:.2s}
 .ci-block:hover{opacity:.92}
@@ -282,7 +282,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);line-h
 .res-screenshot:hover{opacity:.85;transform:scale(1.03)}
 .res-screenshot-placeholder{border:2px dashed var(--border);border-radius:10px;padding:1.5rem;text-align:center;color:var(--muted);font-size:.8rem;cursor:pointer;transition:.2s;margin-top:.75rem}
 .res-screenshot-placeholder:hover{border-color:var(--accent);color:var(--accent)}
-.res-add-btn{width:100%;background:#10B981;border:none;border-radius:99px;padding:.7rem;font-size:.85rem;color:#fff;font-weight:600;cursor:pointer;font-family:'Lato',sans-serif;transition:.2s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.res-add-btn{width:100%;background:none;border:1.5px dashed rgba(255,255,255,.15);border-radius:12px;padding:.75rem;font-size:.82rem;color:var(--muted);cursor:pointer;font-family:'Lato',sans-serif;transition:.2s;display:flex;align-items:center;justify-content:center;gap:.5rem}
 .res-add-btn:hover{border-color:var(--accent);color:var(--accent)}
 /* Res modal */
 .res-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s}
@@ -305,7 +305,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);line-h
 .pack-item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:22px;height:22px;min-width:22px;border:1.5px solid rgba(255,255,255,.25);border-radius:7px;cursor:pointer;transition:.15s;position:relative;background:rgba(255,255,255,.06);flex-shrink:0}
 .pack-item input:checked{background:var(--accent);border-color:var(--accent)}
 .pack-item input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:11px;font-weight:700}
-.pack-item-name{font-size:.9rem;flex:1;color:var(--text);line-height:1.45}
+.pack-item-name{font-size:.9rem;flex:1;color:var(--text);line-height:1.45;word-spacing:.15em}
 .pack-item input:checked ~ .pack-item-name{color:var(--muted);text-decoration:line-through;opacity:.6}
 .pack-item-edit{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.82rem;padding:.2rem .25rem;opacity:.45;transition:.15s;flex-shrink:0;line-height:1}
 .pack-item-edit:hover{opacity:1;color:var(--accent)}
@@ -362,7 +362,7 @@ body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--text);line-h
 .prep-item input:checked{background:var(--accent);border-color:var(--accent)}
 .prep-item input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:11px;font-weight:700}
 .prep-item .pi-content{flex:1}
-.prep-item .pi-main{font-size:.9rem;font-weight:500;color:var(--text);line-height:1.45}
+.prep-item .pi-main{font-size:.9rem;font-weight:500;color:var(--text);line-height:1.45;word-spacing:.15em}
 .prep-item .pi-detail{font-size:.77rem;color:var(--muted);margin-top:2px;line-height:1.45}
 .prep-item input:checked+.pi-content .pi-main{color:var(--muted);text-decoration:line-through;opacity:.6}
 .prep-item input:checked+.pi-content .pi-detail{opacity:.4}
