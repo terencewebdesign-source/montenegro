@@ -261,7 +261,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .res-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:.75rem;overflow:hidden;box-shadow:var(--shadow);transition:.2s}
 .res-card-head{display:flex;align-items:center;gap:.85rem;padding:1rem 1.15rem;cursor:pointer;user-select:none}
 .res-card-head:hover{background:var(--input-bg)}
-.res-icon{font-size:1.4rem;flex-shrink:0}
+.res-icon{font-size:1.4rem;flex-shrink:0;display:flex;align-items:center;width:28px}
 .res-card-info{flex:1;min-width:0}
 .res-card-name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .res-card-sub{font-size:.75rem;color:var(--muted);margin-top:1px}
@@ -312,8 +312,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .pack-item input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:11px;font-weight:700}
 .pack-item-name{font-size:.85rem;flex:1;cursor:pointer}
 .pack-item input:checked ~ .pack-item-name{color:var(--muted);text-decoration:line-through;opacity:.6}
-.pack-item-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem;padding:.1rem .25rem;opacity:.4;transition:.15s;flex-shrink:0}
-.pack-item-del:hover{opacity:1;color:#D32F2F}
+.pack-item-edit{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.82rem;padding:.2rem .25rem;opacity:.45;transition:.15s;flex-shrink:0;line-height:1}
+.pack-item-edit:hover{opacity:1;color:var(--accent)}
 .pack-add-row{display:flex;gap:.5rem;margin-top:.75rem}
 .pack-add-input{flex:1;background:var(--input-bg);border:1.5px solid var(--border);border-radius:8px;padding:.55rem .75rem;font-size:.82rem;font-family:'Outfit',sans-serif;color:var(--text);outline:none;transition:.2s}
 .pack-add-input:focus{border-color:var(--accent)}
@@ -354,7 +354,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .prep-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:1.4rem;overflow:hidden;box-shadow:var(--shadow);transition:.3s}
 .prep-head{display:flex;align-items:center;gap:.85rem;padding:1.15rem 1.25rem;cursor:pointer;user-select:none;border-bottom:1px solid transparent;transition:.2s}
 .prep-section.open .prep-head{border-bottom-color:var(--border)}
-.prep-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.prep-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .prep-info{flex:1}
 .prep-title{font-family:'DM Serif Display',serif;font-size:1rem}
 .prep-sub{font-size:.78rem;color:var(--muted);margin-top:1px}
@@ -474,7 +474,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 /* ═══ URGENCES TAB ═══ */
 .urgence-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:.75rem;overflow:hidden;box-shadow:var(--shadow)}
 .urgence-head{padding:1rem 1.25rem;background:var(--input-bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem}
-.urgence-icon{font-size:1.1rem}
+.urgence-icon{font-size:1.3rem;display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex-shrink:0}
 .urgence-title{font-weight:600;font-size:.9rem}
 .urgence-row{display:flex;align-items:center;gap:.85rem;padding:.9rem 1.25rem;border-bottom:1px solid var(--border)}
 .urgence-row:last-child{border-bottom:none}
@@ -534,11 +534,11 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
     </div>
     <div class="hero-actions">
       <button class="hero-btn" onclick="toggleTheme()" id="themeBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         Mode sombre
       </button>
       <button class="hero-btn" onclick="showShare()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
         Partager
       </button>
     </div>
@@ -556,11 +556,11 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 <!-- ═══ MAIN TABS ═══ -->
 <div class="main-tabs">
 <div class="main-tabs-inner">
-  <div class="main-tab active" data-tab="itinerary">🗺 Itinéraire</div>
-  <div class="main-tab" data-tab="budget">💶 Budget</div>
-  <div class="main-tab" data-tab="reservations">🎫 Réservations</div>
-  <div class="main-tab" data-tab="pratique">🧰 Pratique</div>
-  <div class="main-tab" data-tab="prep">✅ Préparation</div>
+  <div class="main-tab active" data-tab="itinerary"><span style="display:inline-flex;align-items:center;gap:.4rem"><ssvg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></ssvg> Itinéraire</span></div>
+  <div class="main-tab" data-tab="budget"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg style='width:15px;height:15px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M4 14h12"/><path d="M19.5 8A7.5 7.5 0 1 0 19.5 16"/></svg> Budget</span></div>
+  <div class="main-tab" data-tab="reservations"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg style='width:15px;height:15px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><line x1="12" y1="7" x2="12" y2="17" stroke-dasharray="2 2"/></svg> Réservations</span></div>
+  <div class="main-tab" data-tab="pratique"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg style='width:15px;height:15px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Pratique</span></div>
+  <div class="main-tab" data-tab="prep"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg style='width:15px;height:15px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Préparation</span></div>
 </div>
 </div>
 
@@ -587,7 +587,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
   <div class="content">
     <div class="prep-section open" id="packing-section">
       <div class="prep-head" onclick="this.parentElement.classList.toggle('open')">
-        <div class="prep-icon" style="background:var(--coast-lt)">🧳</div>
+        <div class="prep-icon" style="background:var(--coast-lt)"><svg style='width:18px;height:18px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M10 4V2h4v2"/><path d="M12 10v4"/><path d="M10 12h4"/><path d="M6 20h12"/></svg></div>
         <div class="prep-info">
           <div class="prep-title">Packing List</div>
           <div class="prep-sub" id="packing-sub">Chargement…</div>
@@ -622,7 +622,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
     <!-- URGENCES -->
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon">🚨</span><span class="urgence-title">Numéros d'urgence</span></div>
+      <div class="urgence-head"><span class="urgence-icon"><svg style='width:20px;height:20px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span><span class="urgence-title">Numéros d'urgence</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Urgences européennes</div><div class="urgence-detail">Ambulance, pompiers, police</div></div><span class="urgence-num">112</span><a class="urgence-call red" href="tel:112">📞 Appeler</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Police nationale Monténégro</div></div><span class="urgence-num">122</span><a class="urgence-call red" href="tel:122">📞 Appeler</a></div>
       <div class="urgence-row"><div><div class="urgence-label">SAMU / Ambulance</div></div><span class="urgence-num">124</span><a class="urgence-call red" href="tel:124">📞 Appeler</a></div>
@@ -630,21 +630,21 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
     </div>
 
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon">🇫🇷</span><span class="urgence-title">Ambassade de France</span></div>
+      <div class="urgence-head"><span class="urgence-icon"><svg style='width:20px;height:20px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span><span class="urgence-title">Ambassade de France</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Ambassade de France à Podgorica</div><div class="urgence-detail">98 bd George Washington — perte de passeport, assistance</div></div><a class="urgence-call" href="tel:+38220655348">📞 +382 20 655 348</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Service consulaire</div><div class="urgence-detail">Lun–ven 9h–17h</div></div><a class="urgence-call" href="tel:+38220405812">📞 +382 20 405 812</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Urgence consulaire 24h/24</div><div class="urgence-detail">En dehors des heures d'ouverture</div></div><a class="urgence-call red" href="tel:+382069143074">📞 +382 69 143 074</a></div>
     </div>
 
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon">🚗</span><span class="urgence-title">Voiture & Assurance</span></div>
+      <div class="urgence-head"><span class="urgence-icon"><svg style='width:20px;height:20px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="urgence-title">Voiture & Assurance</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Assistance routière Monténégro (AMSCG)</div><div class="urgence-detail">Panne ou accident sur route</div></div><span class="urgence-num">19807</span><a class="urgence-call" href="tel:19807">📞 Appeler</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Opposition Amex Gold</div><div class="urgence-detail">En cas de perte ou vol de carte</div></div><a class="urgence-call red" href="tel:+33147777000">📞 +33 1 47 77 70 00</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Delta Car (loueur)</div><div class="urgence-detail">Meet & greet Tivat — à sauvegarder avant départ</div></div><a class="urgence-call" href="https://www.deltacar.me" target="_blank">🌐 deltacar.me</a></div>
     </div>
 
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon">🏥</span><span class="urgence-title">Hôpitaux principaux</span></div>
+      <div class="urgence-head"><span class="urgence-icon"><svg style='width:20px;height:20px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="18" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M8 10h.01M8 14h.01M16 10h.01M16 14h.01"/><path d="M10 9h4M12 7v4"/></svg></span><span class="urgence-title">Hôpitaux principaux</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Kotor</div><div class="urgence-detail">Dobrota bb, Kotor — urgences et soins</div></div><a class="urgence-call" href="tel:+38232334533">📞 +382 32 334 533</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Budva</div><div class="urgence-detail">Popa Jola Zeca, Budva</div></div><a class="urgence-call" href="tel:+38233427200">📞 +382 33 427 200</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Tivat</div><div class="urgence-detail">Aéroport à 5 min</div></div><a class="urgence-call" href="tel:+38232671774">📞 +382 32 671 774</a></div>
@@ -693,12 +693,37 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 <div class="footer">Roadtrip Monténégro · 17 au 30 septembre · Bon voyage ! 🇲🇪</div>
 
+<!-- ═══ ITEM EDIT MODAL (prep + packing) ═══ -->
+<div class="edit-modal-overlay" id="itemEditModal">
+  <div class="edit-modal">
+    <div class="edit-modal-header">
+      <div class="edit-modal-title" id="itemEditTitle">Modifier</div>
+      <button class="edit-modal-close" onclick="closeItemEditModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="edit-modal-body">
+      <div class="edit-field">
+        <label class="edit-label">Titre *</label>
+        <input class="edit-input" id="item-edit-main" placeholder="Description de la tâche…"/>
+      </div>
+      <div class="edit-field" id="item-edit-detail-field">
+        <label class="edit-label">Détail (optionnel)</label>
+        <textarea class="edit-input edit-textarea" id="item-edit-detail" placeholder="Infos supplémentaires…" style="min-height:80px"></textarea>
+      </div>
+    </div>
+    <div class="edit-modal-footer">
+      <button class="edit-btn-cancel" onclick="closeItemEditModal()">Annuler</button>
+      <button class="edit-btn-primary" onclick="saveItemEdit()">Enregistrer</button>
+      <button class="edit-btn-danger" id="item-edit-delete-btn" onclick="deleteItemEdit()">Supprimer</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ RESERVATION MODAL ═══ -->
 <div class="res-modal-overlay" id="resModal">
   <div class="res-modal">
     <div class="edit-modal-header">
       <div class="edit-modal-title" id="resModalTitle">Ajouter une réservation</div>
-      <button class="edit-modal-close" onclick="closeResModal()">✕</button>
+      <button class="edit-modal-close" onclick="closeResModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="edit-modal-body">
       <div class="edit-field">
@@ -733,7 +758,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 <!-- ═══ SCREENSHOT LIGHTBOX ═══ -->
 <div class="res-lightbox" id="resLightbox" onclick="closeResLightbox()">
-  <button class="res-lightbox-close" onclick="closeResLightbox()">✕</button>
+  <button class="res-lightbox-close" onclick="closeResLightbox()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   <img id="resLightboxImg" src="" alt="Screenshot réservation"/>
 </div>
 
@@ -757,7 +782,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
   <div class="edit-modal">
     <div class="edit-modal-header">
       <div class="edit-modal-title" id="editModalTitle">Ajouter un item</div>
-      <button class="edit-modal-close" onclick="closeEditModal()">✕</button>
+      <button class="edit-modal-close" onclick="closeEditModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="edit-modal-body">
       <div class="edit-field">
@@ -2351,7 +2376,7 @@ function renderCheckItem(item, dayNum, catKey){
     <div class="ci-row">
       <input type="checkbox" class="ci-checkbox" ${item.checked?'checked':''} onclick="event.stopPropagation();toggleCheckFb('${item.id}','${dayNum}','${catKey}',this.checked)"/>
       <span class="ci-name">${item.name}</span>
-      <button class="ci-edit-btn" onclick="event.stopPropagation();openEditItem('${item.id}','${dayNum}','${catKey}')" title="Modifier">✏️</button>
+      <button class="ci-edit-btn" onclick="event.stopPropagation();openEditItem('${item.id}','${dayNum}','${catKey}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
       ${hasInfo ? `<svg class="ci-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>` : '<span style="width:16px;flex-shrink:0"></span>'}
     </div>
     ${hasInfo ? `<div class="ci-dropdown" id="ci-dd-fb-${item.id}">${ddHTML}</div>` : ''}
@@ -2445,7 +2470,7 @@ function addEditInfo(val=''){
   const div = document.createElement('div');
   div.className = 'edit-info-row';
   div.innerHTML = `<input class="edit-input" placeholder="Ex: Entrée 8€" value="${val.replace(/"/g,'&quot;')}"/>
-    <button class="edit-link-del" onclick="this.parentElement.remove()">✕</button>`;
+    <button class="edit-link-del" onclick="this.parentElement.remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
   document.getElementById('edit-infos-list').appendChild(div);
 }
 
@@ -2455,7 +2480,7 @@ function addEditLink(link=null){
   div.innerHTML = `
     <input class="edit-input" placeholder="Label (ex: Google Maps)" value="${(link?.label||'').replace(/"/g,'&quot;')}" style="flex:0.8"/>
     <input class="edit-input" placeholder="URL (https://…)" value="${(link?.url||'').replace(/"/g,'&quot;')}" style="flex:1.5"/>
-    <button class="edit-link-del" onclick="this.parentElement.remove()">✕</button>`;
+    <button class="edit-link-del" onclick="this.parentElement.remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
   document.getElementById('edit-links-list').appendChild(div);
 }
 
@@ -2545,10 +2570,10 @@ async function deleteEditItem(){
 // ═══════════════════════════════════════
 
 const RES_TYPES = {
-  hotel:    {icon:'🏨', label:'Hôtel'},
-  flight:   {icon:'✈️', label:'Vol'},
-  car:      {icon:'🚗', label:'Voiture'},
-  activity: {icon:'🎟', label:'Activité'},
+  hotel:    {icon:`<svg style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`, label:'Hôtel'},
+  flight:   {icon:`<svg style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4c-2 0-6 2-6 2H7c-2 0-4.5 1.5-4.5 3.5s.5 3 2.5 3l2.5-.5L10 11l-2 1.5-.5 2.5v2.5L9 18l1.5-1.5 1 1.5V21l2 .5 1.5-2.5z"/></svg>`, label:'Vol'},
+  car:      {icon:`<svg style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`, label:'Voiture'},
+  activity: {icon:`<svg style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`, label:'Activité'},
 };
 
 // Field definitions per type
@@ -2979,7 +3004,7 @@ function renderPackingList(){
       html += `<div class="pack-item" id="pk-${item.id}">
         <input type="checkbox" ${item.checked?'checked':''} onclick="togglePackItem('${item.id}','${catKey}',this.checked)"/>
         <span class="pack-item-name">${item.name}</span>
-        <button class="pack-item-del" onclick="deletePackItem('${item.id}','${catKey}')" title="Supprimer">✕</button>
+        <button class="pack-item-edit" onclick="openItemEditModal('pack','${catKey}','${item.id}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
       </div>`;
     });
     html += `<div class="pack-add-row">
@@ -3093,7 +3118,7 @@ function renderPrepSections(){
           <div class="pi-main">${it.main}</div>
           ${it.detail ? `<div class="pi-detail">${it.detail}</div>` : ''}
         </div>
-        <button class="pack-item-del" onclick="deletePrepItem('${it.id}','${secKey}')" title="Supprimer">✕</button>
+        <button class="pack-item-edit" onclick="openItemEditModal('prep','${secKey}','${it.id}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
       </div>`).join('');
 
     return `<div class="prep-section open" id="ps-${secKey}">
@@ -3176,6 +3201,94 @@ async function deletePrepItem(itemId, secKey){
     await window._fbSetRaw(`mne/prep_tasks/${secKey}/items/${itemId}`, null);
   }
   renderPrepSections();
+}
+
+// ═══════════════════════════════════════
+// ITEM EDIT MODAL — shared for prep + packing
+// ═══════════════════════════════════════
+
+let _itemEditCtx = null; // {type:'prep'|'pack', secKey, itemId}
+
+function openItemEditModal(type, secKey, itemId){
+  _itemEditCtx = {type, secKey, itemId};
+  const item = type === 'prep'
+    ? _prepData[secKey]?.items?.[itemId]
+    : _packData[secKey]?.[itemId];
+  if(!item) return;
+
+  document.getElementById('itemEditTitle').textContent = 'Modifier';
+  document.getElementById('item-edit-main').value = item.main || item.name || '';
+
+  const detailField = document.getElementById('item-edit-detail-field');
+  const detailInput = document.getElementById('item-edit-detail');
+  if(type === 'prep'){
+    detailField.style.display = '';
+    detailInput.value = item.detail || '';
+  } else {
+    detailField.style.display = 'none'; // packing items have no detail
+  }
+
+  // Reset delete button
+  const delBtn = document.getElementById('item-edit-delete-btn');
+  delBtn.textContent = 'Supprimer';
+  delBtn.dataset.confirming = 'false';
+
+  document.getElementById('itemEditModal').classList.add('show');
+  setTimeout(() => document.getElementById('item-edit-main').focus(), 100);
+}
+
+function closeItemEditModal(){
+  document.getElementById('itemEditModal').classList.remove('show');
+  _itemEditCtx = null;
+}
+
+async function saveItemEdit(){
+  if(!_itemEditCtx) return;
+  const {type, secKey, itemId} = _itemEditCtx;
+  const main = document.getElementById('item-edit-main').value.trim();
+  if(!main){ document.getElementById('item-edit-main').focus(); return; }
+
+  if(type === 'prep'){
+    const detail = document.getElementById('item-edit-detail').value.trim();
+    if(_prepData[secKey]?.items?.[itemId]){
+      _prepData[secKey].items[itemId].main = main;
+      _prepData[secKey].items[itemId].detail = detail;
+    }
+    if(window._fbReady && window._fbReady()){
+      await window._fbSetRaw(`mne/prep_tasks/${secKey}/items/${itemId}/main`, main);
+      await window._fbSetRaw(`mne/prep_tasks/${secKey}/items/${itemId}/detail`, detail);
+    }
+    renderPrepSections();
+  } else {
+    if(_packData[secKey]?.[itemId]){
+      _packData[secKey][itemId].name = main;
+    }
+    if(window._fbReady && window._fbReady()){
+      await window._fbSetRaw(`mne/packing/${secKey}/${itemId}/name`, main);
+    }
+    renderPackingList();
+  }
+  closeItemEditModal();
+  showToast('Modifié ✅');
+}
+
+async function deleteItemEdit(){
+  if(!_itemEditCtx) return;
+  const btn = document.getElementById('item-edit-delete-btn');
+  if(btn.dataset.confirming !== 'true'){
+    btn.dataset.confirming = 'true';
+    btn.textContent = 'Confirmer la suppression';
+    setTimeout(()=>{ btn.dataset.confirming='false'; btn.textContent='Supprimer'; }, 3000);
+    return;
+  }
+  const {type, secKey, itemId} = _itemEditCtx;
+  if(type === 'prep'){
+    await deletePrepItem(itemId, secKey);
+  } else {
+    await deletePackItem(itemId, secKey);
+  }
+  closeItemEditModal();
+  showToast('Supprimé 🗑');
 }
 
 // ═══════════════════════════════════════
@@ -3437,7 +3550,7 @@ function renderExpenseList(){
         <div class="tc-exp-amount">${e.amount.toFixed(2)}€</div>
         <div class="tc-exp-actions">
           <button class="tc-switch-btn" onclick="toggleExpensePayer('${e.id}')" title="Changer payeur">⇄</button>
-          <button class="tc-del-btn" onclick="deleteExpense('${e.id}')" title="Supprimer">✕</button>
+          <button class="tc-del-btn" onclick="deleteExpense('${e.id}')" title="Supprimer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         </div>
       </div>
     </div>`;
@@ -3558,7 +3671,7 @@ window.addEventListener('beforeinstallprompt',e=>{
 <!-- User bar -->
 <div id="login-user-bar" style="display:none">
   <span style="display:flex;align-items:center;gap:.5rem"><span id="conn-indicator" style="width:7px;height:7px;border-radius:50%;background:#FF8A80;flex-shrink:0;transition:.3s" title="Connexion..."></span>👤 <span id="login-user"></span></span>
-  <button onclick="window.logout()">Déconnexion</button>
+  <button onclick="window.logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Déconnexion</button>
 </div>
 
 </div><!-- end app-root -->
@@ -3566,7 +3679,7 @@ window.addEventListener('beforeinstallprompt',e=>{
 <!-- User bar -->
 <div id="login-user-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);border-top:1px solid var(--border);padding:.5rem 1.25rem;align-items:center;justify-content:space-between;font-size:.75rem;color:var(--muted);z-index:500">
   <span style="display:flex;align-items:center;gap:.5rem"><span id="conn-indicator" style="width:7px;height:7px;border-radius:50%;background:#FF8A80;flex-shrink:0;transition:.3s" title="Connexion..."></span>👤 <span id="login-user"></span></span>
-  <button onclick="window.logout()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem">Déconnexion</button>
+  <button onclick="window.logout()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Déconnexion</button>
 </div>
 
 </body>
