@@ -17,7 +17,7 @@
 /* ═══ THEME VARS ═══ */
 
 :root,[data-theme="dark"]{
-  --bg:#111113;--card:#1C1C1F;--text:#F0EDE8;--muted:#888;--border:transparent;
+  --bg:#111113;--card:#1C1C1F;--text:#F0EDE8;--muted:#888;--border:rgba(255,255,255,.06);
   --input-bg:#252528;--hero-text:#fff;--nav-bg:#1C1C1F;--map-filter:brightness(.85) saturate(.9);
   --shadow:none;--r:18px;
 }
@@ -27,13 +27,13 @@
   --nature:#3B7A1E;--nature-lt:#EAF5DE;--chill:#4A6DB5;--chill-lt:#E0E8F8;
   --travel:#2C5F8A;--travel-lt:#E0EDF7;--r:12px;
 }
-[data-theme="dark"] .accent-lt{background:#1A3D2E!important}
-[data-theme="dark"] .coast-lt{background:#0D2A35!important}
-[data-theme="dark"] .mtn-lt{background:#1E1A3A!important}
-[data-theme="dark"] .lake-lt{background:#2E2008!important}
-[data-theme="dark"] .nature-lt{background:#0F2008!important}
-[data-theme="dark"] .chill-lt{background:#0A2A1E!important}
-[data-theme="dark"] .travel-lt{background:#0D1E2E!important}
+[data-theme="dark"] .accent-lt{background:#1A1F2E!important}
+[data-theme="dark"] .coast-lt{background:#1A2030!important}
+[data-theme="dark"] .mtn-lt{background:#1A1F2E!important}
+[data-theme="dark"] .lake-lt{background:#1A1F2E!important}
+[data-theme="dark"] .nature-lt{background:#1A1F2E!important}
+[data-theme="dark"] .chill-lt{background:#1A1F2E!important}
+[data-theme="dark"] .travel-lt{background:#1A1F2E!important}
 
 *{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden}body{max-width:100%;overflow-x:clip}
@@ -101,8 +101,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 /* ═══ PROGRESS ═══ */
 .prog{max-width:900px;margin:.75rem auto .5rem;padding:0 1rem}
-.prog-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
-.prog-fill{height:100%;background:linear-gradient(90deg,#5B7EC9,#7A9ED4);border-radius:3px;transition:width .4s;width:0%}
+.prog-track{height:5px;background:var(--border);border-radius:6px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#5B7EC9,#7A9ED4);border-radius:6px;transition:width .4s;width:0%}
 .prog-txt{font-size:.72rem;color:var(--muted);margin-top:.35rem;text-align:right}
 
 /* ═══ CONTENT ═══ */
@@ -110,8 +110,8 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 /* ═══ DAY CARD ═══ */
 .day{background:var(--card);border:none;border-radius:var(--r);margin-bottom:1rem;overflow:hidden;transition:.2s;scroll-margin-top:100px}
-.day:hover{box-shadow:0 2px 8px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06)}
-.day.chill{border:1.5px solid var(--chill)}
+.day:hover{}
+.day.chill{border:none;outline:1.5px solid var(--chill)}
 .day-head{display:flex;align-items:center;gap:.85rem;padding:1.1rem 1.25rem;cursor:pointer;user-select:none}
 .badge{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:600;flex-shrink:0;transition:.3s}
 .badge.travel{background:var(--travel-lt);color:var(--travel)}
@@ -140,7 +140,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 /* ═══ CHILL BANNER ═══ */
 .chill-ban{background:var(--chill-lt);border-radius:8px;padding:.75rem 1rem;margin:.85rem 0 .5rem;font-size:.82rem;color:#085041;line-height:1.5}
-[data-theme="dark"] .chill-ban{background:#0A2A1E;color:#6DCEAB}
+[data-theme="dark"] .chill-ban{background:#1A1F2E;color:#6DCEAB}
 .chill-ban b{display:block;font-weight:600;margin-bottom:2px}
 
 /* ═══ STOPS ═══ */
@@ -155,19 +155,19 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .tip.warn{background:var(--lake-lt);color:#7A5200}
 .tip.go{background:var(--nature-lt);color:var(--nature)}
 .tip.ch{background:var(--chill-lt);color:#0F6E56}
-[data-theme="dark"] .tip.warn{background:#2E1800;color:#D4A020}
-[data-theme="dark"] .tip.info{background:#0D2535;color:#5BB8D8}
-[data-theme="dark"] .tip.go{background:#0F2808;color:#6DC44D}
-[data-theme="dark"] .tip.ch{background:#0A2A1E;color:#4DC49A}
+[data-theme="dark"] .tip.warn{background:#2A2010;color:#D4A020}
+[data-theme="dark"] .tip.info{background:#1A2030;color:#5BB8D8}
+[data-theme="dark"] .tip.go{background:#1A2518;color:#6DC44D}
+[data-theme="dark"] .tip.ch{background:#1A1F2E;color:#4DC49A}
 .night{display:inline-flex;font-size:.72rem;padding:4px 11px;border-radius:99px;background:var(--mtn-lt);color:var(--mtn);margin-top:7px}
-[data-theme="dark"] .night{background:#1E1A3A;color:#9A92D8}
+[data-theme="dark"] .night{background:#1A1F2E;color:#9A92D8}
 
 /* ═══ NOTES ═══ */
 .notes-wrap{margin-top:.75rem;padding-top:.75rem;border-top:1px dashed var(--border)}
 .notes-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.35rem;font-weight:500;display:flex;align-items:center;gap:.35rem}
 .notes-label svg{width:13px;height:13px}
 .notes-input{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:.6rem .75rem;font-size:.8rem;font-family:'Outfit',sans-serif;color:var(--text);resize:vertical;min-height:60px;transition:.2s;line-height:1.5}
-.notes-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,107,82,.12)}
+.notes-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,126,201,.12)}
 .notes-input::placeholder{color:var(--muted);opacity:.7}
 
 /* ═══ CHECKLIST ═══ */
@@ -206,7 +206,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .ci-checkbox:checked{background:var(--accent);border-color:var(--accent)}
 .ci-checkbox:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
 .ci-name{font-size:.875rem;color:var(--text);line-height:1.45;flex:1}
-.ei{width:15px;height:15px;flex-shrink:0;vertical-align:-.2em;display:inline-block;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;opacity:.65;margin-right:4px}
 .ci-checkbox:checked~.ci-name{color:var(--muted);text-decoration:line-through;opacity:.6}
 .ci-block{border:none;border-radius:14px;margin-bottom:.65rem;overflow:hidden;background:#242428;transition:.2s}
 .ci-block:hover{opacity:.92}
@@ -236,17 +235,17 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 /* ═══ LOGIN SCREEN ═══ */
 #login-screen{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#1A1F3A 0%,#2A3560 50%,#1E3A6E 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:2rem}
-.login-card{background:rgba(255,255,255,.97);border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-card{background:#1C1C1F;border-radius:20px;padding:2.5rem 2rem;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25)}
 .login-logo{font-size:2.5rem;margin-bottom:.5rem}
-.login-title{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#1A1F3A;margin-bottom:.25rem}
+.login-title{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#F0EDE8;margin-bottom:.25rem}
 .login-sub{font-size:.85rem;color:#777;margin-bottom:2rem}
-.login-input{width:100%;background:#F5F5F5;border:1.5px solid #E0E0E0;border-radius:10px;padding:.85rem 1rem;font-size:.95rem;font-family:'Outfit',sans-serif;color:#333;outline:none;transition:.2s;box-sizing:border-box;min-height:50px}
-.login-input:focus{border-color:#5B7EC9;background:#fff}
-.login-input::placeholder{color:#aaa}
-.login-btn{display:flex;align-items:center;justify-content:center;gap:.75rem;width:100%;background:#fff;border:2px solid #E0E0E0;border-radius:12px;padding:.85rem 1.25rem;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;color:#333;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.login-btn:hover{border-color:#5B7EC9;box-shadow:0 4px 16px rgba(29,107,82,.15)}
+.login-input{width:100%;background:#252528;border:none;border-radius:10px;padding:.85rem 1rem;font-size:.95rem;font-family:'Outfit',sans-serif;color:#F0EDE8;outline:none;transition:.2s;box-sizing:border-box;min-height:50px}
+.login-input:focus{outline:2px solid var(--accent);background:#2A2A2E}
+.login-input::placeholder{color:#666}
+.login-btn{display:flex;align-items:center;justify-content:center;gap:.75rem;width:100%;background:#fff;border:2px solid #E0E0E0;border-radius:12px;padding:.85rem 1.25rem;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;color:#F0EDE8;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.login-btn:hover{border-color:#5B7EC9;}
 .login-btn svg{width:22px;height:22px;flex-shrink:0}
-.login-error{margin-top:1rem;font-size:.8rem;color:#D32F2F;min-height:1.2rem}
+.login-error{margin-top:1rem;font-size:.8rem;color:#FF6B6B;min-height:1.2rem}
 .login-footer{margin-top:1.5rem;font-size:.72rem;color:rgba(255,255,255,.6);text-align:center}
 #login-user-bar{position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);border-top:1px solid var(--border);padding:.5rem 1.25rem;display:flex;align-items:center;justify-content:space-between;font-size:.75rem;color:var(--muted);z-index:500}
 #login-user-bar button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem;border-radius:6px;transition:.15s}
@@ -258,7 +257,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .res-card{background:var(--card);border:none;border-radius:var(--r);margin-bottom:.75rem;overflow:hidden;transition:.2s}
 .res-card-head{display:flex;align-items:center;gap:.85rem;padding:1rem 1.15rem;cursor:pointer;user-select:none}
 .res-card-head:hover{background:var(--input-bg)}
-.res-icon{font-size:1.4rem;flex-shrink:0;display:flex;align-items:center;width:28px}
+.res-icon{font-size:1.4rem;flex-shrink:0;width:28px;text-align:center}
 .res-card-info{flex:1;min-width:0}
 .res-card-name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .res-card-sub{font-size:.75rem;color:var(--muted);margin-top:1px}
@@ -351,7 +350,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .prep-section{background:var(--card);border:none;border-radius:var(--r);margin-bottom:1rem;overflow:hidden;transition:.2s}
 .prep-head{display:flex;align-items:center;gap:.85rem;padding:1.15rem 1.25rem;cursor:pointer;user-select:none;border-bottom:1px solid transparent;transition:.2s}
 .prep-section.open .prep-head{border-bottom:none}
-.prep-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.prep-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem}
 .prep-info{flex:1}
 .prep-title{font-family:'DM Serif Display',serif;font-size:1rem}
 .prep-sub{font-size:.78rem;color:var(--muted);margin-top:1px}
@@ -383,7 +382,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .modal-btn:hover{opacity:.85}
 
 /* ═══ TOAST ═══ */
-.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(80px);background:#1A1A1A;color:#fff;padding:.6rem 1.2rem;border-radius:99px;font-size:.82rem;font-weight:500;z-index:2000;transition:transform .3s;white-space:nowrap}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(80px);background:#242428;color:#F0EDE8;padding:.6rem 1.2rem;border-radius:99px;font-size:.82rem;font-weight:500;z-index:2000;transition:transform .3s;white-space:nowrap}
 [data-theme="dark"] .toast{background:#E8E4DC;color:#1A1A1A}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
@@ -394,7 +393,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .footer{max-width:900px;margin:2rem auto;padding:1.5rem 1rem;text-align:center;font-size:.75rem;color:var(--muted);border-top:1px solid var(--border)}
 
 /* ═══ TODAY MODE ═══ */
-.day.today-active{border:2px solid var(--accent);box-shadow:0 0 0 3px rgba(29,107,82,.12),var(--shadow)}
+.day.today-active{border:2px solid var(--accent);box-shadow:0 0 0 3px rgba(91,126,201,.12),var(--shadow)}
 .today-banner{background:linear-gradient(90deg,var(--accent),var(--chill));color:#fff;border-radius:8px;padding:.55rem 1rem;margin:.85rem 0 .5rem;font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:.5rem}
 .day-today-badge{background:var(--accent);color:#fff;font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:99px;text-transform:uppercase;letter-spacing:.06em;margin-left:.5rem;vertical-align:middle}
 .day.past-day{opacity:.55}
@@ -402,7 +401,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 /* ═══ MAPS BUTTON ═══ */
 .maps-btn{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;padding:3px 9px;border-radius:99px;background:var(--coast-lt);color:var(--coast);border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:500;margin-top:5px;text-decoration:none;transition:.2s}
 .maps-btn:hover{background:var(--coast);color:#fff}
-[data-theme="dark"] .maps-btn{background:#0D2535;color:#5BB8D8}
+[data-theme="dark"] .maps-btn{background:#1A2030;color:#5BB8D8}
 
 /* ═══ BUDGET TRACKER ═══ */
 .budget-hero{background:linear-gradient(135deg,#1E2340 0%,#252B4A 60%,#1E2340 100%);border-radius:var(--r);padding:1.75rem 1.5rem;margin-bottom:1rem;color:#fff}
@@ -414,7 +413,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .budget-kpi.over span{color:#FF8A80}
 /* Solde */
 .solde-card{border-radius:var(--r);padding:1.3rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--text)}
-.solde-card.equilibre{background:#1A2A1A;border:1px solid rgba(91,176,129,.25)}
+.solde-card.equilibre{background:#1C2840;border:1px solid rgba(91,176,129,.25)}
 .solde-card.doit{background:#2A1C1C;border:1px solid rgba(211,47,47,.25)}
 
 [data-theme="dark"] .solde-card.doit{background:#2D0F0F;border-color:#7F2020}
@@ -430,15 +429,15 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .tc-form{background:#1C1C1F;border:none;border-radius:var(--r);padding:1.35rem 1.25rem;margin-bottom:1rem;box-shadow:var(--shadow)}
 .tc-form-title{font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:.85rem;color:var(--text)}
 .tc-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
-.tc-tag{background:var(--input-bg);border:1.5px solid var(--border);border-radius:99px;padding:.4rem .9rem;font-size:.8rem;cursor:pointer;font-family:'Outfit',sans-serif;color:var(--text);transition:.15s}
+.tc-tag{background:var(--input-bg);border:1.5px solid rgba(255,255,255,.1);border-radius:99px;padding:.4rem .9rem;font-size:.8rem;cursor:pointer;font-family:'Outfit',sans-serif;color:var(--text);transition:.15s}
 .tc-tag.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .tc-tag:hover:not(.active){border-color:var(--accent);color:var(--accent)}
 .tc-form-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem}
-.tc-input{background:var(--input-bg);border:1.5px solid var(--border);border-radius:8px;padding:.7rem .95rem;font-size:.9rem;font-family:'Outfit',sans-serif;color:var(--text);outline:none;transition:.2s;width:100%}
-.tc-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,107,82,.1)}
+.tc-input{background:var(--input-bg);border:none;border-radius:10px;padding:.7rem .95rem;font-size:.9rem;font-family:'Outfit',sans-serif;color:var(--text);outline:none;transition:.2s;width:100%}
+.tc-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,126,201,.1)}
 .tc-amount-input{font-size:1.2rem;font-weight:600;text-align:right}
 .tc-payer-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem;flex-wrap:wrap}
-.tc-payer-btn{padding:.5rem 1.05rem;border-radius:99px;border:1.5px solid var(--border);font-size:.84rem;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;color:var(--muted);background:var(--input-bg);transition:.15s}
+.tc-payer-btn{padding:.5rem 1.05rem;border-radius:99px;border:1.5px solid rgba(255,255,255,.1);font-size:.84rem;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;color:var(--muted);background:var(--input-bg);transition:.15s}
 .tc-payer-btn.active.T{background:#5B7EC9;color:#fff;border-color:#5B7EC9}
 .tc-payer-btn.active.D{background:#1780A1;color:#fff;border-color:#1780A1}
 .tc-add-btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.8rem;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s}
@@ -452,17 +451,17 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .tc-exp-right{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;flex-shrink:0}
 .tc-exp-amount{font-size:1rem;font-weight:700;color:var(--text)}
 .tc-exp-actions{display:flex;gap:.3rem}
-.tc-switch-btn,.tc-del-btn{background:none;border:1px solid var(--border);border-radius:5px;font-size:.75rem;cursor:pointer;padding:2px 6px;color:var(--muted);transition:.15s}
+.tc-switch-btn,.tc-del-btn{background:none;border:1px solid var(--border);border-radius:8px;font-size:.75rem;cursor:pointer;padding:2px 6px;color:var(--muted);transition:.15s}
 .tc-switch-btn:hover{border-color:var(--accent);color:var(--accent)}
 .tc-del-btn:hover{border-color:#D32F2F;color:#D32F2F}
 
 /* ═══ PHRASES TAB ═══ */
-.phrases-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:1.25rem;overflow:hidden;box-shadow:var(--shadow)}
+.phrases-section{background:var(--card);border:none;border-radius:var(--r);margin-bottom:1rem;overflow:hidden}
 .phrases-head{padding:1.1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem}
 .phrases-flag{font-size:1.4rem}
 .phrases-title{font-family:'DM Serif Display',serif;font-size:1rem}
 .phrases-sub{font-size:.78rem;color:var(--muted);margin-top:1px}
-.phrase-row{display:flex;align-items:flex-start;gap:.85rem;padding:.85rem 1.25rem;border-bottom:1px solid var(--border)}
+.phrase-row{display:flex;align-items:flex-start;gap:.85rem;padding:.85rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.06)}
 .phrase-row:last-child{border-bottom:none}
 .phrase-fr{font-size:.85rem;font-weight:500;color:var(--text);flex:1}
 .phrase-local{font-size:.82rem;color:var(--accent);font-weight:600;flex:1}
@@ -471,9 +470,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 /* ═══ URGENCES TAB ═══ */
 .urgence-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:.75rem;overflow:hidden;box-shadow:var(--shadow)}
 .urgence-head{padding:1rem 1.25rem;background:var(--input-bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem}
-.urgence-icon{font-size:1.3rem;display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex-shrink:0}
+.urgence-icon{font-size:1.5rem;display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex-shrink:0}
 .urgence-title{font-weight:600;font-size:.9rem}
-.urgence-row{display:flex;align-items:center;gap:.85rem;padding:.9rem 1.25rem;border-bottom:1px solid var(--border)}
+.urgence-row{display:flex;align-items:center;gap:.85rem;padding:.9rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.06)}
 .urgence-row:last-child{border-bottom:none}
 .urgence-label{flex:1;font-size:.82rem;color:var(--text)}
 .urgence-detail{font-size:.72rem;color:var(--muted);margin-top:1px}
@@ -549,11 +548,11 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 <!-- ═══ MAIN TABS ═══ -->
 <div class="main-tabs">
 <div class="main-tabs-inner">
-  <div class="main-tab active" data-tab="itinerary"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg> Itinéraire</span></div>
-  <div class="main-tab" data-tab="budget"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M4 14h12"/><path d="M19.5 8A7.5 7.5 0 1 0 19.5 16"/></svg> Budget</span></div>
-  <div class="main-tab" data-tab="reservations"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg> Réservations</span></div>
-  <div class="main-tab" data-tab="pratique"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Pratique</span></div>
-  <div class="main-tab" data-tab="prep"><span style="display:inline-flex;align-items:center;gap:.4rem"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Préparation</span></div>
+  <div class="main-tab active" data-tab="itinerary">🗺 Itinéraire</div>
+  <div class="main-tab" data-tab="budget">💶 Budget</div>
+  <div class="main-tab" data-tab="reservations">🎫 Réservations</div>
+  <div class="main-tab" data-tab="pratique">🧰 Pratique</div>
+  <div class="main-tab" data-tab="prep">✅ Préparation</div>
 </div>
 </div>
 
@@ -580,7 +579,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
   <div class="content">
     <div class="prep-section open" id="packing-section">
       <div class="prep-head" onclick="this.parentElement.classList.toggle('open')">
-        <div class="prep-icon" style="background:var(--coast-lt)"><svg style='width:18px;height:18px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M10 4V2h4v2"/><path d="M12 10v4"/><path d="M10 12h4"/><path d="M6 20h12"/></svg></div>
+        <div class="prep-icon" style="background:var(--coast-lt)">🧳</div>
         <div class="prep-info">
           <div class="prep-title">Packing List</div>
           <div class="prep-sub" id="packing-sub">Chargement…</div>
@@ -615,7 +614,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
     <!-- URGENCES -->
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon"><svg style='width:20px;height:20px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span><span class="urgence-title">Numéros d'urgence</span></div>
+      <div class="urgence-head"><span class="urgence-icon">🚨</span><span class="urgence-title">Numéros d'urgence</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Urgences européennes</div><div class="urgence-detail">Ambulance, pompiers, police</div></div><span class="urgence-num">112</span><a class="urgence-call red" href="tel:112">📞 Appeler</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Police nationale Monténégro</div></div><span class="urgence-num">122</span><a class="urgence-call red" href="tel:122">📞 Appeler</a></div>
       <div class="urgence-row"><div><div class="urgence-label">SAMU / Ambulance</div></div><span class="urgence-num">124</span><a class="urgence-call red" href="tel:124">📞 Appeler</a></div>
@@ -623,21 +622,21 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
     </div>
 
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon"><svg style='width:20px;height:20px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span><span class="urgence-title">Ambassade de France</span></div>
+      <div class="urgence-head"><span class="urgence-icon">🇫🇷</span><span class="urgence-title">Ambassade de France</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Ambassade de France à Podgorica</div><div class="urgence-detail">98 bd George Washington — perte de passeport, assistance</div></div><a class="urgence-call" href="tel:+38220655348">📞 +382 20 655 348</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Service consulaire</div><div class="urgence-detail">Lun–ven 9h–17h</div></div><a class="urgence-call" href="tel:+38220405812">📞 +382 20 405 812</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Urgence consulaire 24h/24</div><div class="urgence-detail">En dehors des heures d'ouverture</div></div><a class="urgence-call red" href="tel:+382069143074">📞 +382 69 143 074</a></div>
     </div>
 
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon"><svg style='width:20px;height:20px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span class="urgence-title">Voiture & Assurance</span></div>
+      <div class="urgence-head"><span class="urgence-icon">🚗</span><span class="urgence-title">Voiture & Assurance</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Assistance routière Monténégro (AMSCG)</div><div class="urgence-detail">Panne ou accident sur route</div></div><span class="urgence-num">19807</span><a class="urgence-call" href="tel:19807">📞 Appeler</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Opposition Amex Gold</div><div class="urgence-detail">En cas de perte ou vol de carte</div></div><a class="urgence-call red" href="tel:+33147777000">📞 +33 1 47 77 70 00</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Delta Car (loueur)</div><div class="urgence-detail">Meet & greet Tivat — à sauvegarder avant départ</div></div><a class="urgence-call" href="https://www.deltacar.me" target="_blank">🌐 deltacar.me</a></div>
     </div>
 
     <div class="urgence-card">
-      <div class="urgence-head"><span class="urgence-icon"><svg style='width:20px;height:20px' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="18" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M8 10h.01M8 14h.01M16 10h.01M16 14h.01"/><path d="M10 9h4M12 7v4"/></svg></span><span class="urgence-title">Hôpitaux principaux</span></div>
+      <div class="urgence-head"><span class="urgence-icon">🏥</span><span class="urgence-title">Hôpitaux principaux</span></div>
       <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Kotor</div><div class="urgence-detail">Dobrota bb, Kotor — urgences et soins</div></div><a class="urgence-call" href="tel:+38232334533">📞 +382 32 334 533</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Budva</div><div class="urgence-detail">Popa Jola Zeca, Budva</div></div><a class="urgence-call" href="tel:+38233427200">📞 +382 33 427 200</a></div>
       <div class="urgence-row"><div><div class="urgence-label">Dom zdravlja Tivat</div><div class="urgence-detail">Aéroport à 5 min</div></div><a class="urgence-call" href="tel:+38232671774">📞 +382 32 671 774</a></div>
@@ -646,7 +645,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
     <!-- PHRASES -->
     <div class="phrases-section">
-      <div class="phrases-head"><span class="phrases-flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><div class="phrases-title">Phrases utiles — Montenegrin / Serbe</div><div class="phrases-sub">Phonétique approximative pour francophones</div></div></div>
+      <div class="phrases-head"><span class="phrases-flag">🇲🇪</span><div><div class="phrases-title">Phrases utiles — Montenegrin / Serbe</div><div class="phrases-sub">Phonétique approximative pour francophones</div></div></div>
       <div class="phrase-row"><div class="phrase-fr">Bonjour</div><div class="phrase-local">Dobar dan</div><div class="phrase-phonetic">Do-bar dan</div></div>
       <div class="phrase-row"><div class="phrase-fr">Bonsoir</div><div class="phrase-local">Dobro veče</div><div class="phrase-phonetic">Do-bro vé-tché</div></div>
       <div class="phrase-row"><div class="phrase-fr">Merci</div><div class="phrase-local">Hvala</div><div class="phrase-phonetic">Hva-la</div></div>
@@ -673,7 +672,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
     </div>
 
     <div class="phrases-section">
-      <div class="phrases-head"><span class="phrases-flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><div class="phrases-title">Phrases utiles — Albanais (Ulcinj)</div><div class="phrases-sub">Ulcinj est à majorité albanophone</div></div></div>
+      <div class="phrases-head"><span class="phrases-flag">🇲🇪</span><div><div class="phrases-title">Phrases utiles — Albanais (Ulcinj)</div><div class="phrases-sub">Ulcinj est à majorité albanophone</div></div></div>
       <div class="phrase-row"><div class="phrase-fr">Bonjour</div><div class="phrase-local">Mirëdita</div><div class="phrase-phonetic">Mi-rë-di-ta</div></div>
       <div class="phrase-row"><div class="phrase-fr">Merci</div><div class="phrase-local">Faleminderit</div><div class="phrase-phonetic">Fa-le-min-de-rit</div></div>
       <div class="phrase-row"><div class="phrase-fr">Combien ?</div><div class="phrase-local">Sa kushton?</div><div class="phrase-phonetic">Sa kouch-ton?</div></div>
@@ -691,7 +690,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
   <div class="edit-modal">
     <div class="edit-modal-header">
       <div class="edit-modal-title" id="itemEditTitle">Modifier</div>
-      <button class="edit-modal-close" onclick="closeItemEditModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <button class="edit-modal-close" onclick="closeItemEditModal()">✕</button>
     </div>
     <div class="edit-modal-body">
       <div class="edit-field">
@@ -716,7 +715,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
   <div class="res-modal">
     <div class="edit-modal-header">
       <div class="edit-modal-title" id="resModalTitle">Ajouter une réservation</div>
-      <button class="edit-modal-close" onclick="closeResModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <button class="edit-modal-close" onclick="closeResModal()">✕</button>
     </div>
     <div class="edit-modal-body">
       <div class="edit-field">
@@ -751,7 +750,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
 <!-- ═══ SCREENSHOT LIGHTBOX ═══ -->
 <div class="res-lightbox" id="resLightbox" onclick="closeResLightbox()">
-  <button class="res-lightbox-close" onclick="closeResLightbox()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <button class="res-lightbox-close" onclick="closeResLightbox()">✕</button>
   <img id="resLightboxImg" src="" alt="Screenshot réservation"/>
 </div>
 
@@ -775,7 +774,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
   <div class="edit-modal">
     <div class="edit-modal-header">
       <div class="edit-modal-title" id="editModalTitle">Ajouter un item</div>
-      <button class="edit-modal-close" onclick="closeEditModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <button class="edit-modal-close" onclick="closeEditModal()">✕</button>
     </div>
     <div class="edit-modal-body">
       <div class="edit-field">
@@ -1084,11 +1083,11 @@ checks:["🚗 Restituer le SUV sans rayures","☕ Dernier café à Kotor","🎒 
 ];
 
 const PREP=[
-{icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4c-2 0-6 2-6 2H7c-2 0-4.5 1.5-4.5 3.5s.5 3 2.5 3l2.5-.5L10 11l-2 1.5-.5 2.5v2.5L9 18l1.5-1.5 1 1.5V21l2 .5 1.5-2.5z"/></svg>`,bg:"var(--travel-lt)",title:"Vols",sub:"À réserver en premier",items:[
+{icon:"✈️",bg:"var(--travel-lt)",title:"Vols",sub:"À réserver en premier",items:[
 {main:"Réserver vol Paris → Tivat",detail:"Mercredi 17 septembre — viser une arrivée avant 13h"},
 {main:"Réserver vol Tivat → Paris",detail:"Mardi 30 septembre — idéalement en fin de matinée"},
 {main:"Télécharger les cartes d'embarquement",detail:"La veille — version mobile + imprimée au cas où"}]},
-{icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>`,bg:"var(--nature-lt)",title:"Voiture de location",sub:"Škoda Kamiq · Delta Car · 694,50€ total",items:[
+{icon:"🚗",bg:"var(--nature-lt)",title:"Voiture de location",sub:"Škoda Kamiq · Delta Car · 694,50€ total",items:[
 {main:"✅ Škoda Kamiq (Groupe HA) réservé chez Delta Car",detail:"Meet & greet à l'aéroport de Tivat · 41€/j × 13j + 2ème conducteur 5€/j · Boîte automatique"},
 {main:"Souscrire SereniTrip SereniPack avant le départ",detail:"96,50€/an — couvre pneus, jantes, bas de caisse, bris de glace, erreur carburant, perte de clés, frais d'immobilisation. Impossible de souscrire après le début de la location"},
 {main:"Payer la location intégralement avec la Amex Gold",detail:"Obligatoire pour activer la couverture accident (franchise résiduelle 150€ max 75 000€)"},
@@ -1096,7 +1095,7 @@ const PREP=[
 {main:"Photographier et filmer le véhicule sous toutes les coutures à la prise en charge",detail:"Vidéo 360° du tour complet y compris dessous et toit — incontestable en cas de litige"},
 {main:"Vérifier que le contrat autorise les pistes non goudronnées",detail:"Obligatoire pour Durmitor et Ostrog"},
 {main:"Appeler la police (122) pour tout incident même mineur",detail:"Sans PV officiel, toutes les assurances tombent"}]},
-{icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,bg:"var(--mtn-lt)",title:"Hébergements — 13 nuits",sub:"5 villes · réserver tôt Bečići et Ulcinj",items:[
+{icon:"🏨",bg:"var(--mtn-lt)",title:"Hébergements — 13 nuits",sub:"5 villes · réserver tôt Bečići et Ulcinj",items:[
 {main:"Kotor — 1 nuit (soir du 17 sept)",detail:"Appart ou hôtel près de la vieille ville · Budget : 40-80€/nuit"},
 {main:"Bečići — 3 nuits (soirs du 18, 19, 20 sept)",detail:"Hôtel avec piscine vue mer · Budget : 60-120€/nuit"},
 {main:"Nikšić / zone Ostrog — 1 nuit (soir du 21 sept)",detail:"Guesthouse simple · Budget : 25-50€/nuit"},
@@ -1595,7 +1594,7 @@ const CODEX_ITEMS = {
     search:"Lac Zminje Jezero Durmitor Montenegro"
   },
   "Durmitor Ring": {
-    icon:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>`, rating:"4.8",
+    icon:"🚗", rating:"4.8",
     infos:["Circuit 85 km","Villages authentiques","Lacs cachés","Demi-journée"],
     desc:"Circuit en voiture autour du massif du Durmitor. 85 km de routes de montagne qui traversent des villages de bergers, des lacs glaciaires cachés et des paysages de haute altitude époustouflants.",
     links:[{label:"Google Maps",icon:"map",url:"https://maps.google.com/?q=Durmitor+National+Park+Montenegro"}],
@@ -2323,79 +2322,6 @@ function renderAllChecklists(){
   });
 }
 
-const EMOJI_SVG_MAP = {
-  '📸': `<svg class="ei" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
-  '🏛': `<svg class="ei" viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>`,
-  '🔔': `<svg class="ei" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
-  '⛪': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
-  '🛒': `<svg class="ei" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
-  '🍽': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
-  '🥐': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,
-  '🥙': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
-  '🏔': `<svg class="ei" viewBox="0 0 24 24"><polygon points="3 20 9 4 15 20"/><polygon points="15 20 19 11 23 20"/></svg>`,
-  '🗿': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M12 14v8"/><path d="M8 22h8"/></svg>`,
-  '🔭': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-  '👑': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>`,
-  '🍯': `<svg class="ei" viewBox="0 0 24 24"><path d="M8 2h8M9 2v3M15 2v3M3 7h18l-1.5 12H4.5z"/></svg>`,
-  '🏊': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M5 22v-5l7-5 7 5v5"/><path d="M5 12.5l7-5 7 5"/></svg>`,
-  '🌅': `<svg class="ei" viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>`,
-  '🏖': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 12v8M8 20h8"/></svg>`,
-  '🪨': `<svg class="ei" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
-  '🌆': `<svg class="ei" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9M15 21v-6"/></svg>`,
-  '🍹': `<svg class="ei" viewBox="0 0 24 24"><path d="M8 22h8"/><path d="M12 22V11"/><path d="M20 7H4l4 7h8l4-7z"/><path d="M4 7L2 3h20l-2 4"/></svg>`,
-  '🐟': `<svg class="ei" viewBox="0 0 24 24"><path d="M21 12c0 1.2-5.4 6-9 6s-9-4.8-9-6c0-1.2 5.4-6 9-6s9 4.8 9 6z"/><circle cx="16" cy="12" r="1"/></svg>`,
-  '🌲': `<svg class="ei" viewBox="0 0 24 24"><path d="M12 2L8 9H4l4 7H5l7 6 7-6h-3l4-7h-4L12 2z"/></svg>`,
-  '🚣': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 20s4-2 8-2 8 2 8 2"/><path d="M12 4v12"/><path d="M8 8l4-4 4 4"/></svg>`,
-  '🌳': `<svg class="ei" viewBox="0 0 24 24"><path d="M12 2L8 9H4l4 7H5l7 6 7-6h-3l4-7h-4L12 2z"/></svg>`,
-  '🪂': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M3 12a9 9 0 0 0 18 0"/><path d="M12 8v14"/></svg>`,
-  '🍖': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
-  '🧺': `<svg class="ei" viewBox="0 0 24 24"><path d="M6 2h12l3 7H3z"/><path d="M3 9v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9"/></svg>`,
-  '🧀': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
-  '🖼': `<svg class="ei" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
-  '🕌': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
-  '🌿': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 22 16 8"/><path d="M8.5 2.5s4 1 5.5 5.5c1.5 4.5-1 8.5-1 8.5S9.5 14 8 9.5C6.5 5 8.5 2.5 8.5 2.5z"/></svg>`,
-  '🚶': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><path d="M9 20l1-5 2-3 2 3 1 5"/><path d="M7 8l5 2 5-2"/></svg>`,
-  '🥃': `<svg class="ei" viewBox="0 0 24 24"><path d="M8 22h8M9 22V2M15 22V2M3 2h18"/></svg>`,
-  '🍑': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg>`,
-  '⛵': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1"/><path d="M4 18l8-16 8 16H4z"/><path d="M12 2v16"/></svg>`,
-  '🚤': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1"/><path d="M4 18l8-16 8 16H4z"/></svg>`,
-  '☕': `<svg class="ei" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
-  '🍷': `<svg class="ei" viewBox="0 0 24 24"><path d="M8 22h8M12 11v11"/><path d="M5 3h14l-1.68 8.39a2 2 0 0 1-1.97 1.61H8.65a2 2 0 0 1-1.97-1.61L5 3z"/></svg>`,
-  '🍺': `<svg class="ei" viewBox="0 0 24 24"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M3 7h14v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7z"/><path d="M5 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg>`,
-  '🍄': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M6 12v8"/><path d="M18 12v8"/><path d="M6 20h12"/></svg>`,
-  '🫒': `<svg class="ei" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="5" ry="8"/><path d="M12 4v4"/></svg>`,
-  '🪁': `<svg class="ei" viewBox="0 0 24 24"><path d="M14.5 14.5L3 3l11 4 4 11-3.5-3.5z"/><path d="M3 3l7.5 7.5"/></svg>`,
-  '🛶': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1"/><path d="M12 12V4l-3 3M12 4l3 3"/></svg>`,
-  '❄️': `<svg class="ei" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 6-8 6-8-6"/><path d="m20 18-8-6-8 6"/><path d="m2 12 10-2 10 2"/></svg>`,
-  '⭐': `<svg class="ei" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-  '📋': `<svg class="ei" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M4 6h16v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z"/></svg>`,
-  '📱': `<svg class="ei" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
-  '🧳': `<svg class="ei" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="15" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>`,
-};
-function emojiToSvg(text){
-  if(!text) return text;
-  const first = [...text][0];
-  const svg = EMOJI_SVG_MAP[first];
-  if(!svg) return text;
-  const rest = text.slice(first.length).trimStart();
-  return svg + rest;
-}
-const CAT_ICONS_SVG = {
-  '📄 Documents': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
-  '👕 Vêtements': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>',
-  '🏖 Plage & Activités': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
-  '💊 Pharmacie': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',
-  '🔌 Électronique': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
-  '🎒 Divers': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
-  '📸 Photos incontournables': '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
-  '🏛 À voir':                  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>',
-  '🥾 Activités':               '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-  '🍽 Restaurants & bars':      '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>',
-  '🛒 Shopping & souvenirs':    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
-};
-function getCatIcon(catName){ return CAT_ICONS_SVG[catName] || ''; }
-function getCatLabel(catName){ return catName.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*/u,''); }
-
 function renderDayChecklist(dayNum){
   const key = 'd'+dayNum;
   const dayData = _checklistData[key] || {};
@@ -2416,7 +2342,7 @@ function renderDayChecklist(dayNum){
     const catItems = dayData[catKey] ? Object.values(dayData[catKey]).sort((a,b)=>(a.order||0)-(b.order||0)) : [];
 
     html += `<div class="cl-cat-header">
-      <div class="cl-cat-title" style="display:inline-flex;align-items:center;gap:.35rem">${getCatIcon(catName)} ${getCatLabel(catName)}</div>
+      <div class="cl-cat-title">${catName}</div>
       <button class="cl-cat-add" onclick="openAddItem(${dayNum},'${catName.replace(/'/g,"\'")}')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Ajouter
@@ -2441,8 +2367,8 @@ function renderCheckItem(item, dayNum, catKey){
   return `<div class="ci-block${item.checked?' ci-checked':''}" id="ci-fb-${item.id}" onclick="handleCiFbClick(event,'${item.id}','${dayNum}','${catKey}')" style="cursor:pointer">
     <div class="ci-row">
       <input type="checkbox" class="ci-checkbox" ${item.checked?'checked':''} onclick="event.stopPropagation();toggleCheckFb('${item.id}','${dayNum}','${catKey}',this.checked)"/>
-      <span class="ci-name">${emojiToSvg(item.name)}</span>
-      <button class="ci-edit-btn" onclick="event.stopPropagation();openEditItem('${item.id}','${dayNum}','${catKey}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+      <span class="ci-name">${item.name}</span>
+      <button class="ci-edit-btn" onclick="event.stopPropagation();openEditItem('${item.id}','${dayNum}','${catKey}')" title="Modifier">✏️</button>
       ${hasInfo ? `<svg class="ci-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>` : '<span style="width:16px;flex-shrink:0"></span>'}
     </div>
     ${hasInfo ? `<div class="ci-dropdown" id="ci-dd-fb-${item.id}">${ddHTML}</div>` : ''}
@@ -2536,7 +2462,7 @@ function addEditInfo(val=''){
   const div = document.createElement('div');
   div.className = 'edit-info-row';
   div.innerHTML = `<input class="edit-input" placeholder="Ex: Entrée 8€" value="${val.replace(/"/g,'&quot;')}"/>
-    <button class="edit-link-del" onclick="this.parentElement.remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
+    <button class="edit-link-del" onclick="this.parentElement.remove()">✕</button>`;
   document.getElementById('edit-infos-list').appendChild(div);
 }
 
@@ -2546,7 +2472,7 @@ function addEditLink(link=null){
   div.innerHTML = `
     <input class="edit-input" placeholder="Label (ex: Google Maps)" value="${(link?.label||'').replace(/"/g,'&quot;')}" style="flex:0.8"/>
     <input class="edit-input" placeholder="URL (https://…)" value="${(link?.url||'').replace(/"/g,'&quot;')}" style="flex:1.5"/>
-    <button class="edit-link-del" onclick="this.parentElement.remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
+    <button class="edit-link-del" onclick="this.parentElement.remove()">✕</button>`;
   document.getElementById('edit-links-list').appendChild(div);
 }
 
@@ -2636,10 +2562,10 @@ async function deleteEditItem(){
 // ═══════════════════════════════════════
 
 const RES_TYPES = {
-  hotel:    {icon:`<svg style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`, label:'Hôtel'},
-  flight:   {icon:`<svg style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4c-2 0-6 2-6 2H7c-2 0-4.5 1.5-4.5 3.5s.5 3 2.5 3l2.5-.5L10 11l-2 1.5-.5 2.5v2.5L9 18l1.5-1.5 1 1.5V21l2 .5 1.5-2.5z"/></svg>`, label:'Vol'},
-  car:      {icon:`<svg style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`, label:'<span style="display:inline-flex;align-items:center;gap:.3rem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg> Voiture</span>'},
-  activity: {icon:`<svg style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`, label:'Activité'},
+  hotel:    {icon:'🏨', label:'Hôtel'},
+  flight:   {icon:'✈️', label:'Vol'},
+  car:      {icon:'🚗', label:'🚗 Voiture'},
+  activity: {icon:'🎟', label:'Activité'},
 };
 
 // Field definitions per type
@@ -2749,10 +2675,10 @@ function renderResTab(){
   const container = document.getElementById('res-content');
   if(!container) return;
   const sections = [
-    {key:'flight',   label:'<span style="display:inline-flex;align-items:center;gap:.3rem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4c-2 0-6 2-6 2H7c-2 0-4.5 1.5-4.5 3.5s.5 3 2.5 3l2.5-.5L10 11l-2 1.5-.5 2.5v2.5L9 18l1.5-1.5 1 1.5V21l2 .5 1.5-2.5z"/></svg> Vols</span>'},
-    {key:'car',      label:'<span style="display:inline-flex;align-items:center;gap:.3rem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg> Voiture</span>'},
-    {key:'hotel',    label:'<span style="display:inline-flex;align-items:center;gap:.3rem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Hôtels</span>'},
-    {key:'activity', label:'<span style="display:inline-flex;align-items:center;gap:.3rem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Activités</span>'},
+    {key:'flight',   label:'✈️ Vols'},
+    {key:'car',      label:'🚗 Voiture'},
+    {key:'hotel',    label:'🏨 Hôtels'},
+    {key:'activity', label:'🎟 Activités'},
   ];
   let html = '';
   sections.forEach(({key, label}) => {
@@ -3064,13 +2990,13 @@ function renderPackingList(){
 
     html += `<div class="pack-cat">
       <div class="pack-cat-header">
-        <div class="pack-cat-title" style="display:inline-flex;align-items:center;gap:.35rem">${getCatIcon(catName)} ${getCatLabel(catName)}</div>
+        <div class="pack-cat-title">${catName}</div>
       </div>`;
     items.forEach(item => {
       html += `<div class="pack-item" id="pk-${item.id}">
         <input type="checkbox" ${item.checked?'checked':''} onclick="togglePackItem('${item.id}','${catKey}',this.checked)"/>
-        <span class="pack-item-name">${emojiToSvg(item.name)}</span>
-        <button class="pack-item-edit" onclick="openItemEditModal('pack','${catKey}','${item.id}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <span class="pack-item-name">${item.name}</span>
+        <button class="pack-item-edit" onclick="openItemEditModal('pack','${catKey}','${item.id}')" title="Modifier">✏️</button>
       </div>`;
     });
     html += `<div class="pack-add-row">
@@ -3181,10 +3107,10 @@ function renderPrepSections(){
         <input type="checkbox" data-pt="${it.id}" data-sec="${secKey}" ${it.checked?'checked':''}
           onclick="togglePrepItem('${it.id}','${secKey}',this.checked)"/>
         <div class="pi-content">
-          <div class="pi-main">${emojiToSvg(it.main)}</div>
+          <div class="pi-main">${it.main}</div>
           ${it.detail ? `<div class="pi-detail">${it.detail}</div>` : ''}
         </div>
-        <button class="pack-item-edit" onclick="openItemEditModal('prep','${secKey}','${it.id}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="pack-item-edit" onclick="openItemEditModal('prep','${secKey}','${it.id}')" title="Modifier">✏️</button>
       </div>`).join('');
 
     return `<div class="prep-section open" id="ps-${secKey}">
@@ -3367,7 +3293,7 @@ const EXPENSE_TAGS = [
   {key:'food',    emoji:'🍽', label:'Resto'},
   {key:'drinks',  emoji:'🍹', label:'Boissons'},
   {key:'plane',   emoji:'✈️', label:'Avion'},
-  {key:'car',     emoji:'🚗', label:'<span style="display:inline-flex;align-items:center;gap:.3rem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg> Voiture</span>'},
+  {key:'car',     emoji:'🚗', label:'🚗 Voiture'},
   {key:'gas',     emoji:'⛽', label:'Essence'},
   {key:'activity',emoji:'🎟', label:'Activité'},
   {key:'market',  emoji:'🛒', label:'Courses'},
@@ -3616,7 +3542,7 @@ function renderExpenseList(){
         <div class="tc-exp-amount">${e.amount.toFixed(2)}€</div>
         <div class="tc-exp-actions">
           <button class="tc-switch-btn" onclick="toggleExpensePayer('${e.id}')" title="Changer payeur">⇄</button>
-          <button class="tc-del-btn" onclick="deleteExpense('${e.id}')" title="Supprimer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+          <button class="tc-del-btn" onclick="deleteExpense('${e.id}')" title="Supprimer">✕</button>
         </div>
       </div>
     </div>`;
@@ -3723,7 +3649,7 @@ window.addEventListener('beforeinstallprompt',e=>{
 <!-- User bar -->
 <div id="login-user-bar" style="display:none">
   <span style="display:flex;align-items:center;gap:.5rem"><span id="conn-indicator" style="width:7px;height:7px;border-radius:50%;background:#FF8A80;flex-shrink:0;transition:.3s" title="Connexion..."></span>👤 <span id="login-user"></span></span>
-  <button onclick="window.logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Déconnexion</button>
+  <button onclick="window.logout()">Déconnexion</button>
 </div>
 
 </div><!-- end app-root -->
@@ -3731,7 +3657,7 @@ window.addEventListener('beforeinstallprompt',e=>{
 <!-- User bar -->
 <div id="login-user-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);border-top:1px solid var(--border);padding:.5rem 1.25rem;align-items:center;justify-content:space-between;font-size:.75rem;color:var(--muted);z-index:500">
   <span style="display:flex;align-items:center;gap:.5rem"><span id="conn-indicator" style="width:7px;height:7px;border-radius:50%;background:#FF8A80;flex-shrink:0;transition:.3s" title="Connexion..."></span>👤 <span id="login-user"></span></span>
-  <button onclick="window.logout()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Déconnexion</button>
+  <button onclick="window.logout()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;padding:.25rem .5rem">Déconnexion</button>
 </div>
 
 </body>
