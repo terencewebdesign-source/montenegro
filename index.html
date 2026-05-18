@@ -633,7 +633,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 // ═══════════════════════════════════════
 // FIREBASE CONFIG & SYNC
@@ -683,6 +683,11 @@ function initFirebase(){
         showLogin();
       }
     });
+    // Handle redirect result on page load
+    getRedirectResult(auth).then(result => {
+      if(result?.user) console.log('Redirect login:', result.user.email);
+    }).catch(e => console.warn('Redirect result error:', e));
+
     console.log('✅ Firebase + Auth initialisés');
     return true;
   }catch(e){
@@ -708,7 +713,7 @@ function showApp(){
 window.loginWithGoogle = async function(){
   try{
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    await signInWithRedirect(auth, provider);
   }catch(e){
     document.getElementById('login-error').textContent = 'Erreur de connexion — réessaie';
     console.warn(e);
@@ -716,7 +721,9 @@ window.loginWithGoogle = async function(){
 }
 
 window.logout = async function(){
-  await signOut(auth);
+  try{
+    await signOut(auth);
+  }catch(e){ console.warn(e); }
 }
 
 // ── Fonctions de sync génériques ──────────────────────────────────────────
