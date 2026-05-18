@@ -2622,6 +2622,141 @@ function getResFieldValues(){
   });
   return values;
 }
+// ── Render tab ────────────────────────────────────────────────────────────
+
+function renderResTab(){
+  const container = document.getElementById('res-content');
+  if(!container) return;
+  const sections = [
+    {key:'flight',   label:'✈️ Vols'},
+    {key:'car',      label:'🚗 Voiture'},
+    {key:'hotel',    label:'🏨 Hôtels'},
+    {key:'activity', label:'🎟 Activités'},
+  ];
+  let html = '';
+  sections.forEach(({key, label}) => {
+    const items = _resData.filter(r => r.type === key).sort((a,b) => (a.order||0)-(b.order||0));
+    html += `<div class="res-section"><div class="res-section-title">${label}</div>`;
+    items.forEach(res => { html += renderResCard(res); });
+    html += `<button class="res-add-btn" onclick="openResModal('${key}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Ajouter
+    </button></div>`;
+  });
+  container.innerHTML = html;
+}
+
+function renderResCard(res){
+  const type = RES_TYPES[res.type] || {icon:'📋'};
+  const fields = RES_FIELDS[res.type] || [];
+  const mainLabel = res.name || '—';
+  const subLabel = res.checkin || res.depart || res.pickup || res.date || res.dates || '';
+  const fieldRows = fields.filter(f => f.id !== 'name' && res[f.id]).map(f => `
+    <div class="res-field">
+      <div class="res-field-label">${f.label.replace(' *','')}</div>
+      <div class="res-field-value">${
+        f.id==='phone' ? `<a href="tel:${res[f.id]}">${res[f.id]}</a>` :
+        f.id==='link' && res[f.id] && res[f.id].startsWith('http') ? `<a href="${res[f.id]}" target="_blank" rel="noopener">${res[f.id]}</a>` :
+        res[f.id]
+      }</div>
+    </div>`).join('');
+  const callBtn = res.phone ? `<a class="res-btn primary" href="tel:${res.phone}">📞 Appeler</a>` : '';
+  const linkBtn = res.link && res.link.startsWith('http') ? `<a class="res-btn" href="${res.link}" target="_blank" rel="noopener">🔗 Ouvrir</a>` : '';
+  const mapsBtn = res.address && !res.address.startsWith('http') ? `<a class="res-btn" href="https://maps.google.com/?q=${encodeURIComponent(res.address)}" target="_blank" rel="noopener">🗺 Maps</a>` : '';
+  return `<div class="res-card" id="res-card-${res.id}">
+    <div class="res-card-head" onclick="toggleResCard('${res.id}')">
+      <span class="res-icon">${type.icon}</span>
+      <div class="res-card-info">
+        <div class="res-card-name">${mainLabel}</div>
+        <div class="res-card-sub">${subLabel}</div>
+      </div>
+      <svg class="res-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="res-card-body">
+      <div class="res-card-body-in">
+        ${fieldRows}
+        ${res.img ? `<div style="margin-top:.75rem"><img class="res-screenshot" src="${res.img}" alt="Screenshot" onclick="openResLightbox('${res.id}')"/><div style="font-size:.65rem;color:var(--muted);margin-top:.3rem">Tap pour agrandir</div></div>` : ''}
+        <div class="res-actions">${callBtn}${linkBtn}${mapsBtn}<button class="res-btn" onclick="openResModal('${res.type}','${res.id}')">✏️ Modifier</button></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleResCard(id){
+  const card = document.getElementById('res-card-'+id);
+  if(card) card.classList.toggle('open');
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────
+
+function openResModal(type='hotel', editId=null){
+  _resEditId = editId;
+  _resPendingImg = null;
+  const res = editId ? _resData.find(r => r.id === editId) : null;
+  document.getElementById('resModalTitle').textContent = editId ? 'Modifier' : 'Ajouter une réservation';
+  document.getElementById('res-type').value = res ? res.type : type;
+  document.getElementById('res-delete-btn').style.display = editId ? '' : 'none';
+  const statusEl = document.getElementById('res-ocr-status');
+  if(statusEl) statusEl.textContent = '';
+  renderResFields(res || {});
+  const preview = document.getElementById('res-img-preview');
+  const label = document.getElementById('res-img-label');
+  if(res && res.img){
+    preview.innerHTML = `<img src="${res.img}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;margin-bottom:.5rem;cursor:pointer;border:1.5px solid var(--border)" onclick="document.getElementById('resLightboxImg').src=this.src;document.getElementById('resLightbox').classList.add('show')"/>`;
+    label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 🔄 Remplacer`;
+  } else {
+    preview.innerHTML = '';
+    label.innerHTML = `<input type="file" id="res-img-input" accept="image/*" style="display:none" onchange="handleResImg(this)"/> 📎 Ajouter un screenshot`;
+  }
+  document.getElementById('resModal').classList.add('show');
+}
+
+function closeResModal(){
+  document.getElementById('resModal').classList.remove('show');
+  _resEditId = null;
+  _resPendingImg = null;
+}
+
+async function saveRes(){
+  const type = document.getElementById('res-type').value;
+  const values = getResFieldValues();
+  if(!values.name){ const el = document.getElementById('resf-name'); if(el) el.focus(); return; }
+  const existingRes = _resEditId ? _resData.find(r => r.id === _resEditId) : null;
+  const id = _resEditId || 'res_' + Date.now().toString(36);
+  const res = {
+    id, ...values,
+    img: _resPendingImg || (existingRes ? existingRes.img : null),
+    order: existingRes ? existingRes.order : Date.now(),
+  };
+  await saveResToFb(res);
+  closeResModal();
+  showToast('Réservation sauvegardée ✅');
+}
+
+async function deleteRes(){
+  const btn = document.getElementById('res-delete-btn');
+  if(btn.dataset.confirming !== 'true'){
+    btn.dataset.confirming = 'true';
+    btn.textContent = 'Confirmer';
+    setTimeout(()=>{ btn.dataset.confirming='false'; btn.textContent='Supprimer'; }, 3000);
+    return;
+  }
+  await deleteResFromFb(_resEditId);
+  closeResModal();
+  showToast('Réservation supprimée 🗑');
+}
+
+function openResLightbox(id){
+  const res = _resData.find(r => r.id === id);
+  if(!res || !res.img) return;
+  document.getElementById('resLightboxImg').src = res.img;
+  document.getElementById('resLightbox').classList.add('show');
+}
+
+function closeResLightbox(){
+  document.getElementById('resLightbox').classList.remove('show');
+}
+
 const MISTRAL_API_KEY = 'gbZQxa3G2TUa9Iyu2sG4s2jOrXbQRbCb';
 
 async function handleResImg(input){
