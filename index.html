@@ -206,11 +206,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .ci-checkbox:checked{background:var(--accent);border-color:var(--accent)}
 .ci-checkbox:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:10px;font-weight:700}
 .ci-name{font-size:.85rem;color:var(--text);line-height:1.5;flex:1}
+.ei{width:14px;height:14px;flex-shrink:0;vertical-align:middle;display:inline-block;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;opacity:.7;margin-right:2px}
 .ci-checkbox:checked~.ci-name{color:var(--muted);text-decoration:line-through;opacity:.6}
-.ci-block{border:none;border-radius:14px;margin-bottom:.5rem;overflow:hidden;background:var(--card);transition:.2s}
+.ci-block{border:none;border-radius:14px;margin-bottom:.6rem;overflow:hidden;background:#242428;transition:.2s}
 .ci-block:hover{opacity:.92}
 .ci-block.open{outline:2px solid var(--accent)}
-.ci-row{display:flex;align-items:center;gap:.6rem;padding:.7rem .6rem;user-select:none}
+.ci-row{display:flex;align-items:center;gap:.6rem;padding:.85rem .9rem;user-select:none}
 .ci-edit-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:.2rem .25rem;opacity:.45;transition:.15s;font-size:.82rem;flex-shrink:0;line-height:1}
 .ci-edit-btn:hover{opacity:1;color:var(--accent)}
 .ci-chevron{width:16px;height:16px;flex-shrink:0;color:var(--muted);transition:transform .2s}
@@ -226,7 +227,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .ci-dd-link{display:inline-flex;align-items:center;gap:.4rem;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.45rem .8rem;font-size:.77rem;color:var(--text);text-decoration:none;transition:.15s;font-weight:500}
 .ci-dd-link:hover{border-color:var(--accent);color:var(--accent)}
 .ci-dd-link svg{width:12px;height:12px;flex-shrink:0;color:currentColor}
-.ci-plain{border:none;border-radius:14px;margin-bottom:.5rem;padding:.4rem .7rem;background:var(--card);display:flex;align-items:flex-start;gap:.5rem}
+.ci-plain{border:none;border-radius:14px;margin-bottom:.6rem;padding:.75rem .9rem;background:#242428;display:flex;align-items:flex-start;gap:.6rem}
 
 
 
@@ -301,9 +302,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .pack-cat{margin-bottom:1.1rem}
 .pack-cat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem}
 .pack-cat-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;opacity:.75}
-.pack-item{display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--border)}
-.pack-item:last-child{border-bottom:none}
-.pack-item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:19px;height:19px;min-width:19px;border:1.5px solid var(--border);border-radius:4px;cursor:pointer;transition:.15s;position:relative;background:var(--card);flex-shrink:0}
+.pack-item{display:flex;align-items:center;gap:.6rem;padding:.75rem .9rem;border-bottom:none;background:#242428;border-radius:12px;margin-bottom:.5rem}
+
+.pack-item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:20px;height:20px;min-width:20px;border:2px solid rgba(255,255,255,.2);border-radius:6px;cursor:pointer;transition:.15s;position:relative;background:rgba(255,255,255,.07);flex-shrink:0}
 .pack-item input:checked{background:var(--accent);border-color:var(--accent)}
 .pack-item input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:11px;font-weight:700}
 .pack-item-name{font-size:.85rem;flex:1;cursor:pointer}
@@ -349,7 +350,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 /* ═══ PREP TAB ═══ */
 .prep-section{background:var(--card);border:none;border-radius:var(--r);margin-bottom:1rem;overflow:hidden;transition:.2s}
 .prep-head{display:flex;align-items:center;gap:.85rem;padding:1.15rem 1.25rem;cursor:pointer;user-select:none;border-bottom:1px solid transparent;transition:.2s}
-.prep-section.open .prep-head{border-bottom:1px solid rgba(255,255,255,.06)}
+.prep-section.open .prep-head{border-bottom:none}
 .prep-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .prep-info{flex:1}
 .prep-title{font-family:'DM Serif Display',serif;font-size:1rem}
@@ -357,9 +358,9 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .prep-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
 .prep-section.open .prep-body{max-height:3000px}
 .prep-body-in{padding:.75rem 1.25rem 1.4rem}
-.prep-item{display:flex;align-items:flex-start;gap:.65rem;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
-.prep-item:last-child{border-bottom:none}
-.prep-item input{appearance:none;-webkit-appearance:none;width:19px;height:19px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer;transition:.15s;position:relative;background:var(--card)}
+.prep-item{display:flex;align-items:flex-start;gap:.65rem;padding:.8rem .9rem;border-bottom:none;background:#242428;border-radius:12px;margin-bottom:.5rem}
+
+.prep-item input{appearance:none;-webkit-appearance:none;width:20px;height:20px;border:2px solid rgba(255,255,255,.2);border-radius:6px;flex-shrink:0;cursor:pointer;transition:.15s;position:relative;background:rgba(255,255,255,.07)}
 .prep-item input:checked{background:var(--accent);border-color:var(--accent)}
 .prep-item input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:11px;font-weight:700}
 .prep-item .pi-content{flex:1}
@@ -645,7 +646,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 
     <!-- PHRASES -->
     <div class="phrases-section">
-      <div class="phrases-head"><span class="phrases-flag" style="font-size:1.1rem">🇲🇪</span><div><div class="phrases-title">Phrases utiles — Montenegrin / Serbe</div><div class="phrases-sub">Phonétique approximative pour francophones</div></div></div>
+      <div class="phrases-head"><span class="phrases-flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><div class="phrases-title">Phrases utiles — Montenegrin / Serbe</div><div class="phrases-sub">Phonétique approximative pour francophones</div></div></div>
       <div class="phrase-row"><div class="phrase-fr">Bonjour</div><div class="phrase-local">Dobar dan</div><div class="phrase-phonetic">Do-bar dan</div></div>
       <div class="phrase-row"><div class="phrase-fr">Bonsoir</div><div class="phrase-local">Dobro veče</div><div class="phrase-phonetic">Do-bro vé-tché</div></div>
       <div class="phrase-row"><div class="phrase-fr">Merci</div><div class="phrase-local">Hvala</div><div class="phrase-phonetic">Hva-la</div></div>
@@ -672,7 +673,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
     </div>
 
     <div class="phrases-section">
-      <div class="phrases-head"><span class="phrases-flag" style="font-size:1.1rem">🇦🇱</span><div><div class="phrases-title">Phrases utiles — Albanais (Ulcinj)</div><div class="phrases-sub">Ulcinj est à majorité albanophone</div></div></div>
+      <div class="phrases-head"><span class="phrases-flag"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><div class="phrases-title">Phrases utiles — Albanais (Ulcinj)</div><div class="phrases-sub">Ulcinj est à majorité albanophone</div></div></div>
       <div class="phrase-row"><div class="phrase-fr">Bonjour</div><div class="phrase-local">Mirëdita</div><div class="phrase-phonetic">Mi-rë-di-ta</div></div>
       <div class="phrase-row"><div class="phrase-fr">Merci</div><div class="phrase-local">Faleminderit</div><div class="phrase-phonetic">Fa-le-min-de-rit</div></div>
       <div class="phrase-row"><div class="phrase-fr">Combien ?</div><div class="phrase-local">Sa kushton?</div><div class="phrase-phonetic">Sa kouch-ton?</div></div>
@@ -2322,6 +2323,63 @@ function renderAllChecklists(){
   });
 }
 
+const EMOJI_SVG_MAP = {
+  '📸': `<svg class="ei" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+  '🏛': `<svg class="ei" viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>`,
+  '🔔': `<svg class="ei" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+  '⛪': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
+  '🛒': `<svg class="ei" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
+  '🍽': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
+  '🥐': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,
+  '🥙': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
+  '🏔': `<svg class="ei" viewBox="0 0 24 24"><polygon points="3 20 9 4 15 20"/><polygon points="15 20 19 11 23 20"/></svg>`,
+  '🗿': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M12 14v8"/><path d="M8 22h8"/></svg>`,
+  '🔭': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  '👑': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>`,
+  '🍯': `<svg class="ei" viewBox="0 0 24 24"><path d="M8 2h8M9 2v3M15 2v3M3 7h18l-1.5 12H4.5z"/></svg>`,
+  '🏊': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M5 22v-5l7-5 7 5v5"/><path d="M5 12.5l7-5 7 5"/></svg>`,
+  '🌅': `<svg class="ei" viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>`,
+  '🏖': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 12v8M8 20h8"/></svg>`,
+  '🪨': `<svg class="ei" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  '🌆': `<svg class="ei" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9M15 21v-6"/></svg>`,
+  '🍹': `<svg class="ei" viewBox="0 0 24 24"><path d="M8 22h8"/><path d="M12 22V11"/><path d="M20 7H4l4 7h8l4-7z"/><path d="M4 7L2 3h20l-2 4"/></svg>`,
+  '🐟': `<svg class="ei" viewBox="0 0 24 24"><path d="M21 12c0 1.2-5.4 6-9 6s-9-4.8-9-6c0-1.2 5.4-6 9-6s9 4.8 9 6z"/><circle cx="16" cy="12" r="1"/></svg>`,
+  '🌲': `<svg class="ei" viewBox="0 0 24 24"><path d="M12 2L8 9H4l4 7H5l7 6 7-6h-3l4-7h-4L12 2z"/></svg>`,
+  '🚣': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 20s4-2 8-2 8 2 8 2"/><path d="M12 4v12"/><path d="M8 8l4-4 4 4"/></svg>`,
+  '🌳': `<svg class="ei" viewBox="0 0 24 24"><path d="M12 2L8 9H4l4 7H5l7 6 7-6h-3l4-7h-4L12 2z"/></svg>`,
+  '🪂': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M3 12a9 9 0 0 0 18 0"/><path d="M12 8v14"/></svg>`,
+  '🍖': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
+  '🧺': `<svg class="ei" viewBox="0 0 24 24"><path d="M6 2h12l3 7H3z"/><path d="M3 9v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9"/></svg>`,
+  '🧀': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
+  '🖼': `<svg class="ei" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
+  '🕌': `<svg class="ei" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
+  '🌿': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 22 16 8"/><path d="M8.5 2.5s4 1 5.5 5.5c1.5 4.5-1 8.5-1 8.5S9.5 14 8 9.5C6.5 5 8.5 2.5 8.5 2.5z"/></svg>`,
+  '🚶': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><path d="M9 20l1-5 2-3 2 3 1 5"/><path d="M7 8l5 2 5-2"/></svg>`,
+  '🥃': `<svg class="ei" viewBox="0 0 24 24"><path d="M8 22h8M9 22V2M15 22V2M3 2h18"/></svg>`,
+  '🍑': `<svg class="ei" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg>`,
+  '⛵': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1"/><path d="M4 18l8-16 8 16H4z"/><path d="M12 2v16"/></svg>`,
+  '🚤': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1"/><path d="M4 18l8-16 8 16H4z"/></svg>`,
+  '☕': `<svg class="ei" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+  '🍷': `<svg class="ei" viewBox="0 0 24 24"><path d="M8 22h8M12 11v11"/><path d="M5 3h14l-1.68 8.39a2 2 0 0 1-1.97 1.61H8.65a2 2 0 0 1-1.97-1.61L5 3z"/></svg>`,
+  '🍺': `<svg class="ei" viewBox="0 0 24 24"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M3 7h14v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7z"/><path d="M5 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg>`,
+  '🍄': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M6 12v8"/><path d="M18 12v8"/><path d="M6 20h12"/></svg>`,
+  '🫒': `<svg class="ei" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="5" ry="8"/><path d="M12 4v4"/></svg>`,
+  '🪁': `<svg class="ei" viewBox="0 0 24 24"><path d="M14.5 14.5L3 3l11 4 4 11-3.5-3.5z"/><path d="M3 3l7.5 7.5"/></svg>`,
+  '🛶': `<svg class="ei" viewBox="0 0 24 24"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1"/><path d="M12 12V4l-3 3M12 4l3 3"/></svg>`,
+  '❄️': `<svg class="ei" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 6-8 6-8-6"/><path d="m20 18-8-6-8 6"/><path d="m2 12 10-2 10 2"/></svg>`,
+  '⭐': `<svg class="ei" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  '📋': `<svg class="ei" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M4 6h16v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z"/></svg>`,
+  '📱': `<svg class="ei" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  '🧳': `<svg class="ei" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="15" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>`,
+};
+function emojiToSvg(text){
+  if(!text) return text;
+  const first = [...text][0];
+  const svg = EMOJI_SVG_MAP[first];
+  if(!svg) return text;
+  const rest = text.slice(first.length).trimStart();
+  return svg + rest;
+}
 const CAT_ICONS_SVG = {
   '📄 Documents': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
   '👕 Vêtements': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>',
@@ -2383,7 +2441,7 @@ function renderCheckItem(item, dayNum, catKey){
   return `<div class="ci-block${item.checked?' ci-checked':''}" id="ci-fb-${item.id}" onclick="handleCiFbClick(event,'${item.id}','${dayNum}','${catKey}')" style="cursor:pointer">
     <div class="ci-row">
       <input type="checkbox" class="ci-checkbox" ${item.checked?'checked':''} onclick="event.stopPropagation();toggleCheckFb('${item.id}','${dayNum}','${catKey}',this.checked)"/>
-      <span class="ci-name">${item.name}</span>
+      <span class="ci-name">${emojiToSvg(item.name)}</span>
       <button class="ci-edit-btn" onclick="event.stopPropagation();openEditItem('${item.id}','${dayNum}','${catKey}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
       ${hasInfo ? `<svg class="ci-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>` : '<span style="width:16px;flex-shrink:0"></span>'}
     </div>
@@ -3011,7 +3069,7 @@ function renderPackingList(){
     items.forEach(item => {
       html += `<div class="pack-item" id="pk-${item.id}">
         <input type="checkbox" ${item.checked?'checked':''} onclick="togglePackItem('${item.id}','${catKey}',this.checked)"/>
-        <span class="pack-item-name">${item.name}</span>
+        <span class="pack-item-name">${emojiToSvg(item.name)}</span>
         <button class="pack-item-edit" onclick="openItemEditModal('pack','${catKey}','${item.id}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
       </div>`;
     });
@@ -3123,7 +3181,7 @@ function renderPrepSections(){
         <input type="checkbox" data-pt="${it.id}" data-sec="${secKey}" ${it.checked?'checked':''}
           onclick="togglePrepItem('${it.id}','${secKey}',this.checked)"/>
         <div class="pi-content">
-          <div class="pi-main">${it.main}</div>
+          <div class="pi-main">${emojiToSvg(it.main)}</div>
           ${it.detail ? `<div class="pi-detail">${it.detail}</div>` : ''}
         </div>
         <button class="pack-item-edit" onclick="openItemEditModal('prep','${secKey}','${it.id}')" title="Modifier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
