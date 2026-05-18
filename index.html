@@ -53,8 +53,6 @@ body{font-family:'Lato',sans-serif;font-size:15px;background:var(--bg);backgroun
 .hero-cd{display:flex;align-items:baseline;gap:.5rem}
 .hero-cd-num{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:800;color:var(--accent);letter-spacing:-.02em}
 .hero-cd-text{font-size:.82rem;color:rgba(255,255,255,.4);font-weight:400}
-#installBtn{background:#4A6CF7;color:#fff}
-#installBtn:hover{background:#4A6CF7}
 .hero-pills{display:flex;gap:.5rem;flex-wrap:wrap}
 .hero-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:99px;padding:.35rem .85rem;font-size:.72rem;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.01em}
 
@@ -500,38 +498,6 @@ body{font-family:'Lato',sans-serif;font-size:15px;background:var(--bg);backgroun
   .day-name{font-size:.92rem}
 }
 
-/* Light mode */
-[data-theme="light"]{
-  --bg:#F5F4F0;--card:#FFFFFF;--text:#1A1A2E;--muted:#6B6B80;--border:rgba(0,0,0,.08);
-  --input-bg:#F0EFF5;--hero-text:#1A1A2E;--nav-bg:#FFFFFF;--map-filter:none;
-  --shadow:none;
-  --accent:#4A6CF7;
-  --travel:#2C5F8A;--travel-lt:#E0EDF7;--coast:#4A6CF7;--coast-lt:#E8EEFF;
-  --mtn:#5B4FA0;--mtn-lt:#F0EDFA;--lake:#0D7377;--lake-lt:#E0F5F5;
-  --nature:#2E7D32;--nature-lt:#E8F5E9;--chill:#4A6DB5;--chill-lt:#E8EEFF;
-}
-[data-theme="light"] .hero{background:#F5F4F0}
-[data-theme="light"] .hero h1{color:#1A1A2E}
-[data-theme="light"] .hero-sub{color:#6B6B80}
-[data-theme="light"] .hero-cd-num{color:var(--accent)}
-[data-theme="light"] .hero-cd-text{color:#6B6B80}
-[data-theme="light"] .hero-label{color:rgba(0,0,0,.35)}
-[data-theme="light"] .hero-share-btn{background:rgba(0,0,0,.06);color:rgba(0,0,0,.5)}
-[data-theme="light"] .hero-share-btn:hover{background:rgba(0,0,0,.1);color:#1A1A2E}
-[data-theme="light"] #installBtn{background:#4A6CF7;color:#fff}
-[data-theme="light"] .hero-pill{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.08);color:#6B6B80}
-[data-theme="light"] .ci-block,.pack-item,[data-theme="light"] .prep-item{background:#F0EFF5}
-[data-theme="light"] .ci-checkbox,.pack-item input[type=checkbox],[data-theme="light"] .prep-item input{border-color:rgba(0,0,0,.2);background:rgba(0,0,0,.04)}
-[data-theme="light"] .budget-hero{color:#fff}
-[data-theme="light"] .login-card{background:#fff}
-[data-theme="light"] .login-title{color:#1A1A2E}
-[data-theme="light"] .login-input{background:#F0EFF5;color:#1A1A2E}
-[data-theme="light"] .login-input::placeholder{color:#999}
-[data-theme="light"] .badge.travel{background:#E0EDF7;color:#2C5F8A}
-[data-theme="light"] .badge.coast{background:#E8EEFF;color:#4A6CF7}
-[data-theme="light"] .badge.mountain{background:#F0EDFA;color:#5B4FA0}
-[data-theme="light"] .badge.lake{background:#E0F5F5;color:#0D7377}
-[data-theme="light"] .badge.nature{background:#E8F5E9;color:#2E7D32}
 </style>
 </head>
 <body>
@@ -561,12 +527,8 @@ body{font-family:'Lato',sans-serif;font-size:15px;background:var(--bg);backgroun
   <div class="hero-top-bar">
     <span class="hero-label">Roadtrip</span>
     <div style="display:flex;gap:.6rem">
-      <button class="hero-share-btn" onclick="toggleTheme()" id="themeToggle" title="Mode clair/sombre">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" id="themeIcon"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </button>
-      <button class="hero-share-btn" onclick="showInstall()" id="installBtn" title="Installer l'app">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      </button>
+
+
       <button class="hero-share-btn" onclick="showShare()" title="Partager">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
       </button>
