@@ -112,12 +112,13 @@ body{font-family:'Lato',sans-serif;font-size:15px;background:var(--bg);backgroun
 .day:hover{}
 .day.chill{border:none;outline:1.5px solid var(--chill)}
 .day-head{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.35rem;cursor:pointer;user-select:none}
-.badge{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:600;flex-shrink:0;transition:.3s}
-.badge.travel{background:var(--travel-lt);color:var(--travel)}
-.badge.coast{background:var(--coast-lt);color:var(--coast)}
-.badge.mountain{background:var(--mtn-lt);color:var(--mtn)}
-.badge.lake{background:var(--lake-lt);color:var(--lake)}
-.badge.nature{background:var(--nature-lt);color:var(--nature)}
+.badge{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;transition:.3s}
+.badge.travel{background:#1E3A6E;color:#5B9CF7}
+.badge.coast{background:#1A2E5E;color:#4A8CF7}
+.badge.mountain{background:#2E1A4E;color:#A47BDE}
+.badge.lake{background:#1A3E3E;color:#3DD9B6}
+.badge.nature{background:#1A3E1E;color:#4ADE80}
+.badge.chill{background:#1A2E5E;color:#60A5FA}
 .badge.chill-b{background:var(--chill);color:#fff;font-size:1.1rem}
 .day-info{flex:1;min-width:0}
 .day-name{font-family:'Sora',sans-serif;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -985,7 +986,7 @@ const waypoints=[
 const colors={travel:'#2C5F8A',coast:'#4A6CF7',mountain:'#5B4FA0',lake:'#A77B1A',nature:'#3B7A1E',chill:'#1D9E75'};
 
 const DAYS=[
-{num:1,date:"Mer 17 sept",type:"travel",badge:"✈",weather:"Kotor",
+{num:1,date:"Mer 17 sept",type:"travel",badge:"✈️",weather:"Kotor",
 title:"Paris → Tivat → Perast → Kotor",sub:"Arrivée · Nuit à Kotor",drive:null,
 stops:[
 {t:"Matin",n:"Vol Paris → Tivat (TIV)",d:"~2h30. Récupération SUV. Assurance tous risques, vérifier le contrat pour les pistes non goudronnées.",tips:[["warn","Assurance tous risques obligatoire"]]},
@@ -993,7 +994,7 @@ stops:[
 {t:"17h00",n:"Kotor Old Town",d:"Vieille ville UNESCO — remparts vénitiens, ruelles pavées, chats partout. Dîner face à la baie.",night:"Nuit à Kotor"}],
 checks:["📸 Vue sur les îlots depuis le quai de Perast","🏛 Photo des palais baroques de Perast","🔔 Tour de cloche Saint-Nicolas à Perast — vue 360° sur la baie (quelques €)","⛪ Cathédrale Saint-Tryphon — reliques et balcon (2€)","🛒 Marché paysan devant les remparts (matin) — fromage, figues, olives","🍽 Restaurant Galion — vue remparts + montagne Vrmac, cuisine côtière réinterprétée","🥐 Croissant Njeguši prosciutto + roquette au café près de la cathédrale","🥙 Goûter un burek dans une boulangerie locale","🍽 Konoba Scala Santa — vieille ville, terrasse cachée, risotto aux fruits de mer","🍽 Restaurant Cattaro — remparts illuminés, meilleur cadre de Kotor"]},
 
-{num:2,date:"Jeu 18 sept",type:"coast",badge:"2",weather:"Kotor",
+{num:2,date:"Jeu 18 sept",type:"mountain",badge:"🏰",weather:"Kotor",
 title:"Forteresse + Lovcen + Cetinje → Bečići",sub:"Journée chargée · Nuit 1/3 à Bečići",
 drive:{text:"Kotor → Lovcen → Cetinje → Bečići",km:"~85 km",time:"~2h30",note:"Route des 25 lacets spectaculaire"},
 stops:[
@@ -1003,7 +1004,7 @@ stops:[
 {t:"Soir",n:"Arrivée à Bečići (30 min)",d:"Installation hôtel avec piscine pour 3 nuits.",night:"Nuit 1/3 à Bečići"}],
 checks:["🏔 Monter les 1 350 marches de la Forteresse San Giovanni","📸 Arrêt photo mi-route des 25 lacets — vue plongeante sur la baie","🗿 Mausolée de Njegoš — 461 marches, sarcophage en granit noir","🔭 Vue 360° depuis le sommet du Lovcen","🍽 Restaurant Vladika (sur le Lovcen) — Njeguški steak 600g, vue montagne, surprenant de qualité","🏛 Monastère de Cetinje — reliques sacrées","👑 Palais royal — salle du trône","🍯 Acheter du miel de montagne sur la route","🏊 Canyoning canyon de la Škurda (opérateur Montenegro Canyoning)"]},
 
-{num:"3–4",date:"Ven–Sam 19–20 sept",type:"chill",badge:"☀",chill:true,weather:"Bečići",
+{num:"3–4",date:"Ven–Sam 19–20 sept",type:"chill",badge:"🏖️",chill:true,weather:"Bečići",
 title:"Bečići : Chill côte",sub:"Piscine · Plage · Sveti Stefan · Nuits 2-3 à Bečići",
 chillBanner:"3 nuits à Bečići : plage de sable en arc parfait de 2 km, hôtels avec piscines vue mer. À 3 km de Budva. Fin septembre = quasi personne, mer à ~23°C.",
 drive:{text:"Bečići → Sveti Stefan → Budva",km:"~15 km",time:"~20 min",note:"Tout est à côté"},
@@ -1012,7 +1013,7 @@ stops:[
 {t:"Jour 4",n:"Piscine & plage",d:"Transats, mer, beach bars. Vieille ville de Budva le soir si motivé.",tips:[["ch","Programme officiel : ne rien faire"]],night:"Nuits 2-3/3 à Bečići"}],
 checks:["🌅 Photo Sveti Stefan — belvédère golden hour en fin d'après-midi","🏖 Plage Mogren 2 — la secrète derrière les rochers","🪨 Saut de falaise à Mogren","🏖 Jaz Beach — sable, eau cristalline, quasi déserte en septembre","🌆 Vieille ville de Budva au coucher du soleil","🍹 Cocktail dans les remparts de la Citadelle (4€, vue mer)","🍽 Restaurant Jadran — terrasse sur les remparts, poisson grillé, vue mer imprenable","🍽 Porto — vieille ville de Budva, fruits de mer et ambiance locale"]},
 
-{num:5,date:"Dim 21 sept",type:"lake",badge:"5",weather:"Virpazar",
+{num:5,date:"Dim 21 sept",type:"nature",badge:"🍷",weather:"Virpazar",
 title:"Lac Skadar + Vignobles + Ostrog",sub:"Pélicans · Vin Vranac · Falaise · Nuit Ostrog/Nikšić",
 drive:{text:"Bečići → Virpazar → Godinje → Ostrog → Nikšić",km:"~130 km",time:"~3h cumulé",note:"Route d'Ostrog étroite et vertigineuse"},
 stops:[
@@ -1021,7 +1022,7 @@ stops:[
 {t:"Soir",n:"Monastère d'Ostrog",d:"Incrusté dans une falaise blanche à 900m. Pèlerinage chrétien ET musulman. Route vertigineuse.",tips:[["warn","Route très étroite"],["info","Tenue correcte exigée"]],night:"Nuit à Nikšić / Ostrog"}],
 checks:["📋 Réserver le Lake Skadar Cruise avant de partir","🦢 Observer des pélicans frisés (espèce rare)","⛪ Monastère de Kom sur son îlot","📸 Village de Karuc — photo des barques","🏊 Baignade dans le lac depuis le bateau","📸 Pavlova Strana — le 'fer à cheval' de la Crnojevića, top 3 vues du Monténégro","🍷 Dégustation Vranac à Godinje","🛒 Acheter de l'ajvar chez un producteur à Virpazar","🧀 Kajmak sur du pain chaud","🏔 Monastère d'Ostrog — toucher la falaise blanche","🍯 Miel de monastère à la boutique d'Ostrog","🍺 Bière Nikšićko à Nikšić"]},
 
-{num:6,date:"Lun 22 sept",type:"nature",badge:"6",weather:"Žabljak",
+{num:6,date:"Lun 22 sept",type:"nature",badge:"🌲",weather:"Žabljak",
 title:"Biogradska Gora → Canyon Tara → Žabljak",sub:"Forêt primaire · Pont vertigineux · Nuit 1/2 Žabljak",
 drive:{text:"Nikšić → Biogradska → Tara → Žabljak",km:"~200 km",time:"~4h cumulé",note:"Routes de montagne sinueuses"},
 stops:[
@@ -1030,7 +1031,7 @@ stops:[
 {t:"17h00",n:"Žabljak — 1 456m",d:"Village le plus haut des Balkans. Dîner : jagnjetina ispod sača (agneau sous la cloche).",night:"Nuit 1/2 à Žabljak"}],
 checks:["🌲 Tour du lac Biogradsko à pied (3,5 km)","🚣 Canot en bois sur le lac glaciaire","🌳 Repérer un arbre centenaire de 50m+","🛒 Acheter miel, vins de fruits et ajvar aux kiosques locaux sur la route du parc","📸 Photo depuis le milieu du pont Đurđevića Tara","🪂 Tyrolienne au-dessus du canyon (20-30€)","🔭 Viewpoint Čurevac — belvédère vertigineux sur le canyon de la Tara (10 km AR)","🏊 Tremper ses pieds dans la Tara (eau turquoise glacée)","🍖 Dîner : agneau sous la cloche au Restaurant Or'O ou Koliba","⭐ Observer les étoiles depuis Žabljak (1 456m, zéro pollution lumineuse)"]},
 
-{num:7,date:"Mar 23 sept",type:"mountain",badge:"7",weather:"Žabljak",
+{num:7,date:"Mar 23 sept",type:"mountain",badge:"🏔️",weather:"Žabljak",
 title:"Parc National du Durmitor",sub:"Lac Noir · Savin Kuk · Nuit 2/2 Žabljak",
 drive:{text:"Žabljak → Lac Noir → Lacs du parc",km:"~30 km",time:"~30 min",note:"Tout à proximité"},
 stops:[
@@ -1039,7 +1040,7 @@ stops:[
 {t:"14h00",n:"Route des 18 lacs + Rafting (option)",d:"Tour en voiture des lacs glaciaires. Rafting : classe III-IV, ~40-60€/pers.",tips:[["info","Rafting demi-journée : ~40-60€"]],night:"Nuit 2/2 à Žabljak"}],
 checks:["🌅 Tour du Lac Noir au lever du soleil — reflets parfaits dans l'eau noire","📸 Photographier les reflets des montagnes dans le lac","🌲 Lac Zminje Jezero — le lac caché dans la forêt (3 km, zéro touriste)","🥾 Randonnée Savin Kuk (2 313m) ou 🚡 télésiège (10€) si jambes fatiguées","❄️ Toucher la neige résiduelle (possible fin sept)","🏊 Baignade dans un lac glaciaire (~12°C, pour les courageux)","🚗 Durmitor Ring — circuit 85 km, villages authentiques et lacs cachés","🛶 Rafting sur la Tara (classe III-IV, ~40-60€)","🍽 Déjeuner au Nacionalni Restoran Crno Jezero — truite du lac, vue montagne","🧀 Fromage de brebis d'un berger de Žabljak","🧺 Pique-nique au bord d'un des 18 lacs"]},
 
-{num:8,date:"Mer 24 sept",type:"coast",badge:"8",weather:"Ulcinj",
+{num:8,date:"Mer 24 sept",type:"travel",badge:"🚗",weather:"Ulcinj",
 title:"Žabljak → Canyon Morača → Ulcinj",sub:"Longue route · Monastère XIIe · Nuit 1/4 Ulcinj",
 drive:{text:"Žabljak → Morača → Podgorica → Ulcinj",km:"~280 km",time:"~4h30",note:"Plus long trajet — partir tôt"},
 stops:[
@@ -1048,7 +1049,7 @@ stops:[
 {t:"14h00",n:"Arrivée à Ulcinj",d:"Ville la plus méridionale, à majorité albanophone. Hôtel piscine face à la Grande Plage.",night:"Nuit 1/4 à Ulcinj"}],
 checks:["📸 Arrêt photo dans les gorges de la Morača — falaises à pic sur rivière turquoise","🖼 Monastère de la Morača — fresques médiévales du XIIe siècle","🍯 Miel des moines au monastère","🕌 Vieille ville ottomane d'Ulcinj — ruelles et forteresse","🏖 Mala Plaža — plage de sable centre-ville, parasols en chaume style Maldives","🏊 Premier bain sur la Grande Plage","🍽 Dîner : Misko — légende locale, poisson pêché le matin même"]},
 
-{num:"9–11",date:"Jeu–Sam 25–27 sept",type:"chill",badge:"☀",chill:true,weather:"Ulcinj",
+{num:"9–11",date:"Jeu–Sam 25–27 sept",type:"chill",badge:"🌊",chill:true,weather:"Ulcinj",
 title:"Ulcinj : Chill total",sub:"Grande Plage vide · ~24°C · Nuits 2-4 à Ulcinj",
 chillBanner:"4 nuits à Ulcinj : fin septembre, quasi personne. Grande Plage de 12 km déserte, mer à ~24°C, prix 30-40% moins chers que Budva. Le coin le plus chaud et sous le radar du Monténégro.",
 drive:{text:"Ulcinj → Ada Bojana (excursion)",km:"~15 km",time:"~15 min",note:"Option sur un des 3 jours"},
@@ -1057,7 +1058,7 @@ stops:[
 {t:"Option",n:"Ada Bojana — Excursion",d:"15 min. Île fluviale à la frontière albanaise. Plage sauvage. Restaurants sur pilotis.",tips:[["go","À faire au moins une fois"]],night:"Nuits 2-4/4 à Ulcinj"}],
 checks:["🏊 Piscine de l'hôtel (x3 sessions minimum)","🌅 Grande Plage — baignade au coucher du soleil","🕌 Vieille ville ottomane à pied","🔭 Tour de la forteresse — vue sur l'Albanie","🚶 Marcher jusqu'à l'extrémité de Velika Plaža — voir la frontière albanaise à pied","🥙 Byrek me djathë (burek albanais au fromage)","🏖 Ada Bojana — plage sauvage sur l'île fluviale","🍽 Ćirkova Čarda (Ada Bojana) — poisson sauvage pêché le matin, maison sur pilotis","🍽 Misko (Ulcinj) — légende locale, soupe de poisson + bar grillé","🪁 Kitesurfing ou windsurf à Velika Plaža (meilleur spot de l'Adriatique)","🌿 Valdanos Beach — crique émeraude dans une oliveraie millénaire, zéro touriste","🍑 Figues sèches au marché d'Ulcinj","🥃 Boire un raki avec un pêcheur"]},
 
-{num:12,date:"Dim 28 sept",type:"coast",badge:"12",weather:"Kotor",
+{num:12,date:"Dim 28 sept",type:"lake",badge:"⛵",weather:"Kotor",
 title:"Ulcinj → Kotor",sub:"Remontée côte · Nuit 1/2 Kotor",
 drive:{text:"Ulcinj → Virpazar → Kotor",km:"~130 km",time:"~2h30",note:"Route côtière puis intérieur"},
 stops:[
@@ -1066,7 +1067,7 @@ stops:[
 {t:"Soir",n:"Kotor — Avant-dernière nuit",d:"Coucher de soleil sur les remparts. Dîner vieille ville.",night:"Nuit 1/2 à Kotor"}],
 checks:["☕ Dernier café au bord du lac Skadar","📸 Pavlova Strana si pas fait J5 — le 'fer à cheval' de la rivière Crnojevića","🍷 Acheter du vin Vranac en route","🍯 Acheter du miel de montagne","🌅 Coucher de soleil sur les remparts de Kotor","🍽 Dîner : PRŽUN (vieille ville) — brodet de fruits de mer, ambiance locale"]},
 
-{num:13,date:"Lun 29 sept",type:"coast",badge:"13",weather:"Kotor",
+{num:13,date:"Lun 29 sept",type:"lake",badge:"☕",weather:"Kotor",
 title:"Kotor : Journée libre",sub:"Baie · Shopping · Dîner d'adieu · Nuit 2/2 Kotor",
 drive:{text:"Tour de la baie de Kotor",km:"~30 km",time:"~45 min",note:"Autour de la baie"},
 stops:[
@@ -1075,7 +1076,7 @@ stops:[
 {t:"Soir",n:"Dîner d'adieu",d:"Dernier coucher de soleil. Plateau de fruits de mer pour deux.",night:"Nuit 2/2 à Kotor"}],
 checks:["🏊 Baignade crique secrète de la baie","⛵ Village de Muo — de l'autre côté en bateau, pêcheurs, zéro touriste","🚤 Blue Cave boat tour — grottes marines, eau turquoise (opérateur 360 Monte)","🍷 Shopping : vin Vranac (dès 5€)","🍄 Shopping : truffes de Kolašin","🫒 Shopping : huile d'olive artisanale","🍯 Shopping : miel de montagne","☕ Dernier café place principale de Kotor","🍽 Dîner d'adieu : Galion (vue port) ou Bastion 1 (porte nord) — plateau fruits de mer"]},
 
-{num:14,date:"Mar 30 sept",type:"travel",badge:"✈",weather:"Kotor",
+{num:14,date:"Mar 30 sept",type:"travel",badge:"✈️",weather:"Kotor",
 title:"Tivat → Paris",sub:"Fin du roadtrip",
 drive:{text:"Kotor → Aéroport de Tivat",km:"~8 km",time:"~20 min",note:"Juste à côté"},
 stops:[
