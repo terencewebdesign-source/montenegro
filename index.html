@@ -301,6 +301,26 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 .res-lightbox-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
 [data-theme="dark"] .res-card{background:#1C1E1A;border-color:#2E302B}
 
+/* ═══ PACKING LIST ═══ */
+.pack-cat{margin-bottom:1.1rem}
+.pack-cat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem}
+.pack-cat-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:500;opacity:.75}
+.pack-item{display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--border)}
+.pack-item:last-child{border-bottom:none}
+.pack-item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:19px;height:19px;min-width:19px;border:1.5px solid var(--border);border-radius:4px;cursor:pointer;transition:.15s;position:relative;background:var(--card);flex-shrink:0}
+.pack-item input:checked{background:var(--accent);border-color:var(--accent)}
+.pack-item input:checked::after{content:'✓';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:11px;font-weight:700}
+.pack-item-name{font-size:.85rem;flex:1;cursor:pointer}
+.pack-item input:checked ~ .pack-item-name{color:var(--muted);text-decoration:line-through;opacity:.6}
+.pack-item-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem;padding:.1rem .25rem;opacity:.4;transition:.15s;flex-shrink:0}
+.pack-item-del:hover{opacity:1;color:#D32F2F}
+.pack-add-row{display:flex;gap:.5rem;margin-top:.75rem}
+.pack-add-input{flex:1;background:var(--input-bg);border:1.5px solid var(--border);border-radius:8px;padding:.55rem .75rem;font-size:.82rem;font-family:'Outfit',sans-serif;color:var(--text);outline:none;transition:.2s}
+.pack-add-input:focus{border-color:var(--accent)}
+.pack-add-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:.55rem .9rem;font-size:.82rem;cursor:pointer;font-weight:600;font-family:'Outfit',sans-serif;white-space:nowrap}
+.pack-cat-add{background:none;border:none;cursor:pointer;color:var(--accent);font-size:.72rem;font-family:'Outfit',sans-serif;opacity:.8;padding:0}
+.pack-cat-add:hover{opacity:1}
+
 /* ═══ EDIT MODAL ═══ */
 .edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s}
 .edit-modal-overlay.show{opacity:1;pointer-events:all}
@@ -563,6 +583,24 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);line
 <div class="tab-panel" id="tab-prep">
   <div class="prep-prog"><div class="prog-track"><div class="prog-fill" id="ppFill"></div></div><div class="prog-txt" id="ppTxt">0 / 0 tâches complétées</div></div>
   <div class="content" id="prepContent"></div>
+  <!-- PACKING LIST -->
+  <div class="content">
+    <div class="prep-section open" id="packing-section">
+      <div class="prep-head" onclick="this.parentElement.classList.toggle('open')">
+        <div class="prep-icon" style="background:var(--coast-lt)">🧳</div>
+        <div class="prep-info">
+          <div class="prep-title">Packing List</div>
+          <div class="prep-sub" id="packing-sub">Chargement…</div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="prep-body">
+        <div class="prep-body-in" id="packing-content">
+          <div style="text-align:center;padding:1rem;color:var(--muted);font-size:.8rem">Chargement…</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ BUDGET PANEL ═══ -->
@@ -870,6 +908,7 @@ document.addEventListener('visibilitychange', () => {
     setTimeout(() => {
       if(typeof renderAllChecklists === 'function') renderAllChecklists();
       if(typeof renderResTab === 'function') renderResTab();
+      if(typeof renderPackingList === 'function') renderPackingList();
       if(typeof renderExpenseList === 'function') renderExpenseList();
     }, 400);
   }
@@ -1892,21 +1931,10 @@ DAYS.forEach((d,idx)=>{
 const totalC=ci;
 
 // ═══════════════════════════════════════
-// BUILD PREP
+// BUILD PREP — Firebase driven
 // ═══════════════════════════════════════
-const prepCtn=document.getElementById('prepContent');
-let pi=0;
-PREP.forEach(sec=>{
-  const el=document.createElement('div');
-  el.className='prep-section open';
-  let itemsHTML=sec.items.map(it=>{
-    const h=`<div class="prep-item"><input type="checkbox" data-p="${pi}"/><div class="pi-content"><div class="pi-main">${it.main}</div><div class="pi-detail">${it.detail}</div></div></div>`;
-    pi++;return h;
-  }).join('');
-  el.innerHTML=`<div class="prep-head"><div class="prep-icon" style="background:${sec.bg}">${sec.icon}</div><div class="prep-info"><div class="prep-title">${sec.title}</div><div class="prep-sub">${sec.sub}</div></div><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div><div class="prep-body"><div class="prep-body-in">${itemsHTML}</div></div>`;
-  prepCtn.appendChild(el);
-});
-const totalP=pi;
+let totalP = 0; // updated by renderPrepSections
+
 
 // ═══════════════════════════════════════
 // INTERACTIONS
@@ -1963,7 +1991,7 @@ function saveP(){
 function updP(){const n=document.querySelectorAll('[data-p]:checked').length;document.getElementById('ppFill').style.width=(totalP?n/totalP*100:0)+'%';document.getElementById('ppTxt').textContent=`${n} / ${totalP} tâches complétées`;}
 
 document.addEventListener('change',e=>{
-  if(e.target.matches('[data-p]'))saveP();
+  // prep checkboxes now handled by togglePrepItem via onclick
 });
 
 // Budget input autosave
@@ -1983,6 +2011,8 @@ async function initAfterFirebase(){
   await migrateChecklistIfNeeded();
   startChecklistListener();
   startResListener();
+  startPackListener();
+  startPrepListener();
 }
 
 // ═══════════════════════════════════════
@@ -2881,6 +2911,271 @@ function openResLightbox(id){
 
 function closeResLightbox(){
   document.getElementById('resLightbox').classList.remove('show');
+}
+
+// ═══════════════════════════════════════
+// PACKING LIST
+// ═══════════════════════════════════════
+
+const PACKING_DEFAULT = [
+  {cat:"📄 Documents", items:["Passeport (valide 6 mois après le retour)","Permis de conduire","Carte Vitale + carte européenne d'assurance maladie","Cartes bancaires (Amex Gold + backup)","Assurance voyage SereniTrip (confirmations)","Réservations imprimées ou accessibles offline","Numéros d'urgence notés"]},
+  {cat:"👕 Vêtements", items:["T-shirts (7)","Chemises légères (3)","Short/bermuda (4)","Pantalon léger (2)","Sous-vêtements (10)","Chaussettes (10)","Maillots de bain (2)","Tenue soirée","Pull/sweat (pour Žabljak, fraîcheur altitude)","Veste légère imperméable","Chaussures de marche","Sandales/tongs","Chaussures de soirée","Casquette/chapeau"]},
+  {cat:"🏖 Plage & Activités", items:["Crème solaire SPF 50","Après-soleil","Lunettes de soleil","Masque de snorkeling","Serviette microfibre (x2)","Sac à dos daypack","Bouteille d'eau réutilisable","Chargeur portable (powerbank)"]},
+  {cat:"💊 Pharmacie", items:["Antihistaminiques","Ibuprofène/paracétamol","Pansements et désinfectant","Crème anti-moustiques","Médicaments personnels","Protection solaire lèvres"]},
+  {cat:"🔌 Électronique", items:["Téléphone + chargeur","Adaptateur universel (Europe type C)","AirPods / écouteurs","Appareil photo + batteries","Câble USB","Batterie externe"]},
+  {cat:"🎒 Divers", items:["Cadenas pour valise","Sac réutilisable (shopping)","Livre / liseuse","Épingles à linge","Lingettes humides","Petite trousse de toilette"]},
+];
+
+let _packData = {}; // {catKey: {itemId: {id, name, checked, order}}}
+
+function startPackListener(){
+  if(!window._fbReady || !window._fbReady()) return;
+  window._fbOnValue(window._fbRef('mne/packing'), snap => {
+    if(snap.exists()){
+      _packData = snap.val();
+    } else {
+      // Migrate default packing list
+      migratePackingList();
+      return;
+    }
+    renderPackingList();
+  });
+}
+
+async function migratePackingList(){
+  const data = {};
+  PACKING_DEFAULT.forEach(sec => {
+    const catKey = sec.cat.replace(/[^a-zA-Z0-9]/g,'_');
+    data[catKey] = {};
+    sec.items.forEach((name, i) => {
+      const id = 'pk_' + Math.abs(hashStr(name)).toString(36).slice(0,8);
+      data[catKey][id] = {id, cat: sec.cat, name, checked: false, order: i};
+    });
+  });
+  await window._fbSetRaw('mne/packing', data);
+}
+
+function renderPackingList(){
+  const container = document.getElementById('packing-content');
+  if(!container) return;
+
+  const CAT_ORDER = PACKING_DEFAULT.map(s => s.cat);
+  const allCats = new Set([...CAT_ORDER, ...Object.keys(_packData).map(k => Object.values(_packData[k])[0]?.cat).filter(Boolean)]);
+
+  let total = 0, checked = 0;
+  let html = '';
+
+  CAT_ORDER.forEach(catName => {
+    const catKey = catName.replace(/[^a-zA-Z0-9]/g,'_');
+    const items = _packData[catKey] ? Object.values(_packData[catKey]).sort((a,b) => (a.order||0)-(b.order||0)) : [];
+    total += items.length;
+    checked += items.filter(i => i.checked).length;
+
+    html += `<div class="pack-cat">
+      <div class="pack-cat-header">
+        <div class="pack-cat-title">${catName}</div>
+      </div>`;
+    items.forEach(item => {
+      html += `<div class="pack-item" id="pk-${item.id}">
+        <input type="checkbox" ${item.checked?'checked':''} onclick="togglePackItem('${item.id}','${catKey}',this.checked)"/>
+        <span class="pack-item-name">${item.name}</span>
+        <button class="pack-item-del" onclick="deletePackItem('${item.id}','${catKey}')" title="Supprimer">✕</button>
+      </div>`;
+    });
+    html += `<div class="pack-add-row">
+      <input class="pack-add-input" id="pack-input-${catKey}" placeholder="Ajouter un item…" onkeydown="if(event.key==='Enter')addPackItem('${catKey}','${catName.replace(/'/g,"\'")}')"/>
+      <button class="pack-add-btn" onclick="addPackItem('${catKey}','${catName.replace(/'/g,"\'")}')">+</button>
+    </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+
+  // Update subtitle
+  const sub = document.getElementById('packing-sub');
+  if(sub) sub.textContent = `${checked} / ${total} items prêts`;
+}
+
+async function togglePackItem(itemId, catKey, checked){
+  if(_packData[catKey]?.[itemId]) _packData[catKey][itemId].checked = checked;
+  if(window._fbReady && window._fbReady()){
+    await window._fbSetRaw(`mne/packing/${catKey}/${itemId}/checked`, checked);
+  }
+  // Update subtitle only
+  let total = 0, chk = 0;
+  Object.values(_packData).forEach(cat => Object.values(cat).forEach(i => { total++; if(i.checked) chk++; }));
+  const sub = document.getElementById('packing-sub');
+  if(sub) sub.textContent = `${chk} / ${total} items prêts`;
+}
+
+async function addPackItem(catKey, catName){
+  const input = document.getElementById('pack-input-' + catKey);
+  if(!input) return;
+  const name = input.value.trim();
+  if(!name) return;
+  const id = 'pk_' + Date.now().toString(36);
+  const order = Object.keys(_packData[catKey]||{}).length;
+  const item = {id, cat: catName, name, checked: false, order};
+  if(!_packData[catKey]) _packData[catKey] = {};
+  _packData[catKey][id] = item;
+  if(window._fbReady && window._fbReady()){
+    await window._fbSetRaw(`mne/packing/${catKey}/${id}`, item);
+  }
+  input.value = '';
+  renderPackingList();
+}
+
+async function deletePackItem(itemId, catKey){
+  if(!_packData[catKey]?.[itemId]) return;
+  delete _packData[catKey][itemId];
+  if(window._fbReady && window._fbReady()){
+    await window._fbSetRaw(`mne/packing/${catKey}/${itemId}`, null);
+  }
+  renderPackingList();
+}
+
+// ═══════════════════════════════════════
+// PREP TASKS — Firebase system
+// ═══════════════════════════════════════
+
+let _prepData = {}; // {sectionKey: {meta:{icon,bg,title,sub}, items:{itemId:{...}}}}
+
+function startPrepListener(){
+  if(!window._fbReady || !window._fbReady()) return;
+  window._fbOnValue(window._fbRef('mne/prep_tasks'), snap => {
+    if(snap.exists()){
+      _prepData = snap.val();
+    } else {
+      migratePrepTasks();
+      return;
+    }
+    renderPrepSections();
+    syncPrepCheckboxes();
+  });
+}
+
+async function migratePrepTasks(){
+  const data = {};
+  PREP.forEach((sec, si) => {
+    const key = sec.title.replace(/[^a-zA-Z0-9]/g,'_');
+    data[key] = {
+      meta: {icon: sec.icon, bg: sec.bg, title: sec.title, sub: sec.sub, order: si},
+      items: {}
+    };
+    sec.items.forEach((it, i) => {
+      const id = 'pt_' + Math.abs(hashStr(it.main)).toString(36).slice(0,8);
+      data[key].items[id] = {id, main: it.main, detail: it.detail, checked: false, order: i};
+    });
+  });
+  await window._fbSetRaw('mne/prep_tasks', data);
+}
+
+function renderPrepSections(){
+  const container = document.getElementById('prepContent');
+  if(!container) return;
+
+  const sections = Object.entries(_prepData)
+    .sort((a,b) => (a[1].meta?.order||0) - (b[1].meta?.order||0));
+
+  let total = 0, checked = 0;
+
+  container.innerHTML = sections.map(([secKey, sec]) => {
+    const meta = sec.meta || {};
+    const items = Object.values(sec.items||{}).sort((a,b) => (a.order||0)-(b.order||0));
+    total += items.length;
+    checked += items.filter(i => i.checked).length;
+
+    const itemsHTML = items.map(it => `
+      <div class="prep-item" id="pt-${it.id}">
+        <input type="checkbox" data-pt="${it.id}" data-sec="${secKey}" ${it.checked?'checked':''}
+          onclick="togglePrepItem('${it.id}','${secKey}',this.checked)"/>
+        <div class="pi-content">
+          <div class="pi-main">${it.main}</div>
+          ${it.detail ? `<div class="pi-detail">${it.detail}</div>` : ''}
+        </div>
+        <button class="pack-item-del" onclick="deletePrepItem('${it.id}','${secKey}')" title="Supprimer">✕</button>
+      </div>`).join('');
+
+    return `<div class="prep-section open" id="ps-${secKey}">
+      <div class="prep-head" onclick="this.parentElement.classList.toggle('open')">
+        <div class="prep-icon" style="background:${meta.bg||'var(--accent-lt)'}">${meta.icon||'📋'}</div>
+        <div class="prep-info">
+          <div class="prep-title">${meta.title||secKey}</div>
+          <div class="prep-sub">${meta.sub||''}</div>
+        </div>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="prep-body"><div class="prep-body-in">
+        ${itemsHTML}
+        <div class="pack-add-row" style="margin-top:.75rem">
+          <input class="pack-add-input" id="pt-input-${secKey}" placeholder="Ajouter une tâche…"
+            onkeydown="if(event.key==='Enter')addPrepItem('${secKey}')"/>
+          <button class="pack-add-btn" onclick="addPrepItem('${secKey}')">+</button>
+        </div>
+      </div></div>
+    </div>`;
+  }).join('');
+
+  totalP = total;
+  // Update progress
+  const pFill = document.getElementById('ppFill');
+  const pTxt = document.getElementById('ppTxt');
+  if(pFill) pFill.style.width = (total ? checked/total*100 : 0) + '%';
+  if(pTxt) pTxt.textContent = `${checked} / ${total} tâches complétées`;
+}
+
+function syncPrepCheckboxes(){
+  // Sync Firebase state to DOM checkboxes
+  Object.entries(_prepData).forEach(([secKey, sec]) => {
+    Object.values(sec.items||{}).forEach(it => {
+      const cb = document.querySelector(`[data-pt="${it.id}"]`);
+      if(cb) cb.checked = !!it.checked;
+    });
+  });
+}
+
+async function togglePrepItem(itemId, secKey, checked){
+  if(_prepData[secKey]?.items?.[itemId]){
+    _prepData[secKey].items[itemId].checked = checked;
+  }
+  if(window._fbReady && window._fbReady()){
+    await window._fbSetRaw(`mne/prep_tasks/${secKey}/items/${itemId}/checked`, checked);
+  }
+  // Update progress
+  let total = 0, chk = 0;
+  Object.values(_prepData).forEach(sec => Object.values(sec.items||{}).forEach(i => { total++; if(i.checked) chk++; }));
+  const pFill = document.getElementById('ppFill');
+  const pTxt = document.getElementById('ppTxt');
+  if(pFill) pFill.style.width = (total ? chk/total*100 : 0) + '%';
+  if(pTxt) pTxt.textContent = `${chk} / ${total} tâches complétées`;
+  totalP = total;
+}
+
+async function addPrepItem(secKey){
+  const input = document.getElementById('pt-input-' + secKey);
+  if(!input) return;
+  const main = input.value.trim();
+  if(!main) return;
+  const id = 'pt_' + Date.now().toString(36);
+  const order = Object.keys(_prepData[secKey]?.items||{}).length;
+  const item = {id, main, detail:'', checked:false, order};
+  if(!_prepData[secKey]) _prepData[secKey] = {meta:{}, items:{}};
+  if(!_prepData[secKey].items) _prepData[secKey].items = {};
+  _prepData[secKey].items[id] = item;
+  if(window._fbReady && window._fbReady()){
+    await window._fbSetRaw(`mne/prep_tasks/${secKey}/items/${id}`, item);
+  }
+  input.value = '';
+  renderPrepSections();
+}
+
+async function deletePrepItem(itemId, secKey){
+  if(!_prepData[secKey]?.items?.[itemId]) return;
+  delete _prepData[secKey].items[itemId];
+  if(window._fbReady && window._fbReady()){
+    await window._fbSetRaw(`mne/prep_tasks/${secKey}/items/${itemId}`, null);
+  }
+  renderPrepSections();
 }
 
 // ═══════════════════════════════════════
